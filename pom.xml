@@ -80,6 +80,14 @@
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi.version}</version>
             </dependency>
+
+            <!-- 工具包依赖 -->
+            <dependency>
+                <groupId>com.rat</groupId>
+                <artifactId>util</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>

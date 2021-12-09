@@ -12,5 +12,10 @@
     <groupId>com.rat</groupId>
     <artifactId>start</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.rat</groupId>
+            <artifactId>util</artifactId>
+        </dependency>
+    </dependencies>
 </project>
