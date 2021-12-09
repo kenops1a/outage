@@ -14,7 +14,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="base" target="1.8" />
       <module name="dao" target="1.8" />
       <module name="service" target="1.8" />
     </bytecodeTargetLevel>
