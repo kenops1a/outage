@@ -13,7 +13,6 @@
     <description>what's up</description>
 
     <modules>
-        <module>show</module>
         <module>admin</module>
         <module>start</module>
         <module>util</module>

@@ -2,7 +2,7 @@ package com.rat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+
 
 /**
  * @type: outage
@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @description: write_bug
  * @date: 2021/12/9 17:04
  */
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
+@SpringBootApplication
 public class Outage {
     public static void main(String[] args) {
         SpringApplication.run(Outage.class, args);

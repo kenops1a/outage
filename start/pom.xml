@@ -17,5 +17,11 @@
             <groupId>com.rat</groupId>
             <artifactId>util</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.rat</groupId>
+            <artifactId>base</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>

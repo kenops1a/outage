@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rat.mapper.HostFormMapper">
+    <!-- 结果集映射 -->
+    <resultMap id="formList" type="com.rat.model.HostFormModel">
+        <result property="hostId" column="host_id"/>
+        <result property="hostName" column="host_name"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+
+    <!-- 新建主持人表单 -->
+    <insert id="addForm">
+        insert into hm_form
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="address != null and address != ''">address,</if>
+            <if test="type != null and type != ''">type,</if>
+            <if test="date != null">date,</if>
+            <if test="nick != null">nick,</if>
+            <if test="hostId != null">host_id,</if>
+            <if test="hostName != null">host_name,</if>
+            <if test="money != null">money,</if>
+            <if test="status != null">status,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="type != null and type != ''">#{type},</if>
+            <if test="date != null">#{date},</if>
+            <if test="nick != null">#{nick},</if>
+            <if test="hostId != null">#{hostId},</if>
+            <if test="hostName != null">#{hostName},</if>
+            <if test="money != null">#{money},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+    <update id="updateForm">
+        update hm_form
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="nick != null">nick = #{nick},</if>
+            <if test="hostId != null and hostId != 0">host_id = #{hostId},</if>
+            <if test="hostName != null">host_name = #{hostName},</if>
+            <if test="money != null">money = #{money},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        <where>
+            <trim prefix=" " suffix=" " suffixOverrides="and">
+                <if test="address != null and address != ''">address=#{address} and</if>
+                <if test="type != null and type != ''">type=#{type} and</if>
+                <if test="date != null">date = #{date},</if>
+                <if test="nick != '' and nick != null">nick=#{nick} and</if>
+                <if test="hostId != 0 and hostId != null">host_id=#{hostId} and</if>
+                <if test="hostName != null">host_name={hostName} and</if>
+                <if test="money != null">money = #{money},</if>
+                <if test="status != null">status=#{status} and</if>
+                <if test="updateBy != null">update_by = #{updateBy},</if>
+                <if test="updateTime != null">update_time = #{updateTime},</if>
+                <if test="remark != null">remark = #{remark},</if>
+            </trim>
+        </where>
+    </update>
+
+    <update id="updateStatusById">
+        update
+            hm_form
+        set
+            status = #{status}
+        where
+            id = #{formId}
+    </update>
+
+    <delete id="updateStatusByIds">
+        update
+            hm_form
+        set
+            status = #{status}
+        where
+            id
+        in
+        <foreach item="id" collection="idsList" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <!--获取表单列表-->
+    <!--if test 判断传递的某个参数是否为空-->
+    <select id="getFormListByItem" parameterType="com.rat.model.HostFormModel" resultMap="formList">
+        select
+            id, address, type, date, host_id, nick, host_name, money, status, create_by, create_time, update_by, update_time, remark
+        from
+            hm_form
+        <where>
+            <trim prefix=" " suffix=" " suffixOverrides="and">
+                <if test="address != null and address != ''">address=#{address} and</if>
+                <if test="type != null and type != ''">type=#{type} and</if>
+                <if test="hostId != 0 and hostId != null">host_id=#{hostId} and</if>
+                <if test="nick != '' and nick != null">nick=#{nick} and</if>
+                <if test="hostName != null">host_name={hostName} and</if>
+                <if test="status != null">status=#{status} and</if>
+                <if test="createBy != null and createBy != 0">create_by=#{createBy} and</if>
+            </trim>
+        </where>
+        and
+            status != 3
+    </select>
+    <select id="getFormById" resultMap="formList">
+        select
+            id, address, type, date, host_id, nick, host_name, money, status, create_by, create_time, update_by, update_time, remark
+        from
+            hm_form
+        where
+            id = #{formId}
+    </select>
+</mapper>

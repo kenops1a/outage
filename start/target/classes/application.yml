@@ -1,0 +1,5 @@
+# spring相关配置
+spring:
+  # 选择application-dev.yml为配置文件
+  profiles:
+    active: dev

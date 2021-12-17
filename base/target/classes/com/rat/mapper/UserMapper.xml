@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rat.mapper.UserMapper">
+    <!-- 用户结果集映射 -->
+    <resultMap id="userList" type="com.rat.model.UserModel">
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!-- 用户角色结果集映射 -->
+    <resultMap id="userRole" type="com.rat.model.UserRoleModel">
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!--新增用户-->
+    <insert id="addUser" parameterType="com.rat.model.UserModel">
+        insert into hm_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="nick != null and nick != ''">nick,</if>
+            <if test="phone != null">phone,</if>
+            <if test="sfz != null">sfz,</if>
+            <if test="email != null and email != ''">email,</if>
+            <if test="sex != null">sex,</if>
+            <if test="age != 0">age,</if>
+            <if test="address != null">address,</if>
+            <if test="yhk != null">yhk,</if>
+            <if test="status != null">status,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="nick != null and nick != ''">#{nick},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="sfz != null">#{sfz},</if>
+            <if test="email != null and email != ''">#{email},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="age != 0">#{age},</if>
+            <if test="address != null">#{address},</if>
+            <if test="yhk != null">#{yhk},</if>
+            <if test="status != null">#{status},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+    <!--更新用户-->
+    <update id="updateUser">
+        update hm_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="nick != null and nick != ''">nick = #{nick},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="sfz != null">sfz = #{sfz},</if>
+            <if test="email != null and email != ''">email = #{email},</if>
+            <if test="sex != null">sex = #{sex},</if>
+            <if test="age != 0">age = #{age},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="yhk != null">yhk = #{yhk},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where email = #{email}
+    </update>
+    <update id="updateUserStatusByEmail">
+        update hm_user
+        set status = #{status}
+        where email = #{email}
+    </update>
+    <select id="getUserList" resultMap="userList">
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password
+        from hm_user
+        where status != '2'
+    </select>
+
+    <select id="getUserListByItem" resultMap="userList">
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status
+        from hm_user
+        <where>
+            <trim prefix=" " suffix=" " suffixOverrides="and">
+                <if test="id != null and id != 0">id=#{id} and</if>
+                <if test="name != null">name=#{name} and</if>
+                <if test="nick != null and nick != ''">nick=#{nick} and</if>
+                <if test="phone != null">phone=#{phone} and</if>
+                <if test="sfz != null">sfz=#{sfz} and</if>
+                <if test="email != null and email != ''">email=#{email} and</if>
+                <if test="sex != null and sex != ''">sex=#{sex}</if>
+                <if test="address != null">address=#{address} and</if>
+                <if test="status != null and status != ''">status=#{status} and</if>
+            </trim>
+        </where>
+        and
+            status != '2'
+    </select>
+
+    <!--通过邮箱查询用户-->
+    <select id="getUserByEmail" resultType="com.rat.model.UserModel">
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password
+        from hm_user
+        where email = #{email}
+    </select>
+    <!--获取用户权限列表-->
+    <select id="getUserRoleMenu" resultType="com.rat.model.RoleMenuModel">
+        select hm_menu.id, hm_menu.name, hm_menu.path, hm_menu.pid
+        from hm_role_menu,hm_menu
+        where role_id = (
+            select role_id
+            from hm_user_role
+            where user_id = (
+                select hm_user.id
+                from hm_user
+                where email = #{email}
+            )
+        )
+        and hm_menu.id = hm_role_menu.menu_id
+    </select>
+    <select id="getUserById" resultType="com.rat.model.UserModel">
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password
+        from hm_user
+        where id = #{id}
+    </select>
+
+    <select id="getUserRoleByEmail" resultMap="userRole">
+        select hm_role.id,hm_role.name,hm_role.status
+        from hm_role
+        inner join hm_user_role on hm_role.id = hm_user_role.role_id
+        inner join hm_user on hm_user_role.user_id = hm_user.id
+        where hm_user.email = #{email}
+    </select>
+    <select id="getUserByPhone" resultType="com.rat.model.UserModel">
+         select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password
+         from hm_user
+         where phone = #{phone}
+    </select>
+</mapper>

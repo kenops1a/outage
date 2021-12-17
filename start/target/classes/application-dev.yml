@@ -1,0 +1,45 @@
+# 开发环境配置
+# 服务器端口8089
+# spring-boot-starter-web默认服务器为tomcat
+server:
+  port: 8089
+spring:
+  # 全局日期格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    # 配置json过滤value为null的字段名
+    # default-property-inclusion: non_null
+  # mysql数据源配置
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    username: root
+    password: admin
+    url: jdbc:mysql://localhost:3306/host_rbac?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
+
+  # redis配置
+  redis:
+    # redis默认提供16个数据库，没有名字，只有0-15的id，database: 0 表示使用id为0的数据库
+    database: 0
+    host: localhost
+    port: 6379
+    password: helloworld
+    jedis:
+      pool:
+        # 最大连接数8
+        max-active: 8
+        # 最大空闲链接数 表示没有数据库连接时依然可以保持8个空闲的连接
+        max-idle: 8
+        # 最大等待时间 -1ms表示无最大等待时间
+        max-wait: -1ms
+        min-idle: 0
+        # 缓存配置
+  cache:
+    redis:
+      time-to-live: 900s
+    # 应用程序启动创建缓存的名称，必须将所有注释为@Cacheable缓存name（或value）罗列至此
+    cache-names: menus_cache
+# mybatis配置，mapper.xml文件地址
+mybatis:
+  mapper-locations: classpath*:mapper/*Mapper.xml
+  type-aliases-package: com.rat.**
