@@ -12,7 +12,6 @@ import java.util.List;
  * @description: write_bug
  * @date: 2021/12/13 14:34
  */
-@Service
 public interface HostFormService {
 
     /**

@@ -1,6 +1,7 @@
 package com.rat.service;
 
 import com.rat.model.MessageModel;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -22,6 +22,7 @@ import java.util.List;
  * @date: 2021/12/13 16:02
  */
 @RestController
+@RequestMapping("/hostForm")
 public class HostFormController {
 
 

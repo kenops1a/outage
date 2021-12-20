@@ -4,6 +4,12 @@
 server:
   port: 8089
 spring:
+  # 配置邮箱
+  mail:
+    host: smtp.163.com #SMTP邮箱服务器地址
+    username: kenops1a@163.com #邮箱账号
+    password: GMRWQHABLPRPJWOT #授权密码
+    default-encoding: utf-8 #默认编码
   # 全局日期格式化
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

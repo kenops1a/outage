@@ -22,6 +22,7 @@ import java.util.Map;
  * @date: 2021/12/13 13:52
  */
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
     @Qualifier("userServiceImpl")

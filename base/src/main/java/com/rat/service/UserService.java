@@ -5,6 +5,7 @@ import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
 import org.apache.tomcat.jni.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

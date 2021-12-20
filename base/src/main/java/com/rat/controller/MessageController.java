@@ -16,6 +16,7 @@ import java.util.List;
  * @date: 2021/12/13 14:35
  */
 @RestController
+@RequestMapping("/message")
 public class MessageController {
 
     @Autowired
