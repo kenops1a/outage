@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>webSocket</title>
+</head>
+<body>
+    <input type="text" id="ws-msg">
+    <button type="button" id="close" value="close" onclick="closeSocket()">close</button>
+    <button type="button" id="send" value="send" onclick="sendMessage()">send</button>
+</body>
+<script type="text/javascript">
+    // 创建websocket对象
+    let webSocket = new WebSocket("ws://localhost:8089/outage/one")
+    // 连接关闭回调方法
+    webSocket.onclose = function () {
+        console.log("false")
+    }
+    // 连接成功
+    webSocket.onopen = function (event) {
+        console.log("success")
+        webSocket.send("success")
+    }
+    // 连接失败回调方法
+    webSocket.onerror = function () {
+        console.log("error")
+    }
+    // 接收消息回调方法
+    webSocket.onmessage = function (event) {
+        console.log(event.data)
+    }
+
+    // 窗口关闭前关闭连接
+    window.onbeforeunload = function () {
+        webSocket.close()
+    }
+
+    // 关闭连接
+    function closeSocket() {
+        webSocket.close()
+    }
+
+    // 发送消息
+    function sendMessage() {
+        let message = document.getElementById("ws-msg").value
+        console.log(message)
+        webSocket.send(message)
+    }
+</script>
+</html>
