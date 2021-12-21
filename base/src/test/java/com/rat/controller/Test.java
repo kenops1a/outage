@@ -25,4 +25,10 @@ public class Test implements Serializable {
         System.out.println(date2);
         System.out.println(JSONUtil.toJsonStr(date));
     }
+
+    @org.junit.Test
+    public void soutTime() {
+        System.out.println(new Date());
+        System.out.println(System.currentTimeMillis());
+    }
 }

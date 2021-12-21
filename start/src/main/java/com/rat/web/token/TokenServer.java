@@ -8,7 +8,7 @@ import com.rat.model.UserModel;
  * @description: 通过jwt签发token
  * @date: 2021/12/21 16:05
  */
-public interface TokenUtil {
+public interface TokenServer {
 
     /**
      * 给userModel签发token
@@ -17,4 +17,11 @@ public interface TokenUtil {
      */
     String setToken(UserModel userModel);
 
+
+    /**
+     * 验证token有效性
+     * @param token 前端传递的token字符串
+     * @return boolean
+     */
+    Boolean verifyToken(String token);
 }

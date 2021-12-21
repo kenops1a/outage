@@ -1,13 +1,13 @@
 package com.rat.web.interceptor;
 
 import com.rat.service.UserService;
+import com.rat.web.token.TokenServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,22 +21,38 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class LoginInterceptor implements HandlerInterceptor {
 
+    private static final String OPTIONS = "OPTIONS";
+
+    /**
+     * 引入userService依赖
+     */
     @Autowired
     private UserService userService;
+
+    /**
+     * 引入token依赖
+     */
+    @Autowired
+    private TokenServer tokenServer;
 
     /**
      * 请求处理之前调用，controller方法调用之前
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (request.getParameter("email") == null) {
-            log.info("email is null");
-            return false;
-        }
-        else {
-            log.info("email is not null");
+        // 跨域请求会先发送一个OPTIONS请求，直接返回true并通过拦截器
+        if (OPTIONS.equals(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            log.info("OPTIONS请求通过拦截器");
             return true;
         }
+
+        response.setCharacterEncoding("utf-8");
+        String token = request.getHeader("token");
+        if (token != null) {
+            return tokenServer.verifyToken(token);
+        }
+        return true;
     }
 
     /**
