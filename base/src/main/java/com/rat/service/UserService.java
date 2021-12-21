@@ -95,4 +95,11 @@ public interface UserService {
     JsonResult<Integer> updateNickname(UserModel userModel);
 
     JsonResult<Integer> updateName(String name, int id);
+
+    /**
+     * 获取用户状态
+     * @param email 邮箱账号
+     * @return JsonResult
+     */
+    JsonResult<String> getUserStatus(String email);
 }

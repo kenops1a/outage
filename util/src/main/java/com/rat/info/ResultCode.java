@@ -39,7 +39,9 @@ public enum ResultCode {
     NO_PERMISSION(3001, "没有权限"),
     ITEM_ALREADY_EXIST(3002, "参数为空"),
     ITEM_NOT_EXIST(3003, "记录为空"),
-    ITEM_CAN_NOT_ALTER(3004, "此记录无法修改");
+    ITEM_CAN_NOT_ALTER(3004, "此记录无法修改"),
+    VERIFY_CODE_LATER_OR_FALSE(3005, "验证码错误或已过期");
+
     public Integer getCode() {
         return code;
     }

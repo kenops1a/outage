@@ -15,6 +15,11 @@
     <description>utils</description>
 
     <dependencies>
+        <!-- 引入jwt -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+        </dependency>
         <!-- 引入lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

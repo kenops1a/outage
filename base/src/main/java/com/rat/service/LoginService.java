@@ -1,7 +1,7 @@
 package com.rat.service;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rat.info.JsonResult;
+import com.rat.model.UserModel;
 
 /**
  * @type: outage
@@ -13,11 +13,16 @@ public interface LoginService {
 
     /**
      * 通过账号密码登录
-     * @param email 邮箱账号
-     * @param password 密码
-     * @return true/false
+     * @param userModel 需要参数的属性 email, password
+     * @return JsonResult
      */
-    JsonResult<String> loginByPassword(String email, String password);
+    JsonResult<String> loginByPassword(UserModel userModel);
 
+    /**
+     * 通过邮箱验证码登录
+     * @param email 邮箱账号
+     * @param verifyCode 验证码
+     * @return JsonResult
+     */
     JsonResult<String> loginByVerifyCode(String email, String verifyCode);
 }

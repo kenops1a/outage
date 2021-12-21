@@ -140,7 +140,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JsonResult<Integer> updateNickname(UserModel userModel) {
-
         if (userMapper.getUserById(userModel.getId()) == null) {
             return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else {
@@ -151,5 +150,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult<Integer> updateName(String name, int id) {
         return null;
+    }
+
+    @Override
+    public JsonResult<String> getUserStatus(String email) {
+        UserModel userModel = userMapper.getUserByEmail(email);
+        if (userModel == null || userModel.getStatus().equals(USER_STATUS_DELETE)) {
+            // 用户记录为空或状态为已删除，则返回用户不存在
+            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+        } else if (userModel.getStatus().equals(USER_STATUS_LOCKED)) {
+            // 用户状态为冻结则返回账号已冻结
+            return ResultTool.faild(ResultCode.USER_ACCOUNT_LOCKED);
+        } else {
+            return ResultTool.success(userModel.getStatus());
+        }
     }
 }

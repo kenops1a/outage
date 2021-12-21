@@ -19,6 +19,9 @@ public class ResultTool {
     public static<T> JsonResult<T> faild() {
         return new JsonResult<T>(false);
     }
+    public static<T> JsonResult<T> faild(T data) {
+        return new JsonResult<T>(false, data);
+    }
     public static<T> JsonResult<T> faild(ResultCode resultEnum) {
         return new JsonResult<T>(false,resultEnum);
     }

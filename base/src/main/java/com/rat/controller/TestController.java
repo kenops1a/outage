@@ -1,9 +1,7 @@
 package com.rat.controller;
 
 import com.rat.model.TestModel;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @type: outage
@@ -17,5 +15,10 @@ public class TestController {
     @PostMapping("/getJson")
     public TestModel getJson(TestModel testModel) {
       return null;
+    }
+
+    @GetMapping("/getString")
+    public String getString(String param) {
+        return "you can do this";
     }
 }

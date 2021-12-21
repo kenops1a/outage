@@ -1,8 +1,10 @@
 package com.rat.service.impl;
 
+import com.rat.cache.RedisUtil;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultTool;
 import com.rat.service.MailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +23,7 @@ import java.util.UUID;
  * @description: write_bug
  * @date: 2021/12/20 14:33
  */
+@Slf4j
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -33,8 +36,11 @@ public class MailServiceImpl implements MailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    /**
+     * 注入redis工具类
+     */
     @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+    private RedisUtil redisUtil;
 
     /**
      * 随机产生验证码
@@ -49,18 +55,17 @@ public class MailServiceImpl implements MailService {
     public JsonResult<String> sendEmailVerify(String to, String title) {
         // 获取随机验证码
         String verifyCode = this.setVerifyCode();
-
         // 将验证码放入redis中
-        ValueOperations<String,String> verifyCodeCache = stringRedisTemplate.opsForValue();
-        verifyCodeCache.set(to,verifyCode);
+        redisUtil.setCache(to,verifyCode,900);
         // 向目标邮箱发送验证码
-        System.out.println(verifyCodeCache.get(to));
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);
         mailMessage.setTo(to);
         mailMessage.setSubject(title);
         mailMessage.setText(verifyCode);
         mailSender.send(mailMessage);
+        // log
+        log.info("邮箱:{},验证码:{}",to,verifyCode);
         return ResultTool.success("发送成功");
     }
 }

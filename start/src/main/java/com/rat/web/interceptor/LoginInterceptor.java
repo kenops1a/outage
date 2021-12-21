@@ -1,11 +1,13 @@
 package com.rat.web.interceptor;
 
 import com.rat.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,10 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  * @description: write_bug
  * @date: 2021/12/20 13:37
  */
+@Slf4j
+@Service
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
-    @Qualifier("UserServiceImpl")
     private UserService userService;
 
     /**
@@ -26,7 +29,14 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return false;
+        if (request.getParameter("email") == null) {
+            log.info("email is null");
+            return false;
+        }
+        else {
+            log.info("email is not null");
+            return true;
+        }
     }
 
     /**

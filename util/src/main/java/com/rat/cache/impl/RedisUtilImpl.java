@@ -1,0 +1,42 @@
+package com.rat.cache.impl;
+
+import com.rat.cache.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.stereotype.Service;
+
+import java.util.concurrent.TimeUnit;
+
+/**
+ * @type: outage
+ * @author: yaominc
+ * @description: write_bug
+ * @date: 2021/12/21 9:37
+ */
+@Service
+public class RedisUtilImpl implements RedisUtil {
+
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
+    @Override
+    public String getCache(String key) {
+        return stringRedisTemplate.opsForValue().get(key);
+    }
+
+    @Override
+    public Boolean deleteCache(String key) {
+        return stringRedisTemplate.delete(key);
+    }
+
+    @Override
+    public void setCache(String key, String value, int second) {
+        stringRedisTemplate.opsForValue().set(key, value, second, TimeUnit.SECONDS);
+    }
+
+
+    @Override
+    public Boolean hasKey(String key) {
+        return stringRedisTemplate.hasKey(key);
+    }
+}
