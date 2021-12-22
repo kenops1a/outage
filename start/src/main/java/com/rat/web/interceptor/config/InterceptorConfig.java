@@ -1,6 +1,6 @@
 package com.rat.web.interceptor.config;
 
-import com.rat.web.interceptor.RoleInterceptor;
+import com.rat.web.interceptor.AccountInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ConcurrentTaskExecutor;
@@ -20,7 +20,7 @@ import java.util.concurrent.Executors;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     @Autowired
-    private RoleInterceptor roleInterceptor;
+    private AccountInterceptor accountInterceptor;
 
 
     /**
@@ -56,13 +56,11 @@ public class InterceptorConfig implements WebMvcConfigurer {
         /*
         排除test,index,login,register,static的拦截
          */
-        registry.addInterceptor(roleInterceptor).addPathPatterns("/**")
-        .excludePathPatterns("/test/**")
-        .excludePathPatterns("/index/**")
-        .excludePathPatterns("/login/byPassword")
-        .excludePathPatterns("/register/**")
-        .excludePathPatterns("/static/**")
-        .excludePathPatterns("/mail/**")
-        .excludePathPatterns("/login/byVerifyCode");
+        registry.addInterceptor(accountInterceptor)
+                .addPathPatterns("/account/exit")
+                .addPathPatterns("/account/removeAccount")
+                .addPathPatterns("/user/**")
+                .addPathPatterns("/hostForm/**")
+                .addPathPatterns("/host/**");
     }
 }

@@ -11,6 +11,8 @@ import com.rat.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 /**
  * @type: outage
  * @author: yaominc
@@ -32,6 +34,10 @@ public class AccountServiceImpl implements AccountService {
     private static final String TOKEN = "token";
     private static final String VERIFY_CODE = "verifyCode";
 
+    // 公用tokenKey
+    private static String tokenKey;
+    private static String verifyCodeKey;
+
     @Autowired
     private TokenService tokenService;
 
@@ -47,10 +53,10 @@ public class AccountServiceImpl implements AccountService {
         // 判断查询到的用户密码是否与传递密码相同
         // 生成token令牌并存入redis，有效时长为10小时
         // 设置token的key
-        String key = redisUtil.keyMaker(PREFIX,TOKEN,userModel.getEmail());
+        tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,userModel.getEmail());
         String token = tokenService.setToken(userVerify);
         // 将token存入redis
-        redisUtil.setCache(key,token,36000);
+        redisUtil.setCache(tokenKey,token,36000);
         // 返回带有token的json数据
         return ResultTool.success(token);
     }
@@ -60,9 +66,9 @@ public class AccountServiceImpl implements AccountService {
         UserModel userVerify = userMapper.getUserByEmail(email);
         // 生成用来查询的key
         // 查询邮箱验证码key
-        String verifyCodeKey = redisUtil.keyMaker(PREFIX,VERIFY_CODE, userVerify.getEmail());
+        verifyCodeKey = redisUtil.keyMaker(PREFIX,VERIFY_CODE, userVerify.getEmail());
         // 设置token key
-        String tokenKey = redisUtil.keyMaker(PREFIX,TOKEN, userVerify.getEmail());
+        tokenKey = redisUtil.keyMaker(PREFIX,TOKEN, userVerify.getEmail());
         if (!redisUtil.hasKey(verifyCodeKey) || redisUtil.getCache(verifyCodeKey).equals(verifyCode)){
             // 判断redis中是否存在key为email的键值对以及该key对应的值是否为verifyCode
             return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
@@ -76,13 +82,59 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public JsonResult<String> exitLogin(String email) {
-        String tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,email);
+        tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,email);
         // 判断用户token是否存在
         if (!redisUtil.hasKey(tokenKey)) {
             return ResultTool.faild("错误，用户未登录");
         } else {
             redisUtil.deleteCache(tokenKey);
             return ResultTool.success("退出成功！");
+        }
+    }
+
+    @Override
+    public JsonResult<Integer> register(UserModel userModel, String verifyCode) {
+        // 生成该用户的，验证码查询key
+        verifyCodeKey = redisUtil.keyMaker(PREFIX,VERIFY_CODE,userModel.getEmail());
+        // 判断前端传递验证码是否与缓存中的记录相同
+        if (!verifyCode.equals(redisUtil.getCache(verifyCodeKey))) {
+            return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
+        }
+        // 判断用户是否存在
+        else if (userMapper.getUserByEmail(userModel.getEmail()) != null) {
+            return ResultTool.faild(ResultCode.ITEM_ALREADY_EXIST);
+        }
+        // 添加用户记录
+        else {
+            // 设置用户注册时间
+            userModel.setCreateTime(new Date());
+            // 添加用户记录
+            return ResultTool.success(userMapper.addUser(userModel));
+        }
+    }
+
+    @Override
+    public JsonResult<Integer> removeAccount(UserModel userModel, String verifyCode) {
+        // 生成该用户的，验证码查询key
+        verifyCodeKey = redisUtil.keyMaker(PREFIX,VERIFY_CODE,userModel.getEmail());
+        // 生成该用户的，token查询key
+        tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,userModel.getEmail());
+        // 判断前端传递验证码是否与缓存中的记录相同
+        if (!verifyCode.equals(redisUtil.getCache(verifyCodeKey))) {
+            return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
+        }
+        // 如果该用户与redis中存储的用户不同，则返回 操作失败
+        else if (!redisUtil.hasKey(tokenKey)) {
+            // 用户没有权限
+            return ResultTool.faild(ResultCode.NO_PERMISSION);
+        }
+        // 判断用户是否存在
+        else if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
+            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+        }
+        else {
+            // 将对应用户的状态设置为已删除并返回结果
+            return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(),USER_STATUS_DELETE));
         }
     }
 }

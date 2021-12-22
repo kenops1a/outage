@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Service
-public class RoleInterceptor implements HandlerInterceptor {
+public class AccountInterceptor implements HandlerInterceptor {
 
     private static final String OPTIONS = "OPTIONS";
 

@@ -32,4 +32,20 @@ public interface AccountService {
      * @return JsonResult
      */
     JsonResult<String> exitLogin(String email);
+
+    /**
+     * 注册账号
+     * @param userModel 需要赋值的属性：nick，email，password
+     * @param verifyCode 邮箱验证码
+     * @return JsonResult
+     */
+    JsonResult<Integer> register(UserModel userModel, String verifyCode);
+
+    /**
+     * 注销账号
+     * @param userModel 需要赋值的属性：email，password
+     * @param verifyCode 邮箱验证码
+     * @return JsonResult
+     */
+    JsonResult<Integer> removeAccount(UserModel userModel, String verifyCode);
 }

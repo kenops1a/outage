@@ -9,6 +9,7 @@ import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -80,9 +81,40 @@ public class AccountController {
     @RequestMapping(value = "/exit", method = RequestMethod.POST)
     public JsonResult<String> exitLogin(@RequestParam String email) {
         if ("".equals(email)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
         } else {
             return accountService.exitLogin(email);
+        }
+    }
+
+    /**
+     * 注册账号
+     * @param userModel 需要赋值的属性，nick，email，password
+     * @return JsonResult
+     */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public JsonResult<Integer> register(@Valid @RequestBody UserModel userModel, @RequestParam String verifyCode) {
+        // 判断验证码是否为空，userModel完整性由@Valid注解校验
+        if ("".equals(verifyCode)) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        } else {
+            return accountService.register(userModel, verifyCode);
+        }
+    }
+
+    /**
+     * 注销账号
+     * @param userModel 需要赋值的属性：email，password
+     * @param verifyCode 验证码
+     * @return JsonResult
+     */
+    @RequestMapping(value = "/removeAccount", method = RequestMethod.POST)
+    public JsonResult<Integer> removeAccount(@RequestBody UserModel userModel, @RequestParam String verifyCode) {
+        // 校验参数完整性
+        if ("".equals(verifyCode) || userModel.getEmail() == null || userModel.getPassword() == null ) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        } else {
+            return accountService.removeAccount(userModel,verifyCode);
         }
     }
 }
