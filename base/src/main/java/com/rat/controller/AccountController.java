@@ -64,7 +64,7 @@ public class AccountController {
         }
         // 判断用户账号状态是否正常
         JsonResult<String> jsonResult = userService.getUserStatus(map.get("email"));
-        if (jsonResult.getSuccess()) {
+        if (!jsonResult.getSuccess()) {
             return jsonResult;
         }
         // 返回验证结果

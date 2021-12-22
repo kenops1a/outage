@@ -132,7 +132,13 @@ public class AccountServiceImpl implements AccountService {
         else if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
             return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
         }
+        // 判断用户密码是否正确
+        else if (!userMapper.getUserByEmail(userModel.getEmail()).getPassword().equals(userModel.getPassword())) {
+            return ResultTool.faild(ResultCode.USER_PASSWORD_ERROR);
+        }
         else {
+            // 删除redis中的token
+            redisUtil.deleteCache(tokenKey);
             // 将对应用户的状态设置为已删除并返回结果
             return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(),USER_STATUS_DELETE));
         }
