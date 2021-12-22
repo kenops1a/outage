@@ -1,4 +1,4 @@
-package com.rat.web.token;
+package com.rat.service;
 
 import com.rat.model.UserModel;
 
@@ -8,7 +8,7 @@ import com.rat.model.UserModel;
  * @description: 通过jwt签发token
  * @date: 2021/12/21 16:05
  */
-public interface TokenServer {
+public interface TokenService {
 
     /**
      * 给userModel签发token

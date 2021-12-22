@@ -1,7 +1,9 @@
 package com.rat.web.interceptor;
 
+import cn.hutool.json.JSONUtil;
+import com.rat.info.ResultTool;
 import com.rat.service.UserService;
-import com.rat.web.token.TokenServer;
+import com.rat.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Slf4j
 @Service
-public class LoginInterceptor implements HandlerInterceptor {
+public class RoleInterceptor implements HandlerInterceptor {
 
     private static final String OPTIONS = "OPTIONS";
 
@@ -33,7 +35,7 @@ public class LoginInterceptor implements HandlerInterceptor {
      * 引入token依赖
      */
     @Autowired
-    private TokenServer tokenServer;
+    private TokenService tokenService;
 
     /**
      * 请求处理之前调用，controller方法调用之前
@@ -43,16 +45,30 @@ public class LoginInterceptor implements HandlerInterceptor {
         // 跨域请求会先发送一个OPTIONS请求，直接返回true并通过拦截器
         if (OPTIONS.equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
-            log.info("OPTIONS请求通过拦截器");
+            log.info("OPTIONS请求通过");
             return true;
         }
 
+        // 校验token是否有效（有效）
+        // 设置响应编码
         response.setCharacterEncoding("utf-8");
         String token = request.getHeader("token");
         if (token != null) {
-            return tokenServer.verifyToken(token);
+            if (tokenService.verifyToken(token)) {
+                log.info("token验证通过");
+                return true;
+            }
         }
-        return true;
+
+        // 设置响应头
+        response.setContentType("application/json; charset=utf-8");
+        try {
+            // 将JsonResult对象序列化为json字符串并获取其字节数组
+            response.getOutputStream().write(JSONUtil.toJsonStr(ResultTool.faild("token认证失败，请重新登录")).getBytes());
+        } catch (Exception e) {
+            log.info("token认证失败");
+        }
+        return false;
     }
 
     /**

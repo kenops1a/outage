@@ -54,7 +54,7 @@ public class UserController {
     /**
      * 账号密码校验
      * @param userModel 需要参数的属性：email，password
-     * @return
+     * @return JsonResult
      */
     @PostMapping("/checkUserItem")
     public JsonResult<Integer> checkUserItem(@RequestBody UserModel userModel) {

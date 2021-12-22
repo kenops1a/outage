@@ -28,6 +28,13 @@ import java.util.UUID;
 public class MailServiceImpl implements MailService {
 
     /**
+     * 模块名，方法名，参数常量
+     */
+    private static final String PREFIX = "outage";
+    private static final String TOKEN = "token";
+    private static final String VERIFY_CODE = "verifyCode";
+
+    /**
      * 配置发送者，application-dev.yml中
      */
     @Value("${spring.mail.username}")
@@ -56,7 +63,9 @@ public class MailServiceImpl implements MailService {
         // 获取随机验证码
         String verifyCode = this.setVerifyCode();
         // 将验证码放入redis中
-        redisUtil.setCache(to,verifyCode,900);
+        // 生成验证码对应的key
+        String key = redisUtil.keyMaker(PREFIX,VERIFY_CODE,to);
+        redisUtil.setCache(key,verifyCode,900);
         // 向目标邮箱发送验证码
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom(from);

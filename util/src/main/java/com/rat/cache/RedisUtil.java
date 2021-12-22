@@ -39,4 +39,12 @@ public interface RedisUtil {
      * @return true/false
      */
     Boolean hasKey(String key);
+
+    /**
+     * redis的key键规则定义
+     * @param prefix 项目前缀
+     * @param args 参数
+     * @return key
+     */
+    String keyMaker(String prefix, String... args);
 }

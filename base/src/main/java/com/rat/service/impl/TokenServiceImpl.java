@@ -1,4 +1,4 @@
-package com.rat.web.token.impl;
+package com.rat.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -7,7 +7,7 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.rat.model.UserModel;
-import com.rat.web.token.TokenServer;
+import com.rat.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +21,14 @@ import java.util.Date;
  */
 @Slf4j
 @Service
-public class TokenServerImpl implements TokenServer {
+public class TokenServiceImpl implements TokenService {
     /**
      * EXPIRE_TIME:token有效时间10小时
      * TOKEN_SECRET:密钥盐值
      */
     private static final long EXPIRE_TIME = 10*60*60*1000;
     private static final String TOKEN_SECRET = "what;sup";
+    private int index = 0;
     @Override
     public String setToken(UserModel userModel) {
         String token = null;
@@ -43,6 +44,9 @@ public class TokenServerImpl implements TokenServer {
         } catch (IllegalArgumentException| JWTCreationException je) {
             log.info("token签发失败");
         }
+        index++;
+        System.out.println(index);
+        log.info(token);
         return token;
     }
 

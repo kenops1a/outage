@@ -16,6 +16,13 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class RedisUtilImpl implements RedisUtil {
 
+    /**
+     * KEY_PREFIX:主数据库系统标识
+     * KEY_SPLIT_CHAR分割字符，默认[:]，使用：可用于rdm分组查看
+     */
+    public static final String KEY_PREFIX = "outage";
+    private static final String KEY_SPLIT_CHAR = ":";
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
@@ -38,5 +45,19 @@ public class RedisUtilImpl implements RedisUtil {
     @Override
     public Boolean hasKey(String key) {
         return stringRedisTemplate.hasKey(key);
+    }
+
+    @Override
+    public String keyMaker(String prefix, String... args) {
+        // 项目前缀
+        if (prefix == null) {
+            prefix = KEY_PREFIX;
+        }
+        StringBuilder key = new StringBuilder(prefix);
+        // KEY_SPLIT_CHAR 为分割字符
+        for (String arg : args) {
+            key.append(KEY_SPLIT_CHAR).append(arg);
+        }
+        return key.toString();
     }
 }

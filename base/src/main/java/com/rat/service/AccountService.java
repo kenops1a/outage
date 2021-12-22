@@ -9,7 +9,7 @@ import com.rat.model.UserModel;
  * @description: write_bug
  * @date: 2021/12/20 16:38
  */
-public interface LoginService {
+public interface AccountService {
 
     /**
      * 通过账号密码登录
@@ -25,4 +25,11 @@ public interface LoginService {
      * @return JsonResult
      */
     JsonResult<String> loginByVerifyCode(String email, String verifyCode);
+
+    /**
+     * 退出登录
+     * @param email 邮箱账号
+     * @return JsonResult
+     */
+    JsonResult<String> exitLogin(String email);
 }
