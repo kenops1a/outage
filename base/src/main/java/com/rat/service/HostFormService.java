@@ -26,13 +26,13 @@ public interface HostFormService {
      * @param hostFormModel 订单对象
      * @param userId 表单创建者id
      * @param hostId 主持人id
-     * @return
+     * @return integer
      */
     JsonResult<Integer> addForm(HostFormModel hostFormModel, int userId, int hostId);
     /**
      * 更新订单信息
      * @param hostFormModel 更新订单
-     * @return
+     * @return integer
      */
     JsonResult<Integer> updateForm(HostFormModel hostFormModel);
 
@@ -47,14 +47,21 @@ public interface HostFormService {
     /**
      * 批量删除订单
      * @param ids 订单编号集合
-     * @return
+     * @return string
      */
     JsonResult<Integer> deleteFormByIds(int[] ids);
 
 
     /**
      * 获取指定id的form表单
-     * @return
+     * @return string
      */
     JsonResult<HostFormModel> getFormById(int formId);
+
+    /**
+     * 查询表单状态
+     * @param formId 表单编号
+     * @return string
+     */
+    Boolean checkFormStatus(int formId);
 }

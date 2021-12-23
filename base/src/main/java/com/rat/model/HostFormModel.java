@@ -10,7 +10,7 @@ import java.util.Date;
  * @date: 2021/12/13 14:23
  */
 public class HostFormModel extends BaseModel{
-    private int id;
+    private int formId;
     @NotNull
     private String address;
     @NotNull
@@ -26,12 +26,12 @@ public class HostFormModel extends BaseModel{
     private int createBy;
     private Date createTime;
 
-    public int getId() {
-        return id;
+    public int getFormId() {
+        return formId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFormId(int formId) {
+        this.formId = formId;
     }
 
     public String getAddress() {
@@ -118,9 +118,9 @@ public class HostFormModel extends BaseModel{
         this.createTime = createTime;
     }
 
-    public HostFormModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int id, @NotNull String address, @NotNull String type, @NotNull Date date, int hostId, String hostName, String nick, @NotNull double money, String status, int createBy1, Date createTime1) {
+    public HostFormModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int formId, @NotNull String address, @NotNull String type, @NotNull Date date, int hostId, String hostName, String nick, @NotNull double money, String status, int createBy1, Date createTime1) {
         super(createBy, createTime, updateBy, updateTime, remark);
-        this.id = id;
+        this.formId = formId;
         this.address = address;
         this.type = type;
         this.date = date;

@@ -41,7 +41,7 @@ public class AccountController {
 
         // 判断用户账号状态是否正常
         JsonResult<String> jsonResult = userService.getUserStatus(userModel.getEmail());
-        if (jsonResult.getSuccess()) {
+        if (!jsonResult.getSuccess()) {
             return jsonResult;
         }
 

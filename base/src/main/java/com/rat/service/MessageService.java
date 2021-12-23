@@ -16,9 +16,9 @@ public interface MessageService {
     /**
      * 获取用户消息列表
      * 可以以发送人id查询，以接收人id查询
-     * @return
+     * @return 消息列表
      */
-    List<MessageModel> getMessageListById();
+    List<MessageModel> getMessageList(int sendId, int receiveId);
 
     /**
      * 通过消息编号查询

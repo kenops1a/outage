@@ -23,13 +23,13 @@
             <if test="type != null and type != ''">type,</if>
             <if test="date != null">date,</if>
             <if test="nick != null">nick,</if>
-            <if test="hostId != null">host_id,</if>
+            <if test="hostId != null and hostId != 0">host_id,</if>
             <if test="hostName != null">host_name,</if>
-            <if test="money != null">money,</if>
+            <if test="money != null and money != 0">money,</if>
             <if test="status != null">status,</if>
-            <if test="createBy != null">create_by,</if>
+            <if test="createBy != null and createBy != 0">create_by,</if>
             <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null">update_by,</if>
+            <if test="updateBy != null updateBy != 0">update_by,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
         </trim>
@@ -38,13 +38,13 @@
             <if test="type != null and type != ''">#{type},</if>
             <if test="date != null">#{date},</if>
             <if test="nick != null">#{nick},</if>
-            <if test="hostId != null">#{hostId},</if>
+            <if test="hostId != null and hostId != 0">#{hostId},</if>
             <if test="hostName != null">#{hostName},</if>
-            <if test="money != null">#{money},</if>
+            <if test="money != null and money != 0">#{money},</if>
             <if test="status != null">#{status},</if>
-            <if test="createBy != null">#{createBy},</if>
+            <if test="createBy != null and money != 0">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateBy != null and updateBy != 0">#{updateBy},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
         </trim>
@@ -56,27 +56,17 @@
             <if test="type != null and type != ''">type = #{type},</if>
             <if test="date != null">date = #{date},</if>
             <if test="nick != null">nick = #{nick},</if>
-            <if test="hostId != null and hostId != 0">host_id = #{hostId},</if>
-            <if test="hostName != null">host_name = #{hostName},</if>
-            <if test="money != null">money = #{money},</if>
+            <if test="money != null and money != 0">money = #{money},</if>
             <if test="status != null">status = #{status},</if>
-            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateBy != null and updateBy != 0">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
         <where>
             <trim prefix=" " suffix=" " suffixOverrides="and">
-                <if test="address != null and address != ''">address=#{address} and</if>
-                <if test="type != null and type != ''">type=#{type} and</if>
-                <if test="date != null">date = #{date},</if>
-                <if test="nick != '' and nick != null">nick=#{nick} and</if>
+                <if test="formId != 0 and formId != null">id=#{formId} and</if>
                 <if test="hostId != 0 and hostId != null">host_id=#{hostId} and</if>
-                <if test="hostName != null">host_name={hostName} and</if>
-                <if test="money != null">money = #{money},</if>
-                <if test="status != null">status=#{status} and</if>
-                <if test="updateBy != null">update_by = #{updateBy},</if>
-                <if test="updateTime != null">update_time = #{updateTime},</if>
-                <if test="remark != null">remark = #{remark},</if>
+                <if test="createBy != null and createBy != 0">create_by=#{createBy}</if>
             </trim>
         </where>
     </update>

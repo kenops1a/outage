@@ -5,14 +5,10 @@ import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
 import com.rat.model.HostFormModel;
 import com.rat.service.HostFormService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -92,7 +88,7 @@ public class HostFormController {
      * @param userId 用户id
      * @return JsonResult
      */
-    @RequestMapping(value = "/deleteFormById", method = RequestMethod.GET)
+    @RequestMapping(value = "/deleteFormById", method = RequestMethod.POST)
     public JsonResult<Integer> deleteFormById(@RequestParam int formId, @RequestParam int userId) {
         return hostFormService.deleteFormById(formId, userId);
     }
@@ -114,12 +110,26 @@ public class HostFormController {
     }
 
     /**
-     * 修改表单日期
-     * @param hostFormModel 需要值的属性：date
+     * 修改表单
+     * @param hostFormModel 必须存在的属性：formId，hostId,createBy
+     *                      允许修改的属性：address，type，date，nick，money
+     *                      可以修改的表单类型：status状态为2（进行中）
      */
-    @RequestMapping(value = "/updateFormDate", method = RequestMethod.POST)
-    public JsonResult<Integer> updateForm(@Valid @RequestBody HostFormModel hostFormModel) {
+    @RequestMapping(value = "/updateForm", method = RequestMethod.POST)
+    public JsonResult<Integer> updateForm(@RequestBody HostFormModel hostFormModel) {
+        // 校验参数完整性
+        if (hostFormModel.getFormId() == 0 || hostFormModel.getHostId() == 0 || hostFormModel.getCreateBy() == 0) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        }
+        // 判断数据库中该表单的状态是否为进行中
+        if (!hostFormService.checkFormStatus(hostFormModel.getFormId())) {
+            return ResultTool.faild(ResultCode.ITEM_CAN_NOT_ALTER);
+        }
+        // 将不允许修改的属性置空
+        hostFormModel.setCreateTime(null);
+        hostFormModel.setStatus(null);
+
+        // 执行修改操作
         return hostFormService.updateForm(hostFormModel);
     }
-
 }

@@ -63,14 +63,8 @@ public class HostFormServiceImpl implements HostFormService {
             只有角色为主持人，管理员的用户才能修改订单
             只有状态为进行中的订单才可以修改
         */
-
-        // 判断订单状态，只有状态为 “2” ：进行中的订单才可进行修改操作
-        if (!STATUS_HAVING.equals(hostFormModel.getStatus())) {
-            return ResultTool.faild(ResultCode.ITEM_CAN_NOT_ALTER);
-        } else {
-            // 调用hostFormMapper更新订单
-            return ResultTool.success(hostFormMapper.updateForm(hostFormModel));
-        }
+        int index = hostFormMapper.updateForm(hostFormModel);
+        return index <= 0 ? ResultTool.faild(ResultCode.ITEM_NOT_EXIST):ResultTool.success(index);
     }
 
     @Override
@@ -117,6 +111,14 @@ public class HostFormServiceImpl implements HostFormService {
         } else {
             return ResultTool.success(hostFormMapper.getFormById(formId));
         }
+    }
+
+    @Override
+    public Boolean checkFormStatus(int formId) {
+        // 获取表单状态
+        String status = hostFormMapper.getFormById(formId).getStatus();
+        // 判断表单是否可以修改
+        return STATUS_HAVING.equals(status);
     }
 
     @Override

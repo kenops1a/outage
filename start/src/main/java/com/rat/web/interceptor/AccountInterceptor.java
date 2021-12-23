@@ -42,6 +42,9 @@ public class AccountInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        log.info("*******************************");
+        // 打印请求路径
+        log.info("请求路径：" + request.getRequestURI());
         // 跨域请求会先发送一个OPTIONS请求，直接返回true并通过拦截器
         if (OPTIONS.equals(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
@@ -56,6 +59,8 @@ public class AccountInterceptor implements HandlerInterceptor {
         if (token != null) {
             if (tokenService.verifyToken(token)) {
                 log.info("token验证通过");
+                // 打印请求参数
+                log.info(request.getQueryString());
                 return true;
             }
         }
@@ -76,7 +81,8 @@ public class AccountInterceptor implements HandlerInterceptor {
      */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-
+        log.info("请求处理结束");
+        log.info("*******************************");
     }
 
     /**

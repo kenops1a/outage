@@ -71,7 +71,7 @@ public class UserController {
      * @param map 用户邮箱键值对
      * @return 菜单列表
      */
-    @PostMapping("/getUserRoleMenu")
+    @GetMapping("/getUserRoleMenu")
     public JsonResult<List<RoleMenuModel>> getUserRoleMenu(@RequestBody Map<String,String> map) {
         // 检查userModel中的email是否为空
 //        if ("".equals(email)) {
@@ -86,7 +86,7 @@ public class UserController {
      * 通过email获取用户角色
      * @return UserRoleModel
      */
-    @PostMapping("/getUserRoleByEmail")
+    @GetMapping("/getUserRoleByEmail")
     public JsonResult<UserRoleModel> getUserRoleByEmail(@RequestBody Map<String,String> map) {
         return userService.getUserRoleByEmail(map.get("email"));
     }

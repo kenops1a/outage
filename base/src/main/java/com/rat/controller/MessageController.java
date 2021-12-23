@@ -24,7 +24,7 @@ public class MessageController {
 
     @RequestMapping("getMessageList")
     public List<MessageModel> getMessageList(@RequestParam int sendId, @RequestParam int receiveId) {
-        return messageService.getMessageListById();
+        return messageService.getMessageList(sendId, receiveId);
     }
 
 }

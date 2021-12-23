@@ -3,6 +3,7 @@ package com.rat.service.impl;
 import com.rat.mapper.MessageMapper;
 import com.rat.model.MessageModel;
 import com.rat.service.MessageService;
+import com.rat.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,11 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     MessageMapper messageMapper;
 
+    @Autowired
+    TokenService tokenService;
+
     @Override
-    public List<MessageModel> getMessageListById() {
+    public List<MessageModel> getMessageList(int sendId, int receiveId) {
         return null;
     }
 

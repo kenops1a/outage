@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rat.model.UserModel;
 import com.rat.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
@@ -56,9 +57,8 @@ public class TokenServiceImpl implements TokenService {
             // 创建token验证器
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();
             DecodedJWT jwt = jwtVerifier.verify(token);
-            log.info("认证通过：");
-            log.info("email：" + jwt.getClaim("email").asString());
-            log.info("过期时间：" + jwt.getExpiresAt());
+            log.info("请求者email：" + jwt.getClaim("email").asString());
+            log.info("token过期时间：" + jwt.getExpiresAt());
         } catch (IllegalArgumentException| JWTVerificationException je) {
             // 认证失败
             log.info("认证失败");
