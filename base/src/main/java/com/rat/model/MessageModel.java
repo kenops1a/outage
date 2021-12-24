@@ -1,6 +1,5 @@
 package com.rat.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,9 +9,31 @@ import java.util.Date;
  * @date: 2021/12/13 14:21
  */
 public class MessageModel extends BaseModel {
+
     private int id;
     private int userId;
     private String message;
+    private String status;
+
+    @Override
+    public int getCreateBy() {
+        return super.getCreateBy();
+    }
+
+    @Override
+    public void setCreateBy(int createBy) {
+        super.setCreateBy(createBy);
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return super.getCreateTime();
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        super.setCreateTime(createTime);
+    }
 
     @Override
     public String toString() {
@@ -50,10 +71,19 @@ public class MessageModel extends BaseModel {
     public MessageModel() {
     }
 
-    public MessageModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int id, int userId, String message) {
+    public MessageModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int id, int userId, String message, String status) {
         super(createBy, createTime, updateBy, updateTime, remark);
         this.id = id;
         this.userId = userId;
         this.message = message;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

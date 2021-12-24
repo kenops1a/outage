@@ -26,7 +26,7 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public List<MessageModel> getMessageList(int sendId, int receiveId) {
-        return null;
+        return messageMapper.getMessageList(sendId, receiveId);
     }
 
     @Override
@@ -35,8 +35,8 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public int addMessage(MessageModel messageModel) {
-        return 0;
+    public Integer addMessage(MessageModel messageModel) {
+        return messageMapper.addMessage(messageModel);
     }
 
     @Override
