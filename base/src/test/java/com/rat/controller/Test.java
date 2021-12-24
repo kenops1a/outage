@@ -2,6 +2,7 @@ package com.rat.controller;
 
 import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.rat.model.UserModel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.io.Serializable;
@@ -15,6 +16,10 @@ import java.util.Date;
  */
 
 public class Test implements Serializable {
+
+    private static final String TEST_JSON = "what's";
+    private static final UserModel USER_MODEL = new UserModel();
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Date date2;
@@ -30,5 +35,9 @@ public class Test implements Serializable {
     public void soutTime() {
         System.out.println(new Date());
         System.out.println(System.currentTimeMillis());
+    }
+
+    public void finalTest() {
+        USER_MODEL.setEmail("fasdfs");
     }
 }

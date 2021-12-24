@@ -11,7 +11,10 @@
 </body>
 <script type="text/javascript">
     // 创建websocket对象
-    let webSocket = new WebSocket("ws://localhost:8089/outage/one")
+    let beforeUrl = "ws://localhost:8089/message/socket/"
+    let email = "kenops1a@qq.com"
+    let paramUrl = beforeUrl + email
+    let webSocket = new WebSocket(paramUrl)
     // 连接关闭回调方法
     webSocket.onclose = function () {
         console.log("false")

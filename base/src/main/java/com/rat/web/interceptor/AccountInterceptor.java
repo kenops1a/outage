@@ -26,12 +26,6 @@ public class AccountInterceptor implements HandlerInterceptor {
     private static final String OPTIONS = "OPTIONS";
 
     /**
-     * 引入userService依赖
-     */
-    @Autowired
-    private UserService userService;
-
-    /**
      * 引入token依赖
      */
     @Autowired
