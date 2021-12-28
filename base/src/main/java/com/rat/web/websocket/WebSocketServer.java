@@ -1,11 +1,13 @@
 package com.rat.web.websocket;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,8 +18,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @description: write_bug
  * @date: 2021/12/20 10:13
  */
+@Slf4j
 @Component
-@ServerEndpoint(value = "/outage/one")
+@ServerEndpoint(value = "/websocket/one/{email}")
 public class WebSocketServer {
 
 
@@ -30,9 +33,11 @@ public class WebSocketServer {
      * 连接建立成功调用的方法
      */
     @OnOpen
-    public void onOpen(Session session) {
+    public void onOpen(@PathParam("email") String email, Session session) {
         onlineCount.incrementAndGet(); // 在线数加1
-        System.out.println("有新连接加入" + session.getId() + "当前在线人数" + onlineCount);
+        System.out.println("有新连接加入" + email + "当前在线人数" + onlineCount);
+        log.info(email);
+        log.info("******************************************************");
     }
 
     /**
@@ -64,7 +69,7 @@ public class WebSocketServer {
     /**
      * 服务端发送消息给客户端
      */
-    private void sendMessage(String message, Session toSession) {
+    public void sendMessage(String message, Session toSession) {
         try {
             System.out.println("服务器发送消息" + message + "给客户端" + toSession.getId());
             toSession.getBasicRemote().sendText(message);

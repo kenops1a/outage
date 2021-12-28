@@ -6,6 +6,8 @@ import com.rat.model.UserModel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -35,9 +37,24 @@ public class Test implements Serializable {
     public void soutTime() {
         System.out.println(new Date());
         System.out.println(System.currentTimeMillis());
+        System.out.println(stampToDate(System.currentTimeMillis()));
     }
 
     public void finalTest() {
         USER_MODEL.setEmail("fasdfs");
+    }
+
+    public static String stampToDate(long time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return format.format(new Date(time * 1000L));
+    }
+
+    @org.junit.Test
+    public void Calendar() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        System.out.println(calendar.getTime());
+        calendar.add(Calendar.YEAR, -1);
+        System.out.println(calendar.getTime());
     }
 }

@@ -1,5 +1,6 @@
 package com.rat.model;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -10,18 +11,12 @@ import java.util.Date;
  */
 public class HostModel extends UserModel {
     private int hostId;
+    @NotNull
     private String type;
+    @NotNull
     private double money;
-
-    public HostModel() {
-    }
-
-    public HostModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int id, String name, String nick, String phone, String sfz, String email, String sex, int age, String address, String yhk, String status, String password, int hostId, String type, double money) {
-        super(createBy, createTime, updateBy, updateTime, remark, id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password);
-        this.hostId = hostId;
-        this.type = type;
-        this.money = money;
-    }
+    private int createBy;
+    private Date createTime;
 
     @Override
     public String toString() {
@@ -29,7 +24,12 @@ public class HostModel extends UserModel {
                 "hostId=" + hostId +
                 ", type='" + type + '\'' +
                 ", money=" + money +
+                ", createBy=" + createBy +
+                ", createTime=" + createTime +
                 '}';
+    }
+
+    public HostModel() {
     }
 
     public int getHostId() {
@@ -54,5 +54,34 @@ public class HostModel extends UserModel {
 
     public void setMoney(double money) {
         this.money = money;
+    }
+
+    @Override
+    public int getCreateBy() {
+        return createBy;
+    }
+
+    @Override
+    public void setCreateBy(int createBy) {
+        this.createBy = createBy;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public HostModel(int createBy, Date createTime, int updateBy, Date updateTime, String remark, int id, String name, String nick, String phone, String sfz, String email, String sex, int age, String address, String yhk, String status, String password, int hostId, String type, double money, int createBy1, Date createTime1) {
+        super(createBy, createTime, updateBy, updateTime, remark, id, name, nick, phone, sfz, email, sex, age, address, yhk, status, password);
+        this.hostId = hostId;
+        this.type = type;
+        this.money = money;
+        this.createBy = createBy1;
+        this.createTime = createTime1;
     }
 }

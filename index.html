@@ -15,6 +15,14 @@
     let email = "kenops1a@qq.com"
     let paramUrl = beforeUrl + email
     let webSocket = new WebSocket(paramUrl)
+
+    let message = {
+        "userEmail":email,
+        "toEmail":2,
+        "createTime":new Date(),
+        "message":"xxxxx"
+    }
+    let messageJsonStr = JSON.stringify(message);
     // 连接关闭回调方法
     webSocket.onclose = function () {
         console.log("false")
@@ -22,7 +30,6 @@
     // 连接成功
     webSocket.onopen = function (event) {
         console.log("success")
-        webSocket.send("success")
     }
     // 连接失败回调方法
     webSocket.onerror = function () {
@@ -45,9 +52,9 @@
 
     // 发送消息
     function sendMessage() {
-        let message = document.getElementById("ws-msg").value
-        console.log(message)
-        webSocket.send(message)
+        // let message = document.getElementById("ws-msg").value
+        // console.log(message)
+        webSocket.send(messageJsonStr)
     }
 </script>
 </html>

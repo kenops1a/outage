@@ -61,7 +61,9 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 .addPathPatterns("/account/removeAccount")
                 .addPathPatterns("/user/**")
                 .addPathPatterns("/hostForm/**")
-                .addPathPatterns("/host/**")
                 .addPathPatterns("/message/**");
+//                .addPathPatterns("/host/updateHostInfo")
+//                .addPathPatterns("/host/deleteHostById")
+//                .addPathPatterns("/host/addHostInfo")
     }
 }

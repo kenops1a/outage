@@ -15,6 +15,12 @@
     <description>utils</description>
 
     <dependencies>
+        <!-- 引入fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.74</version>
+        </dependency>
         <!-- 引入jwt -->
         <dependency>
             <groupId>com.auth0</groupId>

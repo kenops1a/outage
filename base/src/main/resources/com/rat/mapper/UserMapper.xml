@@ -10,7 +10,6 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
     </resultMap>
-
     <!-- 用户角色结果集映射 -->
     <resultMap id="userRole" type="com.rat.model.UserRoleModel">
         <result property="createBy" column="create_by"/>

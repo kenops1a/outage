@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rat.mapper.HostMapper">
+    <resultMap id="hostModelMap" type="com.rat.model.HostModel">
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="insertHost" parameterType="com.rat.model.HostModel">
+        insert into hm_host(type, money, create_by, create_time)
+        values (type=#{type},money=#{money},create_by=#{createBy},create_time=#{createTime})
+    </insert>
+    <insert id="insertUserRole">
+        insert into hm_user_role(user_id, role_id)
+        values (user_id=#{userId},role_id=#{roleId})
+    </insert>
+    <update id="updateHostInfo">
+        update hm_host
+        <trim prefix="set(" suffix=")" suffixOverrides=",">
+            <if test="type != null">type=#{type},</if>
+            <if test="money != null and money != 0">money=#{money}</if>
+        </trim>
+        where create_by=#{userId}
+    </update>
+    <delete id="deleteHostById"></delete>
+    <select id="getHostList" resultMap="hostModelMap">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+    </select>
+    <select id="getHostListByType" resultType="com.rat.model.HostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+        and hm_host.type = #{type}
+    </select>
+    <select id="getHostById" resultType="com.rat.model.HostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+        and hm_user.id = #{userId}
+    </select>
+    <!-- 主持人姓名模糊查询 -->
+    <select id="getHostListByNameLike" resultType="com.rat.model.HostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+        and name like "%"#{nameLike}"%"
+    </select>
+    <select id="getHostListByTime" resultType="com.rat.model.HostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+        and hm_host.create_time &lt; #{date}
+    </select>
+    <select id="getHostListBySex" resultType="com.rat.model.HostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        from hm_user
+        inner join hm_user_role
+        on hm_user.id = hm_user_role.user_id
+        inner join hm_host
+        on hm_user_role.user_id = hm_host.create_by
+        where hm_user.status = '1'
+        and hm_user.sex = #{sex}
+    </select>
+</mapper>
