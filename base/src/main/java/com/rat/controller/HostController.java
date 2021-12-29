@@ -139,6 +139,6 @@ public class HostController {
      */
     @RequestMapping(value = "/deleteHostById", method = RequestMethod.POST)
     public JsonResult<Integer> deleteHostById(int userId) {
-        return null;
+        return ResultTool.success(hostService.deleteHostById(userId));
     }
 }

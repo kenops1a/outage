@@ -47,7 +47,10 @@ public class UserController {
         /*
          测试数据
          */
-        userModel.setEmail("xx");
+        // 校验参数完整性
+        if ("".equals(userModel.getEmail())) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        }
         return userService.getUserByEmail(userModel);
     }
 
@@ -156,7 +159,7 @@ public class UserController {
      * @param userModel 前端传递用户对象
      * @return Integer
      */
-    @PostMapping("updateNickname")
+    @PostMapping("/updateNickname")
     public JsonResult<Integer> updateNickname(@RequestBody UserModel userModel) {
         if (userService.getUserByEmail(userModel) == null) {
             return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);

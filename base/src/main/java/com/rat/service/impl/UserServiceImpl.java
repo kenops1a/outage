@@ -8,6 +8,7 @@ import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
 import com.rat.service.UserService;
+import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -165,4 +166,26 @@ public class UserServiceImpl implements UserService {
             return ResultTool.success(userModel.getStatus());
         }
     }
+
+    @Override
+    public JsonResult<Integer> updateUserStatus(int userId, int lockOrUnLock) {
+        UserModel userModel = userMapper.getUserById(userId);
+        // 用户不存在
+        if (userModel == null || USER_STATUS_DELETE.equals(userModel.getStatus())) {
+            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+        }
+        // 用户已被冻结且传递参数为1（解锁）
+        if (lockOrUnLock == 1 && USER_STATUS_LOCKED.equals(userModel.getStatus())) {
+            // 将用户状态设置为正常
+            return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(), USER_STATUS_NORMAL));
+        }
+        if (lockOrUnLock == 0) {
+            // 将用户状态设置为已冻结，返回操作结果
+            return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(), USER_STATUS_LOCKED));
+        }
+        // 不符合上述情况则返回默认失败
+        return ResultTool.faild();
+    }
+
+
 }

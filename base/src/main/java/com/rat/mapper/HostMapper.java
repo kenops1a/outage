@@ -67,10 +67,10 @@ public interface HostMapper {
     /**
      * 添加user_role记录
      * @param userId 用户id
-     * @param hostId 主持人id
+     * @param roleId 权限id
      * @return Integer
      */
-    Integer insertUserRole(int userId, int hostId);
+    Integer insertUserRole(int userId, int roleId);
 
     /**
      * 修改主持人信息
@@ -80,10 +80,18 @@ public interface HostMapper {
     Integer updateHostInfo(HostModel hostModel);
 
     /**
-     * 通过id移除主持人权限
+     * 通过id移除主持人信息记录
      * @param userId 用户id
      * @return Integer
      */
     Integer deleteHostById(int userId);
+
+    /**
+     * 通过id移除用户权限
+     * @param userId 用户id
+     * @param roleId 权限id
+     * @return Integer
+     */
+    Integer removeUserRole(int userId, int roleId);
 
 }

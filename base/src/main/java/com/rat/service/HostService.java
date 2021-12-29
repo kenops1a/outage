@@ -1,6 +1,7 @@
 package com.rat.service;
 
 import com.rat.model.HostModel;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;

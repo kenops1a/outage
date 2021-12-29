@@ -81,6 +81,7 @@ public interface UserService {
 
     /**
      * 修改用户密码
+     * @param userId 用户id
      * @param oldPassword 旧密码
      * @param newPassword 新密码
      * @return Integer
@@ -102,4 +103,11 @@ public interface UserService {
      * @return JsonResult
      */
     JsonResult<String> getUserStatus(String email);
+
+    /**
+     * 冻结用账号
+     * @param userId 需要修改的用户状态
+     * @return Integer
+     */
+    JsonResult<Integer> updateUserStatus(int userId, int lockOrUnLock);
 }

@@ -7,6 +7,7 @@ import com.rat.service.HostService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -106,9 +107,10 @@ public class HostServiceImpl implements HostService {
     public Integer createHost(HostModel hostModel, int userId) {
         // 判断用户是否存在或用户状态是否正常
         if (userMapper.getUserById(userId) == null || !"1".equals(userMapper.getUserById(userId).getStatus())) {
-            // 给userId对应的用户添加主持人角色
-            hostMapper.insertUserRole(userId, HOST_ROLE);
+            return 0;
         }
+        // 给userId对应的用户添加主持人角色
+        hostMapper.insertUserRole(userId, HOST_ROLE);
         // 补充hostModel信息
         hostModel.setCreateBy(userId);
         hostModel.setCreateTime(new Date());
@@ -121,8 +123,23 @@ public class HostServiceImpl implements HostService {
         return hostMapper.updateHostInfo(hostModel);
     }
 
+    /**
+     * 添加事务管理注解@Transactional
+     * @param userId 用户id
+     * @return Integer
+     */
     @Override
-    public Integer deleteHostById(int hostId) {
-        return null;
+    @Transactional(rollbackFor = Exception.class)
+    public Integer deleteHostById(int userId) {
+        int hostDel, roleDel;
+        // 状态为已删除和被冻结的账号无法再删除
+        if (!"1".equals(userMapper.getUserById(userId).getStatus())) {
+            return 0;
+        }
+        // 删除hm_host中的记录(主持人信息表)
+        hostDel = hostMapper.deleteHostById(userId);
+        // 删除hm_user_role中对应的记录(用户-角色表)
+        roleDel = hostMapper.removeUserRole(userId, HOST_ROLE);
+        return 1;
     }
 }
