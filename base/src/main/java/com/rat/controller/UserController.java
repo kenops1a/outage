@@ -164,8 +164,23 @@ public class UserController {
         if (userService.getUserByEmail(userModel) == null) {
             return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else if (userService.checkUserItem(userModel) != null) {
-            return null;
+            return ResultTool.faild(ResultCode.NO_PERMISSION);
         }
-        return null;
+        return userService.updateNickname(userModel);
+    }
+
+    /**
+     * 冻结用户账号
+     * @param userId 用户id
+     * @param lockOrUnLock 冻结解锁标识，0-冻结，1-解冻
+     * @return Integer
+     */
+    @PostMapping("/userAndLock")
+    public JsonResult<Integer> userLock(@RequestParam int userId, int lockOrUnLock) {
+        // 校验参数完整
+        if (userId == 0) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        }
+        return userService.updateUserStatus(userId, lockOrUnLock);
     }
 }
