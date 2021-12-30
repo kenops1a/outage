@@ -17,9 +17,11 @@ public interface HostService {
 
     /**
      * 获取全部主持人
+     * @param page 起始页
+     * @param pageSize 页面大小
      * @return 主持人list
      */
-    List<HostModel> getHostList();
+    List<HostModel> getHostList(Integer page, Integer pageSize);
 
     /**
      * 分类查询

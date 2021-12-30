@@ -65,15 +65,11 @@
             <if test="nick != null and nick != ''">nick = #{nick},</if>
             <if test="phone != null">phone = #{phone},</if>
             <if test="sfz != null">sfz = #{sfz},</if>
-            <if test="email != null and email != ''">email = #{email},</if>
             <if test="sex != null">sex = #{sex},</if>
             <if test="age != 0">age = #{age},</if>
             <if test="address != null">address = #{address},</if>
             <if test="yhk != null">yhk = #{yhk},</if>
-            <if test="status != null">status = #{status},</if>
             <if test="password != null and password != ''">password = #{password},</if>
-            <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>

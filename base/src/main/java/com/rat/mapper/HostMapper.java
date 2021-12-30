@@ -44,6 +44,14 @@ public interface HostMapper {
     List<HostModel> getHostListByNameLike(String nameLike);
 
     /**
+     * 判断用户是否拥有某项权限
+     * @param userId 用户id
+     * @param roleId 权限id
+     * @return Integer
+     */
+    Integer getUserRole(@Param("userId") int userId, @Param("roleId") int roleId);
+
+    /**
      * 注册时间查询
      * @param date 日期
      * @return 主持人列表
@@ -70,7 +78,7 @@ public interface HostMapper {
      * @param roleId 权限id
      * @return Integer
      */
-    Integer insertUserRole(int userId, int roleId);
+    Integer insertUserRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     /**
      * 修改主持人信息

@@ -59,6 +59,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
+        <!-- 引入pageHelper插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+        </dependency>
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

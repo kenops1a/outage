@@ -21,7 +21,13 @@ public interface UserService {
      * 获取全部用户
      * @return 用户对象集合
      */
-    JsonResult<List<UserModel>> getUserList();
+    JsonResult<List<UserModel>> getUserList(int page, int pageSize);
+
+    /**
+     * 通过id获取用户
+     * @return UserMdoel
+     */
+    JsonResult<UserModel> getUserById(int userId);
 
     /**
      * 通过邮箱账号获取用户

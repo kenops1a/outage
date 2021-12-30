@@ -1,10 +1,12 @@
 package com.rat.controller;
 
+import com.github.pagehelper.PageHelper;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
 import com.rat.model.HostModel;
 import com.rat.service.HostService;
+import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +30,13 @@ public class HostController {
 
     /**
      * 获取主持人列表
+     * @param page 分页起始码
+     * @param pageSize 每页页数
      * @return 主持人list
      */
     @RequestMapping(value = "/getHostList", method = RequestMethod.GET)
-    public JsonResult<List<HostModel>> getHostList() {
-        return ResultTool.success(hostService.getHostList());
+    public JsonResult<List<HostModel>> getHostList(Integer page, Integer pageSize) {
+        return ResultTool.success(hostService.getHostList(page, pageSize));
     }
 
     /**
@@ -116,6 +120,7 @@ public class HostController {
     }
 
     /**
+     * 需要修改
      * 增加对应id用户的主持人权限
      * hostModel参数完整性由Valid注解实现
      * @param hostModel 主持人信息
@@ -123,12 +128,11 @@ public class HostController {
      * @return Integer
      */
     @RequestMapping(value = "/addHost", method = RequestMethod.POST)
-    public JsonResult<Integer> addHost(@RequestBody @Valid HostModel hostModel, @RequestParam int userId) {
-        // 判断userId是否存在
-        if (userId == 0) {
+    public JsonResult<Integer> addHost(@RequestBody HostModel hostModel, @RequestParam int userId) {
+        // 校验参数完整性
+        if (userId == 0 || hostModel.getType() == null || hostModel.getMoney() == 0) {
             return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
         }
-        // 调用service进行添加操作
         return ResultTool.success(hostService.createHost(hostModel, userId));
     }
 

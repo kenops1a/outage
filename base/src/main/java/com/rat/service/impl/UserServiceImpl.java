@@ -1,5 +1,7 @@
 package com.rat.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
@@ -12,6 +14,7 @@ import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,15 +35,33 @@ public class UserServiceImpl implements UserService {
     UserMapper userMapper;
 
     @Override
-    public JsonResult<List<UserModel>> getUserList() {
-        /*
-        如果list为空，则返回记录为空
-         */
+    public JsonResult<List<UserModel>> getUserList(int page, int pageSize) {
+//        /*
+//        如果list为空，则返回记录为空
+//         */
+//        if (userMapper.getUserList().isEmpty()) {
+//            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+//        } else {
+//            return ResultTool.success(userMapper.getUserList());
+//        }
+
         if (userMapper.getUserList().isEmpty()) {
             return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
-        } else {
-            return ResultTool.success(userMapper.getUserList());
         }
+        PageHelper.startPage(page, pageSize);
+        List<UserModel> list = userMapper.getUserList();
+        PageInfo<UserModel> pageInfo = new PageInfo<>(list);
+        return ResultTool.success(pageInfo.getList());
+    }
+
+    @Override
+    public JsonResult<UserModel> getUserById(int userId) {
+        // 校验参数完整性
+        if (userId == 0) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        }
+        // 返回用户对象
+        return ResultTool.success(userMapper.getUserById(userId));
     }
 
     @Override
@@ -100,7 +121,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public JsonResult<Integer> updateUser(UserModel userModel) {
-        return null;
+        return ResultTool.success(userMapper.updateUser(userModel));
     }
 
     @Override

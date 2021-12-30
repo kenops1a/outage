@@ -1,5 +1,7 @@
 package com.rat.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rat.mapper.HostMapper;
 import com.rat.mapper.UserMapper;
 import com.rat.model.HostModel;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -47,9 +50,14 @@ public class HostServiceImpl implements HostService {
     private UserMapper userMapper;
 
     @Override
-    public List<HostModel> getHostList() {
+    public List<HostModel> getHostList(Integer page, Integer pageSize) {
+        // 分页起始码，每页页数
+        PageHelper.startPage(page, pageSize);
+        // 获取用户列表
+        List<HostModel> hosts = hostMapper.getHostList();
+        PageInfo<HostModel> pageInfo = new PageInfo<>(hosts);
         // 返回存在并且用户状态为‘1’（正常）的主持人列表
-        return hostMapper.getHostList();
+        return pageInfo.getList();
     }
 
     @Override
@@ -98,15 +106,25 @@ public class HostServiceImpl implements HostService {
     }
 
     /**
+     * 添加spring事务管理
      * 新增主持人需要两步操作，1-向user_role中添加记录，2-向host中添加记录
      * @param hostModel 主持人对象
      * @param userId 用户id
      * @return Integer
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Integer createHost(HostModel hostModel, int userId) {
         // 判断用户是否存在或用户状态是否正常
         if (userMapper.getUserById(userId) == null || !"1".equals(userMapper.getUserById(userId).getStatus())) {
+            return 0;
+        }
+        // 判断是否存在userId为userId，roleId为HOST_ROLE的记录
+        if (hostMapper.getUserRole(userId, HOST_ROLE) != null) {
+            return 0;
+        }
+        // 判断主持人信息表中是否存在记录
+        if (hostMapper.getHostById(userId) != null) {
             return 0;
         }
         // 给userId对应的用户添加主持人角色

@@ -11,11 +11,11 @@
     </resultMap>
     <insert id="insertHost" parameterType="com.rat.model.HostModel">
         insert into hm_host(type, money, create_by, create_time)
-        values (type=#{type},money=#{money},create_by=#{createBy},create_time=#{createTime})
+        values (#{type},#{money},#{createBy},#{createTime})
     </insert>
     <insert id="insertUserRole">
         insert into hm_user_role(user_id, role_id)
-        values (user_id=#{userId},role_id=#{roleId})
+        values (#{userId},#{roleId})
     </insert>
     <update id="updateHostInfo">
         update hm_host
@@ -63,6 +63,8 @@
         where hm_user.status = '1'
         and hm_user.id = #{userId}
     </select>
+    <!-- 获取用户角色记录 -->
+
     <!-- 主持人姓名模糊查询 -->
     <select id="getHostListByNameLike" resultType="com.rat.model.HostModel">
         select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
@@ -93,5 +95,11 @@
         on hm_user_role.user_id = hm_host.create_by
         where hm_user.status = '1'
         and hm_user.sex = #{sex}
+    </select>
+    <select id="getUserRole" resultType="java.lang.Integer">
+        select user_id
+        from hm_user_role
+        where user_id=#{userId}
+        and role_id=#{roleId}
     </select>
 </mapper>

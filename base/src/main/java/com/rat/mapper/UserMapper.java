@@ -22,6 +22,7 @@ public interface UserMapper {
 
     /**
      * 通过参数查询用户记录
+     * @param userModel 带有属性值的用户对象
      * @return List<UserModel>
      */
     List<UserModel> getUserListByItem(UserModel userModel);
@@ -33,6 +34,11 @@ public interface UserMapper {
      */
     UserModel getUserByEmail(String email);
 
+    /**
+     * 手机号
+     * @param phone 手机号
+     * @return UserModel
+     */
     UserModel getUserByPhone(String phone);
 
     /**

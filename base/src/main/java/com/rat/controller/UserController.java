@@ -34,8 +34,8 @@ public class UserController {
      * @return UserModel对象集合
      */
     @RequestMapping("/getUserList")
-    public JsonResult<List<UserModel>> getUserList() {
-        return userService.getUserList();
+    public JsonResult<List<UserModel>> getUserList(@RequestParam int page, @RequestParam int pageSize) {
+        return userService.getUserList(page, pageSize);
     }
 
     /**
@@ -100,7 +100,7 @@ public class UserController {
      * @return Integer
      */
     @PostMapping("/addUser")
-    public JsonResult<Integer> addUser(@RequestBody UserModel userModel) {
+    public JsonResult<Integer> addUser(@RequestBody @Valid UserModel userModel) {
         // 测试数据
 //        userModel.setNick("神奇海螺");
 //        userModel.setEmail("10086@qq.com");
@@ -156,17 +156,20 @@ public class UserController {
 
     /**
      * 修改用户信息
-     * @param userModel 前端传递用户对象
+     * @param userModel 必要参数email，其他可有可无
      * @return Integer
      */
-    @PostMapping("/updateNickname")
+    @PostMapping("/updateUser")
     public JsonResult<Integer> updateNickname(@RequestBody UserModel userModel) {
+        if ("".equals(userModel.getEmail())) {
+            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+        }
         if (userService.getUserByEmail(userModel) == null) {
             return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else if (userService.checkUserItem(userModel) != null) {
             return ResultTool.faild(ResultCode.NO_PERMISSION);
         }
-        return userService.updateNickname(userModel);
+        return userService.updateUser(userModel);
     }
 
     /**
