@@ -124,7 +124,7 @@ public class HostFormServiceImpl implements HostFormService {
     }
 
     @Override
-    public JsonResult<List<HostFormModel>> getFormListByItem(HostFormModel hostFormModel) {
+    public JsonResult<List<HostFormModel>> getFormListByItem(HostFormModel hostFormModel, Integer page, Integer pageSize) {
         /*
          * 不能查询status状态为已删除的表单记录
          */

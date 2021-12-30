@@ -16,10 +16,12 @@ public interface HostFormService {
 
     /**
      * 通过参数查询订单
+     * @param page 起始页
+     * @param pageSize 页面大小
      * @param hostFormModel 前端传递的带有属性的hostFormModel对象
      * @return 存储HostFormModel的JsonResult对象
      */
-    JsonResult<List<HostFormModel>> getFormListByItem(HostFormModel hostFormModel);
+    JsonResult<List<HostFormModel>> getFormListByItem(HostFormModel hostFormModel, Integer page, Integer pageSize);
 
     /**
      * 新建订单

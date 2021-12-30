@@ -41,13 +41,13 @@ public class HostFormController {
      * @return 返回封装在JsonResult中的订单对象集合
      */
     @RequestMapping(value = "/getListByItem", method = RequestMethod.POST)
-    public JsonResult<List<HostFormModel>> getHostFormList(@RequestBody HostFormModel hostFormModel) {
+    public JsonResult<List<HostFormModel>> getHostFormList(@RequestBody HostFormModel hostFormModel, @RequestParam Integer page, @RequestParam Integer pageSize) {
         /*
          * 测试参数
          */
         hostFormModel.setStatus("1");
         hostFormModel.setCreateBy(2);
-        return hostFormService.getFormListByItem(hostFormModel);
+        return hostFormService.getFormListByItem(hostFormModel, page, pageSize);
     }
 
     /**
@@ -56,8 +56,8 @@ public class HostFormController {
      * @return 返回封装在JsonResult中的订单对象集合
      */
     @RequestMapping(value = "/getListByUserId", method = RequestMethod.POST)
-    public JsonResult<List<HostFormModel>> getHostFormListByUserId(@RequestBody HostFormModel hostFormModel) {
-        return hostFormService.getFormListByItem(hostFormModel);
+    public JsonResult<List<HostFormModel>> getHostFormListByUserId(@RequestBody HostFormModel hostFormModel, @RequestParam Integer page, @RequestParam Integer pageSize) {
+        return hostFormService.getFormListByItem(hostFormModel, page, pageSize);
     }
 
     /**
@@ -66,8 +66,8 @@ public class HostFormController {
      * @return 返回封装在JsonResult中的订单对象集合
      */
     @RequestMapping(value = "/getListByHostId", method = RequestMethod.POST)
-    public JsonResult<List<HostFormModel>> getHostFormListByHostId(@RequestBody HostFormModel hostFormModel) {
-        return hostFormService.getFormListByItem(hostFormModel);
+    public JsonResult<List<HostFormModel>> getHostFormListByHostId(@RequestBody HostFormModel hostFormModel, @RequestParam Integer page, @RequestParam Integer pageSize) {
+        return hostFormService.getFormListByItem(hostFormModel, page, pageSize);
     }
 
     /**
