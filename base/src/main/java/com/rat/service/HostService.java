@@ -26,9 +26,11 @@ public interface HostService {
     /**
      * 分类查询
      * @param type 类别
+     * @param page 起始页
+     * @param pageSize 页面大小
      * @return 主持人list
      */
-    List<HostModel> getHostListByType(String type);
+    List<HostModel> getHostListByType(String type, Integer page, Integer pageSize);
 
     /**
      * id查询
@@ -46,17 +48,21 @@ public interface HostService {
 
     /**
      * 注册日期大于某个时间的主持人列表
+     * @param page 起始页
+     * @param pageSize 页面大小
      * @param timeMark 日期标识，1-一个月，3-三个月，6-六个月，12-十二个月
      * @return 主持人列表
      */
-    List<HostModel> getHostListByTime(String timeMark);
+    List<HostModel> getHostListByTime(String timeMark, Integer page, Integer pageSize);
 
     /**
      * 按性别查询
+     * @param page 页面
+     * @param pageSize 页面大小
      * @param sex 性别
      * @return 主持人列表
      */
-    List<HostModel> getHostListBySex(String sex);
+    List<HostModel> getHostListBySex(String sex, Integer page, Integer pageSize);
 
     /**
      * 给用户添加主持人角色

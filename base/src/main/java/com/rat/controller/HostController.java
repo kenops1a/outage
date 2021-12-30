@@ -45,12 +45,12 @@ public class HostController {
      * @return 主持人list
      */
     @RequestMapping(value = "/getHostListByType", method = RequestMethod.GET)
-    public JsonResult<List<HostModel>> getHostListByType(@RequestParam String type) {
+    public JsonResult<List<HostModel>> getHostListByType(@RequestParam String type, @RequestParam int page, @RequestParam int pageSize) {
         // 参数不为空
         if ("".equals(type)) {
             return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
         }
-        return ResultTool.success(hostService.getHostListByType(type));
+        return ResultTool.success(hostService.getHostListByType(type, page, pageSize));
     }
 
     /**
@@ -87,12 +87,12 @@ public class HostController {
      * @return 主持人list
      */
     @RequestMapping(value = "/getHostListByTime", method = RequestMethod.GET)
-    public JsonResult<List<HostModel>> getHostListByTime(@RequestParam String timeMark) {
+    public JsonResult<List<HostModel>> getHostListByTime(@RequestParam String timeMark, @RequestParam Integer page, @RequestParam Integer pageSize) {
         // 参数不为空
         if ("".equals(timeMark)) {
             return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
         }
-        return ResultTool.success(hostService.getHostListByTime(timeMark));
+        return ResultTool.success(hostService.getHostListByTime(timeMark, page, pageSize));
     }
 
     /**
@@ -101,12 +101,12 @@ public class HostController {
      * @return 主持人list
      */
     @RequestMapping(value = "/getHostListBySex", method = RequestMethod.GET)
-    public JsonResult<List<HostModel>> getHostListBySex(@RequestParam String sex) {
+    public JsonResult<List<HostModel>> getHostListBySex(@RequestParam String sex, @RequestParam Integer page, @RequestParam Integer pageSize) {
         // 参数不为空
         if ("".equals(sex)) {
             return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
         }
-        return ResultTool.success(hostService.getHostListBySex(sex));
+        return ResultTool.success(hostService.getHostListBySex(sex, page, pageSize));
     }
 
     /**

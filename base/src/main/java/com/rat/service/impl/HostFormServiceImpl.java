@@ -1,5 +1,7 @@
 package com.rat.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
@@ -132,6 +134,11 @@ public class HostFormServiceImpl implements HostFormService {
         if (hostFormMapper.getFormListByItem(hostFormModel).isEmpty()) {
             return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
         }
-        return ResultTool.success(hostFormMapper.getFormListByItem(hostFormModel));
+        // 添加分页
+        PageHelper.startPage(page, pageSize);
+        List<HostFormModel> list = hostFormMapper.getFormListByItem(hostFormModel);
+        PageInfo<HostFormModel> pageInfo = new PageInfo<>(list);
+
+        return ResultTool.success(pageInfo.getList());
     }
 }

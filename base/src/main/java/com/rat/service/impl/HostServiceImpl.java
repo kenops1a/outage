@@ -2,6 +2,8 @@ package com.rat.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.rat.info.ResultCode;
+import com.rat.info.ResultTool;
 import com.rat.mapper.HostMapper;
 import com.rat.mapper.UserMapper;
 import com.rat.model.HostModel;
@@ -61,8 +63,13 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public List<HostModel> getHostListByType(String type) {
-        return hostMapper.getHostListByType(type);
+    public List<HostModel> getHostListByType(String type, Integer page, Integer pageSize) {
+        // 添加分页
+        PageHelper.startPage(page, pageSize);
+        List<HostModel> list = hostMapper.getHostListByType(type);
+        PageInfo<HostModel> pageInfo = new PageInfo<>(list);
+
+        return pageInfo.getList();
     }
 
     @Override
@@ -76,33 +83,46 @@ public class HostServiceImpl implements HostService {
     }
 
     @Override
-    public List<HostModel> getHostListByTime(String timeMark) {
+    public List<HostModel> getHostListByTime(String timeMark, Integer page, Integer pageSize) {
+        // 创建分页
+        PageHelper.startPage(page, pageSize);
+        List<HostModel> list = null;
         // 得到一个Calendar的实例
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         switch (timeMark) {
             case MOUNTH_ONE:
                 calendar.add(Calendar.MONTH, -1);
-                System.out.println(calendar.getTime());
-                return hostMapper.getHostListByTime(calendar.getTime());
+                list = hostMapper.getHostListByTime(calendar.getTime());
+                break;
             case MOUNTH_THREE:
                 calendar.add(Calendar.MONTH, -3);
-                return hostMapper.getHostListByTime(calendar.getTime());
+                list = hostMapper.getHostListByTime(calendar.getTime());
+                break;
             case MOUNTH_SIX:
                 calendar.add(Calendar.MONTH, -6);
-                return hostMapper.getHostListByTime(calendar.getTime());
+                list = hostMapper.getHostListByTime(calendar.getTime());
+                break;
             case YEAR_ONE:
                 calendar.add(Calendar.YEAR, -1);
-                return hostMapper.getHostListByTime(calendar.getTime());
+                list = hostMapper.getHostListByTime(calendar.getTime());
+                break;
             default:
                 System.out.println("参数错误");
+                return null;
         }
-        return null;
+        PageInfo<HostModel> pageInfo = new PageInfo<>(list);
+        return pageInfo.getList();
     }
 
     @Override
-    public List<HostModel> getHostListBySex(String sex) {
-        return hostMapper.getHostListBySex(sex);
+    public List<HostModel> getHostListBySex(String sex, Integer page, Integer pageSize) {
+        // 添加分页
+        PageHelper.startPage(page, pageSize);
+        List<HostModel> list = hostMapper.getHostListBySex(sex);
+        PageInfo<HostModel> pageInfo = new PageInfo<>(list);
+
+        return pageInfo.getList();
     }
 
     /**
