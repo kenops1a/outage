@@ -6,19 +6,43 @@
 -->
 <template>
   <div>
-    <button v-on:click="getTest">点击测试</button>
+    <button v-on:click="test">获取host列表</button>
+    <button v-on:click="token">获取token</button>
+    <button v-on:click="test">获取host列表</button>
+    <button v-on:click="test">获取host列表</button>
   </div>
 </template>
 
 <script>
 // 导入测试方法模块
-import { getHostTest } from "@/api/test/test";
+import { getHostTest,getToken } from "@/api/test/test";
 
 export default {
   name: "TestComponent",
+  data () {
+    return {
+      params: {
+        page: 1,
+        pageSize: 1
+      },
+      loginParams: {
+        email: 'xx',
+        password: 'helloworld'
+      }
+    }
+  },
   methods: {
-    getTest () {
-      getHostTest();
+    test () {
+      getHostTest(this.params);
+    },
+    token () {
+      getToken(this.loginParams).then(res => {
+        if (res.data.success) {
+          // 如果登录成功则将token存入localStorage
+          localStorage.setItem('token', res.data.data)
+          console.log(localStorage.getItem('token'))
+        }
+      });
     }
   }
 }

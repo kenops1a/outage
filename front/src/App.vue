@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <TestComponent></TestComponent>
+    <!-- 测试组件 -->
+    <!-- <TestComponent></TestComponent> -->
+
+    <!-- 登录 -->
+    <Login></Login>
   </div>
 </template>
 
@@ -9,7 +13,7 @@
 export default {
   name: 'App',
   components: {
-    TestComponent: ()=> import('@/components/test/TestComponent')
+    // TestComponent: ()=> import('@/components/test/TestComponent'),
   }
 }
 </script>

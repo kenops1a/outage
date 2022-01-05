@@ -7,3 +7,11 @@ export function getHostTest(params) {
         params: params
     })
 }
+
+export function getToken(params) {
+    return request({
+        url: '/account/loginByPasswd',
+        method: 'post',
+        data: params
+    })
+}

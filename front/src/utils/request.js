@@ -13,6 +13,7 @@ request.interceptors.request.use(config => {
     if (token) {
         // 向请求中添加token
         config.headers.common['token'] = token
+        console.log('config', config)
     }
     return config
 })

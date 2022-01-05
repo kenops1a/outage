@@ -1,9 +1,11 @@
 // 引入vuex
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 // 全局使用vuex插件
-Vue.use(Vuex)
+// 暂时用不到了
+// Vue.use(Vuex)
 
 // 全局管理的数据储存
 const state = {
