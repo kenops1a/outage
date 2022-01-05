@@ -1,37 +1,26 @@
 <template>
-  <!-- 主项目 -->
-  <!--<v-app id="inspire">
-    <Header/>
-    <router-view></router-view>
-    <Footer/>
-  </v-app>-->
-
-  <!-- 栅格布局测试 -->
-  <!--<div>
-    <GridTest></GridTest>
-  </div>-->
-
-  <!-- 登录测试 -->
-  <LoginTest></LoginTest>
+  <div id="app">
+    <TestComponent></TestComponent>
+  </div>
 </template>
+
 <script>
 
 export default {
   name: 'App',
   components: {
-    // Header: () => import('@/components/Header/Header'),
-    // Footer: () => import('@/components/Footer/Footer'),
-    // GridTest: () => import('@/components/Test/GridTest')
-    LoginTest: () => import('@/components/Test/LoginTest')
-  },
-
-  data () {
-    return {
-    }
+    TestComponent: ()=> import('@/components/test/TestComponent')
   }
-};
+}
 </script>
 
 <style>
-
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
 </style>

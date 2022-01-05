@@ -1,24 +1,15 @@
 import Vue from 'vue'
 import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import VueRouter from 'vue-router'
-import routers from "@/config/router";
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
+// 引入ant-design依赖
 
-// 声明该vueapp使用vuerouter
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  mode: 'history',
-  // 滚动条复位
-  scrollBehavior: () => ({ y:0 }),
-  routes: routers
-})
-
-// 使用开发模式
+// 使用vue开发模式
 Vue.config.productionTip = true
 
+// 全局使用AntDesign插件
+Vue.use(Antd)
+
 new Vue({
-  vuetify,
-  router,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app')
