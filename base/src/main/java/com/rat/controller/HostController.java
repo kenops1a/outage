@@ -35,7 +35,7 @@ public class HostController {
      * @return 主持人list
      */
     @RequestMapping(value = "/getHostList", method = RequestMethod.GET)
-    public JsonResult<List<HostModel>> getHostList(Integer page, Integer pageSize) {
+    public JsonResult<List<HostModel>> getHostList(@RequestParam Integer page, @RequestParam Integer pageSize) {
         return ResultTool.success(hostService.getHostList(page, pageSize));
     }
 
