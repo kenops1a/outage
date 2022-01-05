@@ -4,11 +4,11 @@ import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.rat.model.UserModel;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.junit.Test;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 /**
  * @type: outage
@@ -17,7 +17,7 @@ import java.util.Date;
  * @date: 2021/12/14 15:06
  */
 
-public class Test implements Serializable {
+public class TestController implements Serializable {
 
     private static final String TEST_JSON = "what's";
     private static final UserModel USER_MODEL = new UserModel();
@@ -25,7 +25,7 @@ public class Test implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date date;
     private Date date2;
-    @org.junit.Test
+    @Test
     public void formatDate() {
         date = new Date();
         date2 = new Date();
@@ -33,7 +33,7 @@ public class Test implements Serializable {
         System.out.println(JSONUtil.toJsonStr(date));
     }
 
-    @org.junit.Test
+    @Test
     public void soutTime() {
         System.out.println(new Date());
         System.out.println(System.currentTimeMillis());
@@ -49,12 +49,21 @@ public class Test implements Serializable {
         return format.format(new Date(time * 1000L));
     }
 
-    @org.junit.Test
+    @Test
     public void Calendar() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         System.out.println(calendar.getTime());
         calendar.add(Calendar.YEAR, -1);
         System.out.println(calendar.getTime());
+    }
+
+    @Test
+    public void arrayTest() {
+        List<Integer> lists = Arrays.asList(1,2,3,4,5,6,7);
+        System.out.println(lists);
+        for (int num : lists) {
+            System.out.println(num);
+        }
     }
 }
