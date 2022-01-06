@@ -22,7 +22,7 @@ export default new Vuex.Store({
         getStorage (state) {
             // 判断token是否为空，如果为空则将本地token反序列化后赋值给state.token
             if (!state.token) {
-                state.token = JSON.parse(localStorage.getItem(key))
+                state.token = JSON.parse(localStorage.getItem('token'))
             }
             return state.token
         }
