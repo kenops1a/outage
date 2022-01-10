@@ -2,7 +2,8 @@ import request from "@/utils/request";
 
 const userApi = {
     loginByPasswd: '/account/loginByPasswd',
-    loginByVerifyCode: '/account/loginByVerify'
+    loginByVerifyCode: '/account/loginByVerify',
+    registerByItem: '/account/register'
 }
 
 // 使用账号密码登录
@@ -22,3 +23,13 @@ export function loginByVc(params) {
         data: params
     })
 }
+
+// 账号注册
+export function register(params) {
+    return request({
+        url: userApi.registerByItem,
+        method: 'post',
+        data: params
+    })
+}
+

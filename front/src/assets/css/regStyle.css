@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+/*:root 这个 CSS 伪类匹配文档树的根元素。对于 HTML 来说，
+:root 表示 元素，除了优先级更高之外，与 html 选择器相同。*/
+:root {
+    --success-color: #2ecc71;
+    --error-color: #e74c3c;
+}
+
+* {
+    /*CSS 中的 box-sizing
+    属性定义了 user agent 应该如何计算一个元素的总宽度和总高度。
+    content-box  是默认值。如果你设置一个元素的宽为100px，
+                 那么这个元素的内容区会有100px 宽，
+                 并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。
+    border-box 告诉浏览器：你想要设置的边框和内边距的值是包含在width内的。
+               也就是说，如果你将一个元素的width设为100px，
+               那么这100px会包含它的border和padding，
+               内容区的实际宽度是width减去(border + padding)的值。*/
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f9fafb;
+    font-family: "Apple SD Gothic Neo", sans-serif;
+    /*弹性盒子，默认水平排列*/
+    display: flex;
+    /*内部元素居中显示*/
+    align-items: center;
+    /*justify定义浏览器之间，如何分配顺着弹性容器主轴或网格行轴的元素及其周围的空间
+    center：居中排列
+    */
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    /*CSS 属性 border-radius 允许你设置元素的外边框圆角。
+    当使用一个半径时确定一个圆形，
+    当使用两个半径时确定一个椭圆。
+    这个(椭)圆与边框的交集形成圆角效果。*/
+    border-radius: 5px;
+    width: 400px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+h2 {
+    text-align: center;
+    margin: 0 0 20px;
+}
+
+/*表单内部填充，上下30px，作用40px*/
+.form {
+    padding: 30px 40px;
+}
+
+.form-control{
+    /*form表单中元素之间bottom距离*/
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+.form-control label {
+    color: #777;
+    /*使label作为块级元素显示
+    因为body中定义的flex布局，会使label竖着显示*/
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-control input{
+    border: 2px solid #f0f0f0;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+/*.form-control input:focus{
+    !*border 和 outline 很类似，但有如下区别：
+        outline不占据空间，绘制于元素内容周围。
+        根据规范，outline通常是矩形，但也可以是非矩形的。
+        将 outline 设置为 0 或 none 会移除浏览器的默认聚焦样式。
+        如果一个元素可交互，这个元素必须有一个可见的聚焦提示。
+        若移除了默认聚焦样式，记得提供一个显眼的聚焦样式。*!
+    outline: 0;
+    border-color: #777;
+}*/
+
+.form-control.success input{
+    border-color: var(--success-color);
+}
+
+.form-control.error input{
+    border-color: var(--error-color);
+}
+
+.form-control small{
+    color: var(--error-color);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    visibility: hidden;
+}
+
+.form button {
+    /*允许控制元素中光标的样式*/
+    cursor: pointer;
+    background-color: rgb(129,216,208);
+    border: 2px solid rgb(129,216,208);
+    /*border-radius: 4px;*/
+    color: #fff;
+    display: block;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 20px;
+    padding: 10px;
+}
