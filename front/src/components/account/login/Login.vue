@@ -22,7 +22,7 @@
         <!-- 头像框 -->
         <v-row class="ma-3">
           <v-col cols="12" class="text-center">
-            <v-avatar color="orange" size="67" class="ma-auto">
+            <v-avatar color="#607D8B" size="67" class="ma-auto">
               <span class="white--text text-h5">67</span>
             </v-avatar>
           </v-col>
@@ -31,7 +31,7 @@
         <!-- 登录方式选择按钮 -->
         <v-row no-gutters justify="center">
           <v-col cols="12" class="py-2 text-center">
-            <v-btn-toggle tile color="deep-purple accent-3" group>
+            <v-btn-toggle tile color="#f0f0f0 accent-3" group>
               <v-btn value="password" @click="type=0" class="mx-3" outlined>
                 账号密码登录
               </v-btn>
@@ -72,13 +72,14 @@
             </v-col>
             <v-spacer></v-spacer>
           </v-row>
+
           <!-- 验证码输入 -->
-          <v-row id="verifyCode-box" justify="center" no-gutters>
+          <v-row id="verifyCode-box" class="ma-0" justify="center" no-gutters>
             <v-col cols="6" align-self="center">
               <v-text-field label="verifyCode" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
-              <v-btn class="ms-2" small>
+              <v-btn class="ml-3 pa-2 mb-2" depressed tile>
                 <span>获取验证码</span>
               </v-btn>
             </v-col>
@@ -94,14 +95,14 @@
         <!-- 按钮 -->
         <v-row no-gutters id="login-btn" class="my-0">
           <v-col cols="12" class="text-center">
-            <v-btn value="login" color="primary" large>登录</v-btn>
+            <v-btn value="login" color="#607D8B" large><span style="color: #f9fafb">登录</span></v-btn>
           </v-col>
         </v-row>
 
         <v-row class="mb-8 ml-11">
           <v-col cols="4">
             <span>没有账号?</span>
-            <router-link to="/register">点击注册</router-link>
+            <router-link to="/register" style="color: #607D8B">点击注册</router-link>
           </v-col>
         </v-row>
 

@@ -9,6 +9,7 @@
       <v-container>
         <!-- mx-auto卡片居中 -->
         <v-card id="register-card" raised="3" class="mx-auto my-12" max-width="430px" height="600px">
+
           <!-- 标题 -->
           <v-card-text>
             <v-row align="center" class="mx=0 mt-5">

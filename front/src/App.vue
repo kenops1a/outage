@@ -1,6 +1,7 @@
 <template>
-  <v-app>
-    <Login></Login>
+  <v-app id="inspire">
+
+    <router-view/>
 <!--    <CenterTest></CenterTest>-->
 <!--    <Register></Register>-->
 <!--    <ColRowTest></ColRowTest>-->
@@ -32,6 +33,6 @@ export default {
 
 <style>
   body {
-    background-color: #f9fafb;
+    background-color: #f0f0f0;
   }
 </style>
