@@ -5,10 +5,11 @@
 * @Date: 2022/1/5
 -->
 <template>
-  <v-form id="login-form">
-    <v-container>
+  <v-main>
+    <v-form id="login-form" style="height: 100vh; width: 100vw">
+      <v-container>
       <!-- mx-auto卡片居中 -->
-      <v-card id="login-card" raised="3" class="mx-auto my-12" max-width="430px" height="600px">
+      <v-card id="login-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
 
         <!-- 标题 -->
         <v-card-text>
@@ -23,7 +24,7 @@
         <v-row class="ma-3">
           <v-col cols="12" class="text-center">
             <v-avatar color="#607D8B" size="67" class="ma-auto">
-              <span class="white--text text-h5">67</span>
+              <span class="white--text text-h6">褪色</span>
             </v-avatar>
           </v-col>
         </v-row>
@@ -31,7 +32,7 @@
         <!-- 登录方式选择按钮 -->
         <v-row no-gutters justify="center">
           <v-col cols="12" class="py-2 text-center">
-            <v-btn-toggle tile color="#f0f0f0 accent-3" group>
+            <v-btn-toggle tile group>
               <v-btn value="password" @click="type=0" class="mx-3" outlined>
                 账号密码登录
               </v-btn>
@@ -99,6 +100,7 @@
           </v-col>
         </v-row>
 
+        <!-- 跳转至注册 -->
         <v-row class="mb-8 ml-11">
           <v-col cols="4">
             <span>没有账号?</span>
@@ -108,7 +110,8 @@
 
       </v-card>
     </v-container>
-  </v-form>
+    </v-form>
+  </v-main>
 </template>
 
 <script>
@@ -230,4 +233,6 @@ h2 {
   font-family: "Apple SD Gothic Neo", sans-serif;
   color: #777777;
 }
+
+
 </style>

@@ -5,7 +5,9 @@
 * @Date: 11/1/2022
 -->
 <template>
-  <div></div>
+  <div>
+    <router-link to="/login">跳转至登录页</router-link>
+  </div>
 </template>
 
 <script>

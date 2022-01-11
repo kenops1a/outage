@@ -1,28 +1,28 @@
 <template>
   <v-app id="inspire">
-
-    <router-view/>
-<!--    <CenterTest></CenterTest>-->
-<!--    <Register></Register>-->
-<!--    <ColRowTest></ColRowTest>-->
-<!--    <ComponentTest></ComponentTest>-->
-<!--    <TestComponent></TestComponent>-->
+        <router-view/>
+    <!--    <CenterTest></CenterTest>-->
+    <!--    <Register></Register>-->
+    <!--    <ColRowTest></ColRowTest>-->
+    <!--    <ComponentTest></ComponentTest>-->
+    <!--    <TestComponent></TestComponent>-->
+    <!--    <ContainerTest></ContainerTest>-->
   </v-app>
 </template>
 
 <script>
 
-// import TestComponent from "@/components/test/TestComponent";
 export default {
   name: 'App',
   components: {
-    // TestComponent: () => import('@/components/test/TestComponent')
+    // TestComponent: () => import('@/components/test/ContainerTest/TestComponent')
     // LoginIndex: () => import('@/components/account/LoginIndex')
-    Login: () => import('@/components/account/login/Login')
+    // Login: () => import('@/components/account/login/Login')
     // CenterTest: () =>import('@/components/test/CenterTest'),
     // Register: () => import('@/components/account/register/Register'),
-    // ColRowTest: () => import('@/components/test/ColRowTest')
-    // ComponentTest: () => import('@/components/test/ComponentTest')
+    // ColRowTest: () => import('@/components/test/ColRowTest'),
+    // ComponentTest: () => import('@/components/test/ComponentTest'),
+    // ContainerTest: () => import('@/components/test/ContainerTest/ContainerTest')
   },
 
   data: () => ({

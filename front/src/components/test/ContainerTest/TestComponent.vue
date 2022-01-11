@@ -5,7 +5,7 @@
 * @Date: 2022/1/5
 -->
 <template>
-  <div>
+  <v-app>
     <v-container>
       <v-row no-gutters style="height: 150px">
         <v-col v-for="align in alignments" :key="align" :align-self="align">
@@ -38,10 +38,7 @@
         </v-col>
       </v-row>
     </v-container>
-
-      <v-checkbox></v-checkbox>
-
-  </div>
+    </v-app>
 </template>
 
 <script>

@@ -5,16 +5,16 @@
 * @Date: 6/1/2022
 -->
 <template>
-    <v-form id="register-form">
+    <v-form id="register-form" style="width: 100vw; height: 100vh">
       <v-container>
         <!-- mx-auto卡片居中 -->
-        <v-card id="register-card" raised="3" class="mx-auto my-12" max-width="430px" height="600px">
+        <v-card id="register-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
 
           <!-- 标题 -->
           <v-card-text>
             <v-row align="center" class="mx=0 mt-5">
               <v-col cols="12">
-                <div id="title-text"><h2>Register</h2></div>
+                <div id="title-text"><h2>用户注册</h2></div>
               </v-col>
             </v-row>
           </v-card-text>
@@ -29,26 +29,32 @@
             <v-spacer></v-spacer>
           </v-row>
 
-          <!-- 验证码 -->
-          <v-row id="verifyCode-box" justify="center" no-gutters>
+          <!-- 验证码输入 -->
+          <v-row id="verifyCode-box" class="ma-0" justify="center" no-gutters>
             <v-col cols="6" align-self="center">
-              <v-text-field label="verifyCode" placeholder="enter verifyCode"></v-text-field>
+              <v-text-field label="verifyCode" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
-              <v-btn class="ms-2" small dark>
-                <span>verifyCode</span>
+              <v-btn class="ml-3 pa-2 mb-2" depressed tile>
+                <span>获取验证码</span>
               </v-btn>
             </v-col>
           </v-row>
 
           <!-- 按钮 -->
-          <v-row id="register-btn">
-            <v-col cols="2" offset="4">
-              <v-btn value="Register" color="primary" large>Register With</v-btn>
+          <v-row no-gutters id="register-btn" class="mt-6">
+            <v-col cols="12" class="text-center">
+              <v-btn value="register" color="#607D8B" large><span style="color: #f9fafb">注册</span></v-btn>
             </v-col>
           </v-row>
 
           <!-- 跳转至登录 -->
+          <v-row class="mb-8 ml-11">
+            <v-col cols="4">
+              <span>已有账号?</span>
+              <router-link to="/login" style="color: #607D8B">点击登录</router-link>
+            </v-col>
+          </v-row>
         </v-card>
       </v-container>
     </v-form>
@@ -63,10 +69,10 @@ export default {
     return {
       // 行数
       rows: [
-        { id: 1, label: 'nick', placeHolder: 'enter nick'},
-        { id: 1, label: 'email', placeHolder: 'enter email'},
-        { id: 1, label: 'password', placeHolder: 'enter password'},
-        { id: 1, label: 'password again', placeHolder: 'enter password again'},
+        { id: 1, label: 'nick', placeHolder: '用户昵称'},
+        { id: 1, label: 'email', placeHolder: '登录邮箱'},
+        { id: 1, label: 'password', placeHolder: '密码'},
+        { id: 1, label: 'password again', placeHolder: '确认密码'},
       ],
       regForm: {
         email: '',
@@ -109,7 +115,6 @@ export default {
 <style scoped>
 #register-card {
   margin:5% 10% 10%;
-  padding: 3% 0;
   background-color: #ffffff;
 }
 
@@ -119,6 +124,11 @@ export default {
 
 #register-form {
   background-color: #f0f0f0;
+}
+
+h2 {
+  font-family: "Apple SD Gothic Neo", sans-serif;
+  color: #777777;
 }
 
 </style>

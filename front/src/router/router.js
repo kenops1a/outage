@@ -7,14 +7,13 @@ Vue.use(VueRouter)
 export default new VueRouter({
     mode: 'history',
     routes: [
-        /*{
+        {
             path: '/',
             name: 'index',
-            redirect: '/home'
-        }, */{
+            component: () => import('@/components/test/RouterTest')
+        }, {
             path: '/home',
             name: 'home',
-            // 懒加载，懂？
             component: () => import('@/components/home/Home')
         }, {
             path: '/login',
