@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main>
-    <v-form id="login-form" style="height: 100vh; width: 100vw">
+    <v-form id="login-form" style="height: 100%; width: 100%">
       <v-container>
       <!-- mx-auto卡片居中 -->
       <v-card id="login-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
@@ -23,7 +23,7 @@
         <!-- 头像框 -->
         <v-row class="ma-3">
           <v-col cols="12" class="text-center">
-            <v-avatar color="#607D8B" size="67" class="ma-auto">
+            <v-avatar color="blue-grey" size="67" class="ma-auto">
               <span class="white--text text-h6">褪色</span>
             </v-avatar>
           </v-col>
@@ -32,12 +32,12 @@
         <!-- 登录方式选择按钮 -->
         <v-row no-gutters justify="center">
           <v-col cols="12" class="py-2 text-center">
-            <v-btn-toggle tile group>
-              <v-btn value="password" @click="type=0" class="mx-3" outlined>
-                账号密码登录
+            <v-btn-toggle tile group depressed>
+              <v-btn value="password" @click="type=0" class="mx-3" color="grey lighten-1" outlined>
+                <span style="color: #424242">账号密码登录</span>
               </v-btn>
-              <v-btn value="verifyCode" @click="type=1" outlined>
-                验证码登录
+              <v-btn value="verifyCode" @click="type=1" color="grey lighten-1" outlined>
+                <span style="color: #424242">验证码登录</span>
               </v-btn>
             </v-btn-toggle>
           </v-col>
@@ -47,10 +47,12 @@
         <div id="login-pd-box" v-if="type === 0">
           <!-- mb缩短行间距，mb-n，n越大行间距越大-->
           <!-- no-gutters, 无栅格间隔 -->
-          <v-row id="text-box" v-for="row in accountRows" :key="row" class="mb-0" no-gutters align="center">
+          <!-- num 循环下标 -->
+          <v-row id="text-box" v-for="(row, num) in accountRows" :key="num" class="mb-0" no-gutters align="center">
             <v-spacer></v-spacer>
             <v-col cols="9">
-              <v-text-field :label="row.label" :placeholder="row.placeholder"></v-text-field>
+              <!-- 绑定type属性 -->
+              <v-text-field :label="row.label" :type="inputType(row.label)" :rules="rules[row.label]" :placeholder="row.placeholder" v-model="pdForm[row.label]" color="blue-grey"></v-text-field>
             </v-col>
             <v-spacer></v-spacer>
           </v-row>
@@ -58,7 +60,7 @@
           <!-- 记住我 -->
           <v-row no-gutters class="mb-0 ml-13">
             <v-col class="mb-n5">
-              <v-checkbox class="mb-0" v-model="remember" label="记住我"></v-checkbox>
+              <v-checkbox class="mb-0" color="grey lighten" v-model="remember" label="记住我"></v-checkbox>
             </v-col>
           </v-row>
         </div>
@@ -69,15 +71,16 @@
           <v-row id="text-vc-box" v-for="row in verifyRows" :key="row" class="mb-0" no-gutters align="center">
             <v-spacer></v-spacer>
             <v-col cols="9">
-              <v-text-field :label="row.label" :placeholder="row.placeholder"></v-text-field>
+              <v-text-field :rules="rules.email" :label="row.label" v-model="vcForm.email" color="blue-grey" :placeholder="row.placeholder"></v-text-field>
             </v-col>
             <v-spacer></v-spacer>
           </v-row>
 
           <!-- 验证码输入 -->
+          <!-- 有个小bug，中文输入模式会一次输入4个字符 -->
           <v-row id="verifyCode-box" class="ma-0" justify="center" no-gutters>
             <v-col cols="6" align-self="center">
-              <v-text-field label="verifyCode" placeholder="输入验证码"></v-text-field>
+              <v-text-field label="verifyCode" :rules="rules.verifyCode" v-model="verifyUpper" color="blue-grey" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
               <v-btn class="ml-3 pa-2 mb-2" depressed tile>
@@ -86,7 +89,7 @@
             </v-col>
           </v-row>
 
-          <!-- 记住我，不可选，只是装饰 -->
+          <!-- 记住我，不可选，只是装饰，使原本布局不发生变化 -->
           <v-row no-gutters class="mb-0 ml-13">
             <v-col class="mb-n5">
               <v-checkbox class="mb-0" label="记住我" disabled></v-checkbox>
@@ -126,16 +129,22 @@ export default {
       type: 0,
       // 记住我, 默认为记不住
       remember: false,
+      // 校验规则, 可能写的不对
+      rules: {
+        // 邮箱校验规则正则表达式
+        emailRule: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+        email: [ val => this.rules.emailRule.test(val) || `邮箱格式不正确` ],
+        password: [ val => (val.length >= 9 && val.length <= 16) || `密码长度应小于16位大于9位且不能含有空格` ],
+        verifyCode: [ val => val.length === 6 || `请输入6位不含空格的验证码` ]
+      },
       // 账号密码表单
       pdForm: {
-        email: 'xx',
-        password: 'helloworld',
-        verifyCode: undefined,
-        remember: false
+        email: '',
+        password: '',
       },
       // 张号验证码表单, 涉及到url字符编码，@等字符会自动被http转义
       vcForm: {
-        email: '2737767241@qq.com',
+        email: '',
         verifyCode: undefined,
       },
       accountRows: [
@@ -147,14 +156,51 @@ export default {
       ]
     }
   },
-  // 渲染前将保存的密码渲染到页面
+  // 渲染前工作
   mounted() {
     // 判断localStore中是否有密码保存
     if (localStorage.getItem('password')) {
+      // 将存储中的邮箱和密码渲染到组件上
       this.pdForm.email = localStorage.getItem('email')
       this.pdForm.password = localStorage.getItem('password')
     }
   },
+
+  updated() {
+    console.log("email" + this.pdForm.email)
+  },
+  // 计算属性
+  computed: {
+    // 修改label为‘password’的文本框type为password
+    inputType () {
+      return function (label) {
+        if (label === 'password') {
+          return 'password';
+        }
+        return 'text';
+      }
+    },
+    // 将验证码输入值转为大写
+    verifyUpper: {
+      get: function () {
+        return this.vcForm.verifyCode
+      },
+      set: function (val) {
+        this.vcForm.verifyCode = val.toUpperCase()
+      }
+    },
+    // 当输入长度为6时禁用输入
+    maxLength () {
+      return function (val) {
+        console.log('val' + val)
+        if (val.length === 6) {
+          return 'disabled'
+        }
+        return ''
+      }
+    }
+  },
+
   methods: {
     /*pdLogin () {
       loginByPd(this.pdForm).then(res => {
@@ -170,7 +216,7 @@ export default {
     vcLogin () {
       loginByVc(this.vcForm)
     }*/
-    getVerifyCode() {
+    getVerifyCode () {
       let email = this.vcForm.email
       // 判断email是否为空
       if (email) {

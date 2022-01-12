@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-        <router-view/>
+<!--        <router-view/>-->
     <!--    <CenterTest></CenterTest>-->
     <!--    <Register></Register>-->
     <!--    <ColRowTest></ColRowTest>-->
@@ -24,7 +24,6 @@ export default {
     // ComponentTest: () => import('@/components/test/ComponentTest'),
     // ContainerTest: () => import('@/components/test/ContainerTest/ContainerTest')
   },
-
   data: () => ({
     //
   }),
@@ -32,7 +31,4 @@ export default {
 </script>
 
 <style>
-  body {
-    background-color: #f0f0f0;
-  }
 </style>
