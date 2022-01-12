@@ -6,7 +6,14 @@
 -->
 <template>
   <div>
-    <router-link to="/login">跳转至登录页</router-link>
+    <v-container>
+      <v-row>
+        <router-link to="/login">跳转至登录页</router-link>
+      </v-row>
+      <v-row>
+        <router-link to="/textTest">跳转至输入测试页</router-link>
+      </v-row>
+    </v-container>
   </div>
 </template>
 

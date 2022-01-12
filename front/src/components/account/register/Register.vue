@@ -35,7 +35,7 @@
               <v-text-field label="verifyCode" v-model="verifyUpper" :rules="rules.verifyCode" color="blue-grey" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
-              <v-btn class="ml-3 pa-2 mb-2" depressed tile>
+              <v-btn class="ml-3 pa-2 mb-2" @click="getVerifyCode" depressed tile>
                 <span>获取验证码</span>
               </v-btn>
             </v-col>
@@ -44,7 +44,7 @@
           <!-- 按钮 -->
           <v-row no-gutters id="register-btn" class="mt-6">
             <v-col cols="12" class="text-center">
-              <v-btn value="register" color="#607D8B" large><span style="color: #f9fafb">注册</span></v-btn>
+              <v-btn @click="registerByItem" value="register" color="#607D8B" large><span style="color: #f9fafb">注册</span></v-btn>
             </v-col>
           </v-row>
 
@@ -98,7 +98,7 @@ export default {
     document.querySelector('body').setAttribute('style', 'background-color:black')
   },
   updated() {
-    console.log(this.regForm.email)
+    // console.log(this.regForm.email)
   },
   // 销毁前复原背景色
   beforeDestroy() {
@@ -125,7 +125,10 @@ export default {
   ,
   methods: {
     getVerifyCode() {
-      getVc(this.regForm).then(res => {
+      let vcModel = {
+        email: this.regForm.email
+      }
+      getVc(vcModel).then(res => {
         if (res.data.success) {
           console.log("验证码获取成功")
         } else {
@@ -135,7 +138,12 @@ export default {
     },
     registerByItem () {
       register(this.regForm).then(res => {
-
+        if (res.data.success) {
+          console.log('注册成功')
+        }
+        else {
+          console.log('注册失败')
+        }
       })
     }
   }

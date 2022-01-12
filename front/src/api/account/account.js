@@ -27,7 +27,7 @@ export function loginByVc(params) {
 // 账号注册
 export function register(params) {
     return request({
-        url: userApi.registerByItem,
+        url: userApi.registerByItem + '?verifyCode=' + params.verifyCode,
         method: 'post',
         data: params
     })

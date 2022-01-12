@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main>
-    <v-form id="login-form" style="height: 100%; width: 100%">
+    <v-form id="login-form" ref="loginForm" style="height: 100%; width: 100%">
       <v-container>
       <!-- mx-auto卡片居中 -->
       <v-card id="login-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
@@ -83,7 +83,7 @@
               <v-text-field label="verifyCode" :rules="rules.verifyCode" v-model="verifyUpper" color="blue-grey" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
-              <v-btn class="ml-3 pa-2 mb-2" depressed tile>
+              <v-btn class="ml-3 pa-2 mb-2" @click="getVerifyCode" depressed tile>
                 <span>获取验证码</span>
               </v-btn>
             </v-col>
@@ -99,7 +99,7 @@
         <!-- 按钮 -->
         <v-row no-gutters id="login-btn" class="my-0">
           <v-col cols="12" class="text-center">
-            <v-btn value="login" color="#607D8B" large><span style="color: #f9fafb">登录</span></v-btn>
+            <v-btn @click="login" value="login" color="#607D8B" large><span style="color: #f9fafb">登录</span></v-btn>
           </v-col>
         </v-row>
 
@@ -163,11 +163,13 @@ export default {
       // 将存储中的邮箱和密码渲染到组件上
       this.pdForm.email = localStorage.getItem('email')
       this.pdForm.password = localStorage.getItem('password')
+      // 将记住我设为勾选状态
+      this.remember = true
     }
   },
 
   updated() {
-    console.log("email" + this.pdForm.email)
+    // console.log("email" + this.pdForm.email)
   },
   // 计算属性
   computed: {
@@ -192,7 +194,6 @@ export default {
     // 当输入长度为6时禁用输入
     maxLength () {
       return function (val) {
-        console.log('val' + val)
         if (val.length === 6) {
           return 'disabled'
         }
@@ -218,6 +219,7 @@ export default {
     }*/
     getVerifyCode () {
       let email = this.vcForm.email
+      console.log('获取验证码')
       // 判断email是否为空
       if (email) {
         getVc(this.vcForm).then(res => {
@@ -231,36 +233,38 @@ export default {
       }
     },
     login () {
-      // 判断type，选择不同的登录方式
-      if (this.type === 0) {
-        loginByPd(this.pdForm).then(res => {
-          // 后台是否登录成功
-          if (res.data.success) {
-            // 将token存入localStorage
-            localStorage.setItem('token', res.data.data)
+      if (this.$refs.loginForm.validate()) {
+        // 判断type，选择不同的登录方式
+        if (this.type === 0) {
+          loginByPd(this.pdForm).then(res => {
+            // 后台是否登录成功
+            if (res.data.success) {
+              // 将token存入localStorage
+              localStorage.setItem('token', res.data.data)
 
-            // 判断是否记住密码，如果记住密码，则将密码存入localStorage
-            if (this.remember) {
-              // 在localStorage存入账号和密码
-              localStorage.setItem('email', this.pdForm.email)
-              localStorage.setItem('password', this.pdForm.password)
+              // 判断是否记住密码，如果记住密码，则将密码存入localStorage
+              if (this.remember) {
+                // 在localStorage存入账号和密码
+                localStorage.setItem('email', this.pdForm.email)
+                localStorage.setItem('password', this.pdForm.password)
+              }
+              console.log("登录成功")
+            } else {
+              console.log("登录失败")
             }
-            console.log("登录成功")
-          } else {
-            console.log("登录失败")
-          }
-        })
-      }
-      if (this.type === 1) {
-        loginByVc(this.vcForm).then(res => {
-          // 后台是否登录成功
-          if (res.data.success) {
-            // 将token存入localStorage
-            localStorage.setItem('token', res.data.data)
-          } else {
-            console.log("登录失败")
-          }
-        })
+          })
+        }
+        if (this.type === 1) {
+          loginByVc(this.vcForm).then(res => {
+            // 后台是否登录成功
+            if (res.data.success) {
+              // 将token存入localStorage
+              localStorage.setItem('token', res.data.data)
+            } else {
+              console.log("登录失败")
+            }
+          })
+        }
       }
     }
   }

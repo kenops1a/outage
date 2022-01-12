@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-<!--        <router-view/>-->
+        <router-view/>
     <!--    <CenterTest></CenterTest>-->
     <!--    <Register></Register>-->
     <!--    <ColRowTest></ColRowTest>-->

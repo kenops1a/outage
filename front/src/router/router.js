@@ -23,6 +23,12 @@ export default new VueRouter({
             path: '/register',
             name: 'register',
             component: () => import('@/components/account/register/Register')
+        },
+        // 测试路由组件
+        {
+            path: '/textTest',
+            name: 'textTest',
+            component: () => import('@/components/test/TextTest')
         }
     ]
 })
