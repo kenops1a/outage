@@ -5,7 +5,7 @@
 * @Date: 2022/1/5
 -->
 <template>
-  <v-main>
+  <v-main class="pt-0">
     <v-form id="login-form" ref="loginForm" style="height: 100%; width: 100%">
       <v-container>
       <!-- mx-auto卡片居中 -->
@@ -52,7 +52,7 @@
             <v-spacer></v-spacer>
             <v-col cols="9">
               <!-- 绑定type属性 -->
-              <v-text-field :label="row.label" :type="inputType(row.label)" :rules="rules[row.label]" :placeholder="row.placeholder" v-model="pdForm[row.label]" color="blue-grey"></v-text-field>
+              <v-text-field :label="row.label" :type="inputType(row.label)" :rules="rules[row.label]" :placeholder="row.placeholder" v-model="pdForm[row.label]" color="blue-grey" required></v-text-field>
             </v-col>
             <v-spacer></v-spacer>
           </v-row>
@@ -125,6 +125,7 @@ export default {
   name: "Login",
   data () {
     return {
+      valid: true,
       // 显示组件切换标识，0-账号密码登录，1-验证码登录，2-注册
       type: 0,
       // 记住我, 默认为记不住

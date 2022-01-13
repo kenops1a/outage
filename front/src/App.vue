@@ -1,6 +1,8 @@
 <template>
   <v-app id="inspire">
-        <router-view/>
+    <Header v-show="($route.name !== 'login' && $route.name !== 'register')"/>
+    <router-view/>
+    <Footer/>
     <!--    <CenterTest></CenterTest>-->
     <!--    <Register></Register>-->
     <!--    <ColRowTest></ColRowTest>-->
@@ -11,7 +13,6 @@
 </template>
 
 <script>
-
 export default {
   name: 'App',
   components: {
@@ -23,6 +24,8 @@ export default {
     // ColRowTest: () => import('@/components/test/ColRowTest'),
     // ComponentTest: () => import('@/components/test/ComponentTest'),
     // ContainerTest: () => import('@/components/test/ContainerTest/ContainerTest')
+    Header: () => import('@/components/header/Header'),
+    Footer: () => import('@/components/footer/Footer')
   },
   data: () => ({
     //

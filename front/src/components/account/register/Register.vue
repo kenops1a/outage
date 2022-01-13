@@ -5,7 +5,8 @@
 * @Date: 6/1/2022
 -->
 <template>
-    <v-form id="register-form" style="width: 100%; height: 100%">
+  <v-main class="pt-0">
+    <v-form id="register-form" ref="regValid" style="width: 100%; height: 100%">
       <v-container>
         <!-- mx-auto卡片居中 -->
         <v-card id="register-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
@@ -58,6 +59,7 @@
         </v-card>
       </v-container>
     </v-form>
+  </v-main>
 </template>
 
 <script>
@@ -137,14 +139,16 @@ export default {
       })
     },
     registerByItem () {
-      register(this.regForm).then(res => {
-        if (res.data.success) {
-          console.log('注册成功')
-        }
-        else {
-          console.log('注册失败')
-        }
-      })
+      if (this.$refs.regValid.validate()) {
+        register(this.regForm).then(res => {
+          if (res.data.success) {
+            console.log('注册成功')
+          }
+          else {
+            console.log('注册失败')
+          }
+        })
+      }
     }
   }
 }
@@ -154,7 +158,6 @@ export default {
 <!-- scoped标识该css样式只对当前组件生效 -->
 <style scoped>
 #register-card {
-  margin:5% 10% 10%;
   background-color: #ffffff;
 }
 

@@ -18,17 +18,27 @@ export default new VueRouter({
         }, {
             path: '/login',
             name: 'login',
-            component: () => import('@/components/account/login/Login')
+            component: () => import('@/components/account/login/Login'),
+            meta: {
+                keep: false
+            }
         }, {
             path: '/register',
             name: 'register',
-            component: () => import('@/components/account/register/Register')
+            component: () => import('@/components/account/register/Register'),
+            meta: {
+                keep: false
+            }
         },
         // 测试路由组件
         {
             path: '/textTest',
             name: 'textTest',
             component: () => import('@/components/test/TextTest')
+        }, {
+            path: '/validTest',
+            name: 'validTest',
+            component: () => import('@/components/test/ValidTest')
         }
     ]
 })
