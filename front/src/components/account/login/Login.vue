@@ -123,6 +123,7 @@ import { getVc } from "@/api/mail/mail";
 
 export default {
   name: "Login",
+  // 登录状态prop, 0-未登录，1-已登录
   data () {
     return {
       valid: true,

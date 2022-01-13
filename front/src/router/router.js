@@ -10,25 +10,33 @@ export default new VueRouter({
         {
             path: '/',
             name: 'index',
-            component: () => import('@/components/test/RouterTest')
-        }, {
+            component: () => import('@/views/index/Index')
+        },
+        // 首页暂时路由到index页
+        {
             path: '/home',
             name: 'home',
-            component: () => import('@/components/home/Home')
+            component: () => import('@/views/index/Index')
         }, {
             path: '/login',
             name: 'login',
             component: () => import('@/components/account/login/Login'),
-            meta: {
-                keep: false
-            }
         }, {
             path: '/register',
             name: 'register',
             component: () => import('@/components/account/register/Register'),
-            meta: {
-                keep: false
-            }
+        }, {
+            path: '/host',
+            name: 'home',
+            component: () => import('@/views/host/Host')
+        }, {
+            path: '/message',
+            name: 'message',
+            component: () => import('@/views/message/Message')
+        }, {
+            path: '/weblog',
+            name: 'weblog',
+            component: () => import('@/views/weblog/Weblog')
         },
         // 测试路由组件
         {
@@ -39,6 +47,14 @@ export default new VueRouter({
             path: '/validTest',
             name: 'validTest',
             component: () => import('@/components/test/ValidTest')
+        }, {
+            path: '/paramShowTest',
+            name: 'paramShowTest',
+            component: () => import('@/components/test/componentParam/ParamShowTest')
+        }, {
+            path: '/vuexTest',
+            name: 'vuexTest',
+            component: () => import('@/components/test/vuexTest/VuexTest')
         }
     ]
 })

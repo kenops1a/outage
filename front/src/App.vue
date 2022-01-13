@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <Header v-show="($route.name !== 'login' && $route.name !== 'register')"/>
+    <Header/>
     <router-view/>
     <Footer/>
     <!--    <CenterTest></CenterTest>-->

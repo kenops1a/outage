@@ -7,14 +7,14 @@
 <template>
   <v-main style="width: 100%; height: 100%">
     <v-container class="mt-16 pt-16">
-      <router-link to="/home">此处是message页，返回index</router-link>
+      <router-link to="/home">此处是weblog页，返回index</router-link>
     </v-container>
   </v-main>
 </template>
 
 <script>
 export default {
-  name: "Message"
+  name: "Weblog"
 }
 </script>
 

@@ -2,14 +2,14 @@
 * @Descripttion:
 * @Project: front
 * @Author: yaoMinC
-* @Date: 12/1/2022
+* @Date: 13/1/2022
 -->
 <template>
 </template>
 
 <script>
 export default {
-  name: "Weblock"
+  name: "MessageInfo"
 }
 </script>
 

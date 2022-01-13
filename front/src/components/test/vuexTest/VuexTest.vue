@@ -2,13 +2,14 @@
 * @Descripttion:
 * @Project: front
 * @Author: yaoMinC
-* @Date: 12/1/2022
+* @Date: 13/1/2022
 -->
 <template>
-  <v-main style="width: 100%; height: 100%">
-    <v-container class="mt-16 pt-16">
+  <v-main style="height: 100%; width: 100%">
+    <v-container>
       <v-row>
-        <router-link to="/home">此处是host页，返回index</router-link>
+        <h1>{{ $store.state.loginStatus }}</h1>
+        <h1>{{ $store.state.title }}</h1>
       </v-row>
     </v-container>
   </v-main>
@@ -16,7 +17,7 @@
 
 <script>
 export default {
-  name: "Host"
+  name: "VuexTest"
 }
 </script>
 

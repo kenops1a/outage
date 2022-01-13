@@ -5,12 +5,12 @@
 * @Date: 12/1/2022
 -->
 <template>
-    <v-app-bar app color="white">
-      <v-avatar :color="$vuetify.breakpoint.smAndDown ? 'grey darken-1' : 'transparent'" size="32"></v-avatar>
+    <!-- 登录注册页不显示导航栏 -->
+    <v-app-bar app color="white" v-show="($route.name !== 'login' && $route.name !== 'register')">
 
       <!-- nav导航栏 -->
       <v-tabs centered class="ml-n2 mx-n16" color="grey darken-1">
-        <v-tab v-for="link in links" :key="link">
+        <v-tab v-for="link in links" :key="link" :to="link.path">
           {{ link.name }}
         </v-tab>
       </v-tabs>
@@ -25,9 +25,9 @@
 export default {
   data: () => ({
     links: [
-      { name: '首页', path: '/index'},
+      { name: '首页', path: '/home'},
       { name: '主持人', path: '/host'},
-      { name: '动态', path: '/weblock'},
+      { name: '动态', path: '/weblog'},
       { name: '消息', path: '/message'}
     ],
   }),

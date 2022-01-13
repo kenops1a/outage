@@ -2,19 +2,21 @@
 * @Descripttion:
 * @Project: front
 * @Author: yaoMinC
-* @Date: 12/1/2022
+* @Date: 13/1/2022
 -->
 <template>
   <v-main style="width: 100%; height: 100%">
     <v-container class="mt-16 pt-16">
-      <router-link to="/home">此处是message页，返回index</router-link>
+      <ParamTranTest title="asfasd"></ParamTranTest>
     </v-container>
   </v-main>
 </template>
 
 <script>
+import ParamTranTest from "@/components/test/componentParam/ParamTranTest";
 export default {
-  name: "Message"
+  name: "ParamShowTest",
+  components: {ParamTranTest}
 }
 </script>
 
