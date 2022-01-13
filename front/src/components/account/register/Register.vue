@@ -5,7 +5,7 @@
 * @Date: 6/1/2022
 -->
 <template>
-  <v-main class="pt-0">
+  <v-main id="register-main" class="pt-0 pb-8">
     <v-form id="register-form" ref="regValid" style="width: 100%; height: 100%">
       <v-container>
         <!-- mx-auto卡片居中 -->
@@ -165,7 +165,7 @@ export default {
   text-align: center;
 }
 
-#register-form {
+#register-main {
   background-color: #f0f0f0;
 }
 

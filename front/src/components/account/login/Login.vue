@@ -5,7 +5,7 @@
 * @Date: 2022/1/5
 -->
 <template>
-  <v-main class="pt-0">
+  <v-main id="login-main" class="pt-0 pb-8">
     <v-form id="login-form" ref="loginForm" style="height: 100%; width: 100%">
       <v-container>
       <!-- mx-auto卡片居中 -->
@@ -277,7 +277,7 @@ export default {
   text-align: center;
 }
 
-#login-form {
+#login-main {
   background-color: #f0f0f0;
 }
 h2 {
