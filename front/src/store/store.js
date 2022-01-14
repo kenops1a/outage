@@ -8,7 +8,9 @@ Vue.use(Vuex)
 
 // 全局管理的数据储存
 const state = {
-    // 测试标题
+    // 当前登录用户昵称
+    userNick: '山泥若',
+    // vuex测试标题
     title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录
     loginStatus: 0,
@@ -32,6 +34,7 @@ const store = new Vuex.Store({
     },
     // 操作state中的数据
     mutations: {
+        // 操作token
         $_setToken(state, value) {
             state.token = value
             localStorage.setItem('token', value)
@@ -39,11 +42,17 @@ const store = new Vuex.Store({
         $_removeToken() {
             localStorage.removeItem('token')
         },
-        $_login() {
-            localStorage.setItem('loginStatus', state.loginStatus)
+        // 修改登录状态
+        $_updateLoginStatus(state, value) {
+            state.loginStatus = value
         },
-        $_exit() {
-            localStorage.removeItem('loginStatus')
+        // 测试vuex全局变量修改
+        $_updateTitle(state, title) {
+            state.title = title
+        },
+        // 设置当前登录用户昵称
+        $_setUserNick(state, nick) {
+            state.userNick = nick
         }
     }
 })

@@ -55,6 +55,10 @@ export default new VueRouter({
             path: '/vuexTest',
             name: 'vuexTest',
             component: () => import('@/components/test/vuexTest/VuexTest')
+        }, {
+            path: '/changeTest',
+            name: 'changeTest',
+            component: () => import('@/components/test/vuexTest/ChangeByNick')
         }
     ]
 })

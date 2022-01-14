@@ -9,7 +9,7 @@
     <v-form id="login-form" ref="loginForm" style="height: 100%; width: 100%">
       <v-container>
       <!-- mx-auto卡片居中 -->
-      <v-card id="login-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">
+      <v-card id="login-card" raise="3" class="mx-auto my-12" max-width="415px" height="600px">
 
         <!-- 标题 -->
         <v-card-text>
@@ -68,7 +68,7 @@
         <!-- 验证码登录 -->
         <div id="login-vc-box" v-if="type === 1">
           <!-- 邮箱输入框 -->
-          <v-row id="text-vc-box" v-for="row in verifyRows" :key="row" class="mb-0" no-gutters align="center">
+          <v-row id="text-vc-box" v-for="(row, index) in verifyRows" :key="index" class="mb-0" no-gutters align="center">
             <v-spacer></v-spacer>
             <v-col cols="9">
               <v-text-field :rules="rules.email" :label="row.label" v-model="vcForm.email" color="blue-grey" :placeholder="row.placeholder"></v-text-field>
@@ -120,6 +120,8 @@
 <script>
 import { loginByPd,loginByVc } from "@/api/account/account";
 import { getVc } from "@/api/mail/mail";
+import { getUserByEmail } from "@/api/user/user";
+import router from "@/router/router"
 
 export default {
   name: "Login",
@@ -209,7 +211,7 @@ export default {
       loginByPd(this.pdForm).then(res => {
         if (res.data.success) {
           // 将后台token放入localStorage
-          localStorage.setItem('token', res.data.data)
+          localStorage.setItem('token', res.data.record)
           alert("登录成功")
         } else {
           alert("登录失败")
@@ -236,22 +238,45 @@ export default {
     },
     login () {
       if (this.$refs.loginForm.validate()) {
+
         // 判断type，选择不同的登录方式
         if (this.type === 0) {
           loginByPd(this.pdForm).then(res => {
+            console.log(res.success)
             // 后台是否登录成功
-            if (res.data.success) {
+            if (res.success) {
+
               // 将token存入localStorage
-              localStorage.setItem('token', res.data.data)
+              localStorage.setItem('token', res.record)
 
               // 判断是否记住密码，如果记住密码，则将密码存入localStorage
               if (this.remember) {
+
                 // 在localStorage存入账号和密码
                 localStorage.setItem('email', this.pdForm.email)
                 localStorage.setItem('password', this.pdForm.password)
               }
+
+              // 获取当前登录用户，存入vuex中
+              let loginUserEmail = {
+                email: this.pdForm.email
+              }
+              getUserByEmail(loginUserEmail).then(res => {
+                // 判断获取用户对象是否成功
+                if (res.success) {
+                  // 将vuex中用户nick改为当前用户昵称
+                  this.$store.commit('$_setUserNick', res.record[0].nick)
+                  // 将登录状态设置为1，已登录
+                  this.$store.commit('$_updateLoginStatus', 1)
+                  // 跳转至首页
+                  console.log("最后再说一遍，时间要加速了")
+                  router.push({ name: 'home'})
+                }
+              })
+
               console.log("登录成功")
             } else {
+
               console.log("登录失败")
             }
           })
@@ -259,9 +284,9 @@ export default {
         if (this.type === 1) {
           loginByVc(this.vcForm).then(res => {
             // 后台是否登录成功
-            if (res.data.success) {
+            if (res.success) {
               // 将token存入localStorage
-              localStorage.setItem('token', res.data.data)
+              localStorage.setItem('token', res.record)
             } else {
               console.log("登录失败")
             }

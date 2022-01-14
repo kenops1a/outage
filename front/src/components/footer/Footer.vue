@@ -27,3 +27,18 @@
     </v-card>
   </v-footer>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+      icons: [
+        'mdi-facebook',
+        'mdi-twitter',
+        'mdi-linkedin',
+        'mdi-instagram',
+      ]
+    }
+  }
+}
+</script>

@@ -18,8 +18,7 @@ request.interceptors.request.use(config => {
 
 // response 响应拦截处理
 request.interceptors.response.use(res => {
-    console.log('res', res);
-    return res
+    return res.data
 })
 
 export default request

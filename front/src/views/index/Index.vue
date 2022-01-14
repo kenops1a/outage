@@ -29,6 +29,11 @@
       <v-row>
         <router-link to="/vuexTest">跳转至vuex测试页</router-link>
       </v-row>
+      <!-- 跳转至组件切换测试 -->
+      <v-row>
+        <router-link to="/changeTest">跳转至组件切换</router-link>
+      </v-row>
+
     </v-container>
   </v-main>
 </template>
