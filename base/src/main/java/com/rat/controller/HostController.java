@@ -1,18 +1,13 @@
 package com.rat.controller;
 
-import com.github.pagehelper.PageHelper;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
 import com.rat.model.HostModel;
 import com.rat.service.HostService;
-import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,7 +43,7 @@ public class HostController {
     public JsonResult<List<HostModel>> getHostListByType(@RequestParam String type, @RequestParam int page, @RequestParam int pageSize) {
         // 参数不为空
         if ("".equals(type)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.getHostListByType(type, page, pageSize));
     }
@@ -62,7 +57,7 @@ public class HostController {
     public JsonResult<HostModel> getHostById(@RequestParam int hostId) {
         // 参数不为空
         if (hostId == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.getHostById(hostId));
     }
@@ -76,7 +71,7 @@ public class HostController {
     public JsonResult<List<HostModel>> getHostListByNameLike(@RequestParam String nameLike) {
         // 参数不为空
         if ("".equals(nameLike)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.getHostListByNameLike(nameLike));
     }
@@ -90,7 +85,7 @@ public class HostController {
     public JsonResult<List<HostModel>> getHostListByTime(@RequestParam String timeMark, @RequestParam Integer page, @RequestParam Integer pageSize) {
         // 参数不为空
         if ("".equals(timeMark)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.getHostListByTime(timeMark, page, pageSize));
     }
@@ -104,7 +99,7 @@ public class HostController {
     public JsonResult<List<HostModel>> getHostListBySex(@RequestParam String sex, @RequestParam Integer page, @RequestParam Integer pageSize) {
         // 参数不为空
         if ("".equals(sex)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.getHostListBySex(sex, page, pageSize));
     }
@@ -131,7 +126,7 @@ public class HostController {
     public JsonResult<Integer> addHost(@RequestBody HostModel hostModel, @RequestParam int userId) {
         // 校验参数完整性
         if (userId == 0 || hostModel.getType() == null || hostModel.getMoney() == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return ResultTool.success(hostService.createHost(hostModel, userId));
     }

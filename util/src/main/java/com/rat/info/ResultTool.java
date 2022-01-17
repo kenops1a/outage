@@ -13,16 +13,16 @@ public class ResultTool {
     public static<T> JsonResult<T> success() {
         return new JsonResult<T>(true);
     }
-    public static<T> JsonResult<T> success(T data) {
-        return new JsonResult<T>(true, data);
+    public static<T> JsonResult<T> success(T record) {
+        return new JsonResult<T>(true, record);
     }
-    public static<T> JsonResult<T> faild() {
+    public static<T> JsonResult<T> failed() {
         return new JsonResult<T>(false);
     }
-    public static<T> JsonResult<T> faild(T data) {
-        return new JsonResult<T>(false, data);
+    public static<T> JsonResult<T> failed(T record) {
+        return new JsonResult<T>(false, record);
     }
-    public static<T> JsonResult<T> faild(ResultCode resultEnum) {
+    public static<T> JsonResult<T> failed(ResultCode resultEnum) {
         return new JsonResult<T>(false,resultEnum);
     }
 }

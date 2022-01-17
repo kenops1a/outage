@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @type: outage
@@ -36,7 +35,7 @@ public class MessageController {
 
         // 校验参数完整性
         if (sendId == 0 || receiveId == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
 
         return ResultTool.success(messageService.getMessageList(sendId, receiveId));
@@ -52,7 +51,7 @@ public class MessageController {
 
         // 校验参数完整性
         if (messageModel.getUserId() == 0 || messageModel.getCreateBy() == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         // 补全消息对象属性值
         messageModel.setCreateTime(new Date());

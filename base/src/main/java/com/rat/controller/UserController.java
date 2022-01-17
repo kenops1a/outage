@@ -42,14 +42,14 @@ public class UserController {
      * 通过email获取用户
      * @param userModel 需要参数的属性：email
      */
-    @RequestMapping("/getUserByEmail")
+    @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
     public JsonResult<List<UserModel>> getUserByEmail(@RequestBody UserModel userModel) {
         /*
          测试数据
          */
         // 校验参数完整性
         if ("".equals(userModel.getEmail())) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return userService.getUserByEmail(userModel);
     }
@@ -118,7 +118,7 @@ public class UserController {
     public JsonResult<Integer> deleteUserById(@RequestBody Map<String, String> map) {
         String email = map.get("email");
         if ("".equals(email) || email == null) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
         }
         return userService.deleteUser(email);
     }
@@ -148,7 +148,7 @@ public class UserController {
     @PostMapping("/updatePassword")
     public JsonResult<Integer> updatePassword(@RequestParam String oldPassword,@RequestParam String newPassword,@RequestParam int userId) {
         if (oldPassword == null || newPassword == null) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
         } else {
             return userService.updatePassword(oldPassword,newPassword,userId);
         }
@@ -162,12 +162,12 @@ public class UserController {
     @PostMapping("/updateUser")
     public JsonResult<Integer> updateNickname(@RequestBody UserModel userModel) {
         if ("".equals(userModel.getEmail())) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         if (userService.getUserByEmail(userModel) == null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else if (userService.checkUserItem(userModel) != null) {
-            return ResultTool.faild(ResultCode.NO_PERMISSION);
+            return ResultTool.failed(ResultCode.NO_PERMISSION);
         }
         return userService.updateUser(userModel);
     }
@@ -182,7 +182,7 @@ public class UserController {
     public JsonResult<Integer> userLock(@RequestParam int userId, int lockOrUnLock) {
         // 校验参数完整
         if (userId == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return userService.updateUserStatus(userId, lockOrUnLock);
     }

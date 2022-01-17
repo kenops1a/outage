@@ -2,7 +2,6 @@ package com.rat.web.interceptor;
 
 import cn.hutool.json.JSONUtil;
 import com.rat.info.ResultTool;
-import com.rat.service.UserService;
 import com.rat.service.TokenService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class AccountInterceptor implements HandlerInterceptor {
         response.setContentType("application/json; charset=utf-8");
         try {
             // 将JsonResult对象序列化为json字符串并获取其字节数组
-            response.getOutputStream().write(JSONUtil.toJsonStr(ResultTool.faild("token认证失败，请重新登录")).getBytes());
+            response.getOutputStream().write(JSONUtil.toJsonStr(ResultTool.failed("token认证失败，请重新登录")).getBytes());
         } catch (Exception e) {
             log.info("token认证失败");
         }

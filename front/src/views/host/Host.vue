@@ -6,20 +6,146 @@
 -->
 <template>
   <v-main style="width: 100%; height: 100%">
-    <v-container class="mt-16 pt-16">
-      <v-row>
-        <router-link to="/home">此处是host页，返回index</router-link>
+    <v-container class="mt-8 pt-8">
+        <!--<v-card class="mx-auto" max-width="300">
+          <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+            <v-card-title>Top 10 Australian beaches</v-card-title>
+          </v-img>
+
+          <v-card-subtitle class="pb-0">
+            Number 10
+          </v-card-subtitle>
+
+          <v-card-text class="text&#45;&#45;primary">
+            <div>Whitehaven Beach</div>
+            <div>Whitsunday Island, Whitsunday Islands</div>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn color="orange" text>
+              沟通
+            </v-btn>
+            <v-btn color="orange" text>
+              详情
+            </v-btn>
+          </v-card-actions>
+        </v-card>-->
+
+      <!-- 搜索框 -->
+      <v-row justify="center">
+        <v-col cols="5">
+          <v-text-field v-model="paramSearch.nameLike" placeholder="关键字搜索" solo></v-text-field>
+        </v-col>
+        <v-col cols="1" class="" style="width: 48px; height: 48px">
+          <v-icon size="48" @click="getHostsByLikeParam" type="button">mdi-magnify</v-icon>
+        </v-col>
+      </v-row>
+
+      <!-- 分类 -->
+      <v-card class="ma-10 pa-5">
+        <v-row class="pa-3">
+          <dl id="type-label" class="flex-label">
+            <dt>分类</dt>
+            <dd class="item-label">
+              <a id="all-type">全部</a>
+              <a class="item-label"></a>
+            </dd>
+          </dl>
+        </v-row>
+        <v-row class="pa-3">
+          <dl id="time-label" class="flex-label">
+            <dt>时间</dt>
+            <dd class="item-label">
+              <a id="all-time">全部</a>
+              <a class="item-label" v-for="(item, index) in timeList" :key="index">
+                {{ item.label }}
+              </a>
+            </dd>
+          </dl>
+        </v-row>
+      </v-card>
+
+      <!-- 主持人列表 -->
+      <v-row align="center">
+        <v-col cols="3" v-for="(host, index) in hostList" :key="index">
+          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px" max-width="300px">
+            <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+              <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
+            </v-img>
+            <div class="ma-3 mb-2">
+              <h3>{{ host.nick }}</h3>
+            </div>
+            <v-card-actions class="mb-0">
+              <v-btn color="orange" text>
+                沟通
+              </v-btn>
+              <v-btn color="orange" text>
+                详情
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
   </v-main>
 </template>
 
 <script>
+import { getHostList,getHostListByLikeParam } from "@/api/host/host";
+
 export default {
-  name: "Host"
+  data: () => ({
+    attrs: {
+      class: 'mb-6',
+      boilerplate: true,
+      elevation: 2,
+    },
+    pageSearch: {
+      page: 1,
+      pageSize: 6
+    },
+    // 模糊查询参数，主持人姓名关键字
+    paramSearch: {
+      nameLike: null,
+      // 类型查询参数
+      type: null,
+      // 日期查询参数
+      time: undefined
+    },
+    hostList: [],
+    timeList: [
+      { label: '近1月', value: 1},
+      { label: '近3月', value: 3},
+      { label: '近6月', value: 6},
+      { label: '近1年', value: 12},
+    ]
+  }),
+  updated() {
+    console.log(this.paramSearch.nameLike)
+  },
+  mounted() {
+    // 页面渲染前查找主持人列表
+    getHostList(this.pageSearch).then(res => {
+      this.hostList = res.record
+    })
+  },
+  methods: {
+    // 姓名模糊查询主持人列表
+    getHostsByLikeParam () {
+      getHostListByLikeParam(this.paramSearch).then(res => {
+        this.hostList = res.record
+      })
+    }
+  }
 }
 </script>
 
 <style scoped>
+.item-label {
+  margin-left: 15px;
+}
 
+.flex-label {
+  display: flex;
+}
 </style>

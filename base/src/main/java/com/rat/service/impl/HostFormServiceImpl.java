@@ -10,9 +10,7 @@ import com.rat.mapper.UserMapper;
 import com.rat.model.HostFormModel;
 import com.rat.model.UserModel;
 import com.rat.service.HostFormService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,7 +64,7 @@ public class HostFormServiceImpl implements HostFormService {
             只有状态为进行中的订单才可以修改
         */
         int index = hostFormMapper.updateForm(hostFormModel);
-        return index <= 0 ? ResultTool.faild(ResultCode.ITEM_NOT_EXIST):ResultTool.success(index);
+        return index <= 0 ? ResultTool.failed(ResultCode.ITEM_NOT_EXIST):ResultTool.success(index);
     }
 
     @Override
@@ -79,10 +77,10 @@ public class HostFormServiceImpl implements HostFormService {
         HostFormModel hostFormModel = hostFormMapper.getFormById(formId);
         // 判断是否存在记录，不存在返回错误提示
         if (hostFormModel == null) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
             // 判断订单状态，只有状态不为 “2” 的订单才可进行删除操作
         } else if (STATUS_HAVING.equals(hostFormModel.getStatus())) {
-            return ResultTool.faild(ResultCode.ITEM_CAN_NOT_ALTER);
+            return ResultTool.failed(ResultCode.ITEM_CAN_NOT_ALTER);
         } else {
             // 调用hostFormMapper将表单status设为STATUS_DELETE
             return ResultTool.success(hostFormMapper.updateStatusById(formId,STATUS_DELETE));
@@ -100,7 +98,7 @@ public class HostFormServiceImpl implements HostFormService {
             }
         }
         if (idsList.isEmpty()) {
-            return ResultTool.faild(ResultCode.ITEM_CAN_NOT_ALTER);
+            return ResultTool.failed(ResultCode.ITEM_CAN_NOT_ALTER);
         } else {
             return ResultTool.success(hostFormMapper.updateStatusByIds(idsList, STATUS_DELETE));
         }
@@ -109,7 +107,7 @@ public class HostFormServiceImpl implements HostFormService {
     @Override
     public JsonResult<HostFormModel> getFormById(int formId) {
         if (formId == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
         } else {
             return ResultTool.success(hostFormMapper.getFormById(formId));
         }
@@ -129,10 +127,10 @@ public class HostFormServiceImpl implements HostFormService {
          * 不能查询status状态为已删除的表单记录
          */
         if (STATUS_DELETE.equals(hostFormModel.getStatus())) {
-            return ResultTool.faild(ResultCode.PARAM_NOT_VALID);
+            return ResultTool.failed(ResultCode.PARAM_NOT_VALID);
         }
         if (hostFormMapper.getFormListByItem(hostFormModel).isEmpty()) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
         }
         // 添加分页
         PageHelper.startPage(page, pageSize);

@@ -20,7 +20,7 @@
             </v-card>
         </v-col>
         <v-col>
-          <v-btn @click="updateStatus">修改登录状asfhiagbfiuba态</v-btn>
+          <v-btn @click="updateStatus">修改登录状态</v-btn>
         </v-col>
       </v-row>
     </v-container>

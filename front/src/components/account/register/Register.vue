@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main id="register-main" class="pt-0 pb-8">
-    <v-form id="register-form" ref="regValid" style="width: 100%; height: 100%">
+    <v-form id="register-form" ref="regValid">
       <v-container>
         <!-- mx-auto卡片居中 -->
         <v-card id="register-card" raised="3" class="mx-auto my-12" max-width="415px" height="600px">

@@ -9,7 +9,7 @@ Vue.use(Vuex)
 // 全局管理的数据储存
 const state = {
     // 当前登录用户昵称
-    userNick: '山泥若',
+    userNick: '',
     // vuex测试标题
     title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录

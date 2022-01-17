@@ -36,7 +36,7 @@ public class AccountController {
     public JsonResult<String> loginByPassword(@RequestBody UserModel userModel) {
         // 判断参数是否为空
         if ("".equals(userModel.getEmail()) || "".equals(userModel.getPassword())) {
-            return ResultTool.faild(ResultCode.ITEM_ALREADY_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_ALREADY_EXIST);
         }
 
         // 判断用户账号状态是否正常
@@ -60,7 +60,7 @@ public class AccountController {
     public JsonResult<String> loginByVerifyCode(@RequestBody Map<String,String> map) {
         // 判断参数是否为空
         if ("".equals(map.get("email")) || "".equals(map.get("verifyCode"))) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
         }
         // 判断用户账号状态是否正常
         JsonResult<String> jsonResult = userService.getUserStatus(map.get("email"));
@@ -81,7 +81,7 @@ public class AccountController {
     @RequestMapping(value = "/exit", method = RequestMethod.POST)
     public JsonResult<String> exitLogin(@RequestParam String email) {
         if ("".equals(email)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         } else {
             return accountService.exitLogin(email);
         }
@@ -96,7 +96,7 @@ public class AccountController {
     public JsonResult<Integer> register(@Valid @RequestBody UserModel userModel, @RequestParam String verifyCode) {
         // 判断验证码是否为空，userModel完整性由@Valid注解校验
         if ("".equals(verifyCode)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         } else {
             return accountService.register(userModel, verifyCode);
         }
@@ -112,7 +112,7 @@ public class AccountController {
     public JsonResult<Integer> removeAccount(@RequestBody UserModel userModel, @RequestParam String verifyCode) {
         // 校验参数完整性
         if ("".equals(verifyCode) || userModel.getEmail() == null || userModel.getPassword() == null ) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         } else {
             return accountService.removeAccount(userModel,verifyCode);
         }

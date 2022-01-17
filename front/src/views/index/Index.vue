@@ -33,7 +33,22 @@
       <v-row>
         <router-link to="/changeTest">跳转至组件切换</router-link>
       </v-row>
-
+      <!-- 测试menu -->
+      <v-row>
+        <router-link to="/menuTest">menu测试</router-link>
+      </v-row>
+      <!-- 测试数据获取 -->
+      <v-row>
+        <router-link to="/getHostList">测试获取主持人列表</router-link>
+      </v-row>
+      <!-- 测试行列循环 -->
+      <v-row>
+        <router-link to="/colRowTest">测试行列循环</router-link>
+      </v-row>
+      <!-- 浮动表格测试 -->
+      <v-row>
+        <router-link to="/floatTest">浮动表格测试</router-link>
+      </v-row>
     </v-container>
   </v-main>
 </template>

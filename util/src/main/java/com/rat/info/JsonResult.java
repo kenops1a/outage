@@ -13,7 +13,7 @@ public class JsonResult<T> implements Serializable {
     private Boolean success;
     private Integer errorCode;
     private String errorMsg;
-    private T data;
+    private T record;
 
     public JsonResult() {
 
@@ -25,11 +25,11 @@ public class JsonResult<T> implements Serializable {
         this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : ResultCode.COMMON_FAIL.getMessage();
     }
 
-    public JsonResult(boolean success, T data) {
+    public JsonResult(boolean success, T record) {
         this.success = success;
         this.errorCode = success ? ResultCode.SUCCESS.getCode() : ResultCode.COMMON_FAIL.getCode();
         this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : ResultCode.COMMON_FAIL.getMessage();
-        this.data = data;
+        this.record = record;
     }
 
     public JsonResult(boolean success, ResultCode resultEnum) {
@@ -38,11 +38,11 @@ public class JsonResult<T> implements Serializable {
         this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : (resultEnum == null?ResultCode.COMMON_FAIL.getMessage() : resultEnum.getMessage());
     }
 
-    public JsonResult(boolean success, ResultCode resultEnum, T data) {
+    public JsonResult(boolean success, ResultCode resultEnum, T record) {
         this.success = success;
         this.errorCode = success ? ResultCode.SUCCESS.getCode() : (resultEnum == null?ResultCode.COMMON_FAIL.getCode() : resultEnum.getCode());
         this.errorMsg = success ? ResultCode.SUCCESS.getMessage() : (resultEnum == null?ResultCode.COMMON_FAIL.getMessage(): resultEnum.getMessage());
-        this.data = data;
+        this.record = record;
     }
 
     public Boolean getSuccess() {
@@ -69,11 +69,11 @@ public class JsonResult<T> implements Serializable {
         this.errorMsg = errorMsg;
     }
 
-    public T getData() {
-        return data;
+    public T getRecord() {
+        return record;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setRecord(T record) {
+        this.record = record;
     }
 }

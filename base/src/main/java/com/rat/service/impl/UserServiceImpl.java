@@ -10,11 +10,8 @@ import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
 import com.rat.service.UserService;
-import org.apache.tomcat.jni.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -46,7 +43,7 @@ public class UserServiceImpl implements UserService {
 //        }
 
         if (userMapper.getUserList().isEmpty()) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
         }
         PageHelper.startPage(page, pageSize);
         List<UserModel> list = userMapper.getUserList();
@@ -58,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public JsonResult<UserModel> getUserById(int userId) {
         // 校验参数完整性
         if (userId == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         // 返回用户对象
         return ResultTool.success(userMapper.getUserById(userId));
@@ -68,10 +65,10 @@ public class UserServiceImpl implements UserService {
     public JsonResult<List<UserModel>> getUserByEmail(UserModel userModel) {
         // 检查userModel中的email是否为空
         if ("".equals(userModel.getEmail())) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
             // 数据库中是否存在email对应的记录
         } else if (userMapper.getUserListByItem(userModel).isEmpty()) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
         } else {
             return ResultTool.success(userMapper.getUserListByItem(userModel));
         }
@@ -80,7 +77,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult<UserModel> getUserByPhone(UserModel userModel) {
         if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else {
             return ResultTool.success(userMapper.getUserByPhone(userModel.getPhone()));
         }
@@ -90,10 +87,10 @@ public class UserServiceImpl implements UserService {
     public JsonResult<UserRoleModel> getUserRoleByEmail(String email) {
         // 检查userModel中的email是否为空
         if ("".equals(email)) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
             // 数据库中是否存在email对应的记录
         } else if (userMapper.getUserByEmail(email) == null) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
         } else {
             return ResultTool.success(userMapper.getUserRoleByEmail(email));
         }
@@ -103,13 +100,13 @@ public class UserServiceImpl implements UserService {
     public JsonResult<Integer> checkUserItem(UserModel userModel) {
         // 检查userModel中的email是否为空
         if ("".equals(userModel.getEmail())) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
             // 数据库中是否存在email对应的记录
         } else if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
-            return ResultTool.faild(ResultCode.ITEM_NOT_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
             // 对应记录密码是否与前端传递的密码相同
         } else if (!userMapper.getUserByEmail(userModel.getEmail()).getPassword().equals(userModel.getPassword())){
-            return ResultTool.faild(ResultCode.USER_PASSWORD_ERROR);
+            return ResultTool.failed(ResultCode.USER_PASSWORD_ERROR);
         }
         return ResultTool.success();
     }
@@ -127,7 +124,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult<Integer> addUser(UserModel userModel) {
         if (userMapper.getUserByEmail(userModel.getEmail()) != null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_ALREADY_EXIST);
         } else {
             return ResultTool.success(userMapper.addUser(userModel));
         }
@@ -137,7 +134,7 @@ public class UserServiceImpl implements UserService {
     public JsonResult<Integer> deleteUser(String email) {
         // 如果对应id用户记录不存在或者状态为已删除，则返回记录不存在
         if (userMapper.getUserByEmail(email) == null || USER_STATUS_DELETE.equals(userMapper.getUserByEmail(email).getStatus())) {
-            return  ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return  ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else {
             return ResultTool.success(userMapper.updateUserStatusByEmail(email, USER_STATUS_DELETE));
         }
@@ -150,9 +147,9 @@ public class UserServiceImpl implements UserService {
         userModel = userMapper.getUserById(userId);
         // 判断原密码是否正确
         if (userModel == null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else if (!userModel.getPassword().equals(oldPassword)) {
-            return ResultTool.faild(ResultCode.USER_PASSWORD_ERROR);
+            return ResultTool.failed(ResultCode.USER_PASSWORD_ERROR);
         } else {
             // 将参数userModel密码设置为newPassword
             userModel.setPassword(newPassword);
@@ -163,7 +160,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult<Integer> updateNickname(UserModel userModel) {
         if (userMapper.getUserById(userModel.getId()) == null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else {
             return ResultTool.success(userMapper.updateUser(userModel));
         }
@@ -179,10 +176,10 @@ public class UserServiceImpl implements UserService {
         UserModel userModel = userMapper.getUserByEmail(email);
         if (userModel == null || userModel.getStatus().equals(USER_STATUS_DELETE)) {
             // 用户记录为空或状态为已删除，则返回用户不存在
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         } else if (userModel.getStatus().equals(USER_STATUS_LOCKED)) {
             // 用户状态为冻结则返回账号已冻结
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_LOCKED);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_LOCKED);
         } else {
             return ResultTool.success(userModel.getStatus());
         }
@@ -193,7 +190,7 @@ public class UserServiceImpl implements UserService {
         UserModel userModel = userMapper.getUserById(userId);
         // 用户不存在
         if (userModel == null || USER_STATUS_DELETE.equals(userModel.getStatus())) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         }
         // 用户已被冻结且传递参数为1（解锁）
         if (lockOrUnLock == 1 && USER_STATUS_LOCKED.equals(userModel.getStatus())) {
@@ -205,7 +202,7 @@ public class UserServiceImpl implements UserService {
             return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(), USER_STATUS_LOCKED));
         }
         // 不符合上述情况则返回默认失败
-        return ResultTool.faild();
+        return ResultTool.failed();
     }
 
 

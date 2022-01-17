@@ -104,7 +104,7 @@ public class HostFormController {
         测试参数
          */
         if (ids == null || ids.length == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_BLANK);
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
         }
         return hostFormService.deleteFormByIds(ids);
     }
@@ -119,11 +119,11 @@ public class HostFormController {
     public JsonResult<Integer> updateForm(@RequestBody HostFormModel hostFormModel) {
         // 校验参数完整性
         if (hostFormModel.getFormId() == 0 || hostFormModel.getHostId() == 0 || hostFormModel.getCreateBy() == 0) {
-            return ResultTool.faild(ResultCode.PARAM_IS_REQUIRED);
+            return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         // 判断数据库中该表单的状态是否为进行中
         if (!hostFormService.checkFormStatus(hostFormModel.getFormId())) {
-            return ResultTool.faild(ResultCode.ITEM_CAN_NOT_ALTER);
+            return ResultTool.failed(ResultCode.ITEM_CAN_NOT_ALTER);
         }
         // 将不允许修改的属性置空
         hostFormModel.setCreateTime(null);

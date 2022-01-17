@@ -1,8 +1,13 @@
 <template>
   <v-app id="inspire">
-    <Header/>
+    <div v-if="$route.meta.keep">
+      <Header/>
+    </div>
     <router-view/>
-    <Footer/>
+    <div v-if="$route.meta.keep">
+      <Footer/>
+    </div>
+
     <!--    <CenterTest></CenterTest>-->
     <!--    <Register></Register>-->
     <!--    <ColRowTest></ColRowTest>-->

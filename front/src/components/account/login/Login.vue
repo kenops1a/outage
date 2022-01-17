@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main id="login-main" class="pt-0 pb-8">
-    <v-form id="login-form" ref="loginForm" style="height: 100%; width: 100%">
+    <v-form id="login-form" ref="loginForm">
       <v-container>
       <!-- mx-auto卡片居中 -->
       <v-card id="login-card" raise="3" class="mx-auto my-12" max-width="415px" height="600px">
@@ -166,6 +166,7 @@ export default {
     if (localStorage.getItem('password')) {
       // 将存储中的邮箱和密码渲染到组件上
       this.pdForm.email = localStorage.getItem('email')
+      this.vcForm.email = localStorage.getItem('email')
       this.pdForm.password = localStorage.getItem('password')
       // 将记住我设为勾选状态
       this.remember = true
@@ -287,6 +288,23 @@ export default {
             if (res.success) {
               // 将token存入localStorage
               localStorage.setItem('token', res.record)
+              localStorage.setItem('email', this.vcForm.email)
+              // 获取当前登录用户，存入vuex中
+              let loginUserEmail = {
+                email: this.pdForm.email
+              }
+              getUserByEmail(loginUserEmail).then(res => {
+                // 判断获取用户对象是否成功
+                if (res.success) {
+                  // 将vuex中用户nick改为当前用户昵称
+                  this.$store.commit('$_setUserNick', res.record[0].nick)
+                  // 将登录状态设置为1，已登录
+                  this.$store.commit('$_updateLoginStatus', 1)
+                  // 跳转至首页
+                  console.log("最后再说一遍，时间要加速了")
+                  router.push({ name: 'home'})
+                }
+              })
             } else {
               console.log("登录失败")
             }

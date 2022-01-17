@@ -71,7 +71,7 @@ public class AccountServiceImpl implements AccountService {
         tokenKey = redisUtil.keyMaker(PREFIX,TOKEN, userVerify.getEmail());
         if (!redisUtil.hasKey(verifyCodeKey) || redisUtil.getCache(verifyCodeKey).equals(verifyCode)){
             // 判断redis中是否存在key为email的键值对以及该key对应的值是否为verifyCode
-            return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
+            return ResultTool.failed(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
         } else {
             // 生成token令牌并存入redis，有效时长为10小时
             String token = tokenService.setToken(userVerify);
@@ -85,7 +85,7 @@ public class AccountServiceImpl implements AccountService {
         tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,email);
         // 判断用户token是否存在
         if (!redisUtil.hasKey(tokenKey)) {
-            return ResultTool.faild("错误，用户未登录");
+            return ResultTool.failed("错误，用户未登录");
         } else {
             redisUtil.deleteCache(tokenKey);
             return ResultTool.success("退出成功！");
@@ -98,11 +98,11 @@ public class AccountServiceImpl implements AccountService {
         verifyCodeKey = redisUtil.keyMaker(PREFIX,VERIFY_CODE,userModel.getEmail());
         // 判断前端传递验证码是否与缓存中的记录相同
         if (!verifyCode.equals(redisUtil.getCache(verifyCodeKey))) {
-            return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
+            return ResultTool.failed(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
         }
         // 判断用户是否存在
         else if (userMapper.getUserByEmail(userModel.getEmail()) != null) {
-            return ResultTool.faild(ResultCode.ITEM_ALREADY_EXIST);
+            return ResultTool.failed(ResultCode.ITEM_ALREADY_EXIST);
         }
         // 添加用户记录
         else {
@@ -121,20 +121,20 @@ public class AccountServiceImpl implements AccountService {
         tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,userModel.getEmail());
         // 判断前端传递验证码是否与缓存中的记录相同
         if (!verifyCode.equals(redisUtil.getCache(verifyCodeKey))) {
-            return ResultTool.faild(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
+            return ResultTool.failed(ResultCode.VERIFY_CODE_LATER_OR_FALSE);
         }
         // 如果该用户与redis中存储的用户不同，则返回 操作失败
         else if (!redisUtil.hasKey(tokenKey)) {
             // 用户没有权限
-            return ResultTool.faild(ResultCode.NO_PERMISSION);
+            return ResultTool.failed(ResultCode.NO_PERMISSION);
         }
         // 判断用户是否存在
         else if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
-            return ResultTool.faild(ResultCode.USER_ACCOUNT_NOT_EXIST);
+            return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
         }
         // 判断用户密码是否正确
         else if (!userMapper.getUserByEmail(userModel.getEmail()).getPassword().equals(userModel.getPassword())) {
-            return ResultTool.faild(ResultCode.USER_PASSWORD_ERROR);
+            return ResultTool.failed(ResultCode.USER_PASSWORD_ERROR);
         }
         else if (userMapper.updateUserStatusByEmail(userModel.getEmail(),USER_STATUS_DELETE) > 0){
             // 删除redis中的token
@@ -142,6 +142,6 @@ public class AccountServiceImpl implements AccountService {
             // 将对应用户的状态设置为已删除并返回结果
             return ResultTool.success(userMapper.updateUserStatusByEmail(userModel.getEmail(),USER_STATUS_DELETE));
         }
-        return ResultTool.faild(0);
+        return ResultTool.failed(0);
     }
 }

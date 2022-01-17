@@ -13,7 +13,7 @@ public class JsonTest {
 
     @Test
     public void outJson() {
-        System.out.println(ResultTool.faild().getClass());
-        System.out.println(ResultTool.faild().toString().getClass());
+        System.out.println(ResultTool.failed().getClass());
+        System.out.println(ResultTool.failed().toString().getClass());
     }
 }
