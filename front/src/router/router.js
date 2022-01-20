@@ -52,6 +52,13 @@ export default new VueRouter({
                 keep: true
             }
         }, {
+            path: '/hostDetail',
+            name: 'hostDetail',
+            component: () => import('@/views/host/HostDetail'),
+            meta: {
+                keep: true
+            }
+        }, {
             path: '/message',
             name: 'message',
             component: () => import('@/views/message/Message'),
@@ -95,7 +102,7 @@ export default new VueRouter({
         }, {
             path: '/validTest',
             name: 'validTest',
-            component: () => import('@/components/test/ValidTest')
+            component: () => import('@/components/test/validTest/ValidTest')
         }, {
             path: '/paramShowTest',
             name: 'paramShowTest',
@@ -124,6 +131,14 @@ export default new VueRouter({
             path: '/floatTest',
             name: 'floatTest',
             component: () => import('@/components/test/layoutTest/floatTest')
+        }, {
+            path: '/manyParamsTest',
+            name: 'manyParamsTest',
+            component: () => import('@/components/test/requestTest/ManyParamsTest')
+        }, {
+            path: '/pageTest',
+            name: 'pageTest',
+            component: () => import('@/components/test/pageTest/PageTest')
         }
     ]
 })

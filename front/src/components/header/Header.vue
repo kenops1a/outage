@@ -6,7 +6,7 @@
 -->
 <template>
     <!-- 登录注册页不显示导航栏 -->
-    <v-app-bar app color="white">
+    <v-app-bar app dark>
 
       <!-- nav导航栏 -->
       <v-tabs centered class="ml-n2 mx-n16" color="grey darken-1">

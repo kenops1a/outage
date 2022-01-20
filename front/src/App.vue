@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" style="background-color: gray">
     <div v-if="$route.meta.keep">
       <Header/>
     </div>
@@ -35,8 +35,15 @@ export default {
   data: () => ({
     //
   }),
+  created() {
+    console.log("---powered by 4x")
+  }
+
 };
 </script>
 
 <style>
+/*body {
+  color: #777777;
+}*/
 </style>

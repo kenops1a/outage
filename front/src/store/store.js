@@ -10,6 +10,8 @@ Vue.use(Vuex)
 const state = {
     // 当前登录用户昵称
     userNick: '',
+    // 详情页主持人id
+    hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
     // vuex测试标题
     title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录
@@ -53,6 +55,10 @@ const store = new Vuex.Store({
         // 设置当前登录用户昵称
         $_setUserNick(state, nick) {
             state.userNick = nick
+        },
+        // 设置选中主持人id
+        $_setHostId(state, hostId) {
+            state.hostId = hostId
         }
     }
 })

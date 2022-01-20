@@ -5,7 +5,7 @@
 * @Date: 12/1/2022
 -->
 <template>
-  <v-main style="width: 100%; height: 100%">
+  <v-main style="width: 100%; height: 100%; color: darkgrey">
     <v-container class="mt-16 pt-16">
       <!-- 登录测试 -->
       <v-row>
@@ -48,6 +48,14 @@
       <!-- 浮动表格测试 -->
       <v-row>
         <router-link to="/floatTest">浮动表格测试</router-link>
+      </v-row>
+      <!-- 多选选项传参 -->
+      <v-row>
+        <router-link to="/manyParamsTest">多选选项传参</router-link>
+      </v-row>
+      <!-- 分页测试 -->
+      <v-row>
+        <router-link to="/pageTest">分页测试</router-link>
       </v-row>
     </v-container>
   </v-main>
