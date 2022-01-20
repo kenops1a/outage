@@ -7,6 +7,10 @@ import store from '@/store/store'
 // 使用vue开发模式
 Vue.config.productionTip = true
 
+// 路由跳转之后，滚动条复位
+router.afterEach((to,from,next) => {
+  window.scrollTo(0,0);
+});
 
 new Vue({
   vuetify,

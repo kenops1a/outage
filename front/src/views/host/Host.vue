@@ -42,7 +42,7 @@
       </v-row>
 
       <!-- 分类 -->
-      <v-card class="ma-10 pa-5">
+      <v-card class="ma-10 pa-5" color="#f0f0f0">
         <v-row class="pa-3">
           <dl id="type-label" class="flex-label">
             <dt>分类</dt>
@@ -81,7 +81,7 @@
               <v-btn depressed tile to="/takeMessage">
                 沟通
               </v-btn>
-              <v-btn @click="setHostId(host.createBy)" depressed tile>
+              <v-btn @click="setHost(host)" depressed tile>
                 详情
               </v-btn>
             </v-card-actions>
@@ -179,11 +179,17 @@ export default {
         this.hostList = res.record
       })
     },
-    // 设置vuex中选中的主持人id
+  /*  // 设置vuex中选中的主持人id
     setHostId (val) {
       console.log("hostId:" + val)
       this.$store.commit('$_setHostId', val)
       localStorage.setItem('hostId', val)
+      router.push('/hostDetail')
+    },*/
+    // 将选中主持人信息存入vuex中
+    setHost (val) {
+      this.$store.commit('$_setHost', val)
+      localStorage.setItem('host', val)
       router.push('/hostDetail')
     }
   }

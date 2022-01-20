@@ -12,6 +12,8 @@ const state = {
     userNick: '',
     // 详情页主持人id
     hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
+    // 主持人对象
+    host: localStorage.getItem('host') ? localStorage.getItem('host') : {} ,
     // vuex测试标题
     title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录
@@ -59,6 +61,10 @@ const store = new Vuex.Store({
         // 设置选中主持人id
         $_setHostId(state, hostId) {
             state.hostId = hostId
+        },
+        // 设置主持人对象
+        $_setHost(state, host) {
+            state.host = host
         }
     }
 })
