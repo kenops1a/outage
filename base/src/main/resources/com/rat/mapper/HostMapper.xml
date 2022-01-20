@@ -53,7 +53,7 @@
         where hm_user.status = '1'
         and hm_host.type = #{type}
     </select>
-    <select id="getHostById" resultType="com.rat.model.HostModel">
+    <select id="getHostById" resultMap="hostModelMap">
         select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
         from hm_user
         inner join hm_user_role

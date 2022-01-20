@@ -70,7 +70,7 @@
       <!-- 主持人列表 -->
       <v-row align="center">
         <v-col cols="3" v-for="(host, index) in hostList" :key="index">
-          <v-card class="ma-3 mb-2" color="grey lighten-1" min-height="200px" min-width="200px" max-width="300px">
+          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px" max-width="300px">
             <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
               <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
             </v-img>

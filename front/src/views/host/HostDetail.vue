@@ -7,7 +7,7 @@
 <template>
   <v-main id="hostDetail-main">
     <v-container>
-      <v-card class="ma-8 pa-3" min-width="450px" min-height="100%" color="grey">
+      <v-card class="ma-8 pa-3" min-width="450px" min-height="100%" color="#f0f0f0">
         <v-row>
           <!-- 照片 -->
           <v-col cols="6">
