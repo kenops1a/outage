@@ -34,7 +34,7 @@
       <!-- 搜索框 -->
       <v-row justify="center">
         <v-col cols="5">
-          <v-text-field v-model="nameSearch.nameLike" placeholder="关键字搜索" solo></v-text-field>
+          <v-text-field v-model="nameSearch.nameLike" placeholder="关键字搜索" solo dark></v-text-field>
         </v-col>
         <v-col cols="1" class="" style="width: 48px; height: 48px">
           <v-icon size="48" @click="getHostsByLikeParam" type="button">mdi-magnify</v-icon>
@@ -42,10 +42,10 @@
       </v-row>
 
       <!-- 分类 -->
-      <v-card class="ma-10 pa-5" color="#f0f0f0">
+      <v-card class="ma-10 pa-5" dark>
         <v-row class="pa-3">
           <dl id="type-label" class="flex-label">
-            <dt>分类</dt>
+            <dt class="font-grey">分类</dt>
             <dd class="item-label">
               <a id="all-type" @click="getHostListDefalut">全部</a>
               <a class="item-label" v-for="(item, index) in typeList" :key="index" @click="catchType(item.label)">
@@ -54,9 +54,14 @@
             </dd>
           </dl>
         </v-row>
+<!--        <v-row>-->
+<!--          <v-col>-->
+<!--            <hr class="font-grey">-->
+<!--          </v-col>-->
+<!--        </v-row>-->
         <v-row class="pa-3">
           <dl id="time-label" class="flex-label">
-            <dt>时间</dt>
+            <dt class="font-grey">时间</dt>
             <dd class="item-label">
               <a id="all-time" @click="getHostListDefalut">全部</a>
               <a class="item-label" @click="catchTime(item.value)" v-for="(item, index) in timeList" :key="index">
@@ -69,20 +74,20 @@
 
       <!-- 主持人列表 -->
       <v-row align="center">
-        <v-col cols="3" v-for="(host, index) in hostList" :key="index">
-          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px" max-width="300px">
+        <v-col cols="4" v-for="(host, index) in hostList" :key="index">
+          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px" dark>
             <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
               <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
             </v-img>
             <div class="ma-3 mb-2">
-              <h3>{{ host.nick }}</h3>
+              <h3 class="font-grey">{{ host.nick }}</h3>
             </div>
             <v-card-actions class="mb-0">
               <v-btn depressed tile to="/takeMessage">
-                沟通
+                <span class="font-grey">沟通</span>
               </v-btn>
               <v-btn @click="setHost(host)" depressed tile>
-                详情
+                <span class="font-grey">沟通</span>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -189,7 +194,7 @@ export default {
     // 将选中主持人信息存入vuex中
     setHost (val) {
       this.$store.commit('$_setHost', val)
-      localStorage.setItem('host', val)
+      localStorage.setItem('host', JSON.stringify(val))
       router.push('/hostDetail')
     }
   }
@@ -202,6 +207,9 @@ export default {
 }
 .flex-label {
   display: flex;
+}
+.font-grey {
+  color: darkgray;
 }
 .no-style {
   text-decoration: none;

@@ -7,9 +7,6 @@
 <template>
   <v-main id="hostDetail-main">
     <v-container>
-      <v-card class="mx-auto my-auto" style="z-index: 2" v-if="pop === 1">
-        <v-text-field></v-text-field>
-      </v-card>
       <v-card class="ma-8 pa-3" min-width="450px" min-height="100%" color="#f0f0f0">
         <v-row>
           <!-- 照片 -->
@@ -62,7 +59,7 @@
         <v-card min-height="100px" class="ma-8 mt-3 pa-3 pt-8 pl-8">
           <v-row>
             <v-col cols="3">
-              <h2>预计佣金：<span style="color: orange">{{ host.money }}</span></h2>
+              <h2>预计佣金：<span style="color: orange">{{ host.money }}</span> ￥</h2>
             </v-col>
             <v-col cols="1" class="mr-10">
               <v-btn color="orange" large dark>沟通</v-btn>
@@ -78,12 +75,11 @@
 </template>
 
 <script>
-import { getHostById } from "@/api/host/host";
 
 export default {
   data () {
     return {
-      pop: 0,
+      pop: false,
       host: {},
       imgSrc: require('@/assets/jpg/person.jpg'),
       showList: [
@@ -104,13 +100,25 @@ export default {
   },
   mounted() {
     // hostId存在时发送请求查询数据
-    if (this.$store.state.hostId !== undefined) {
-      getHostById(this.$store.state.hostId).then(res => {
-        this.host = res.record
-        this.host.sex = 'shab'
-        console.log(this.host)
-      })
+    // if (this.$store.state.hostId !== undefined) {
+    //   getHostById(this.$store.state.hostId).then(res => {
+    //     this.host = res.record
+    //     this.host.sex = 'shab'
+    //     console.log(this.host)
+    //   })
+    // }
+    this.host = JSON.parse(localStorage.getItem('host'))
+    let sex = this.host.sex
+    if (sex === 0) {
+      this.host.sex = '男'
     }
+    else if (sex === 1) {
+      this.host.sex = '女'
+    }
+    else {
+      this.host.sex = '未公开'
+    }
+    console.log(this.host)
     // 将vuex中的host对象渲染到hostDetail上
     /*this.host = this.$store.state.host
     let sex = this.host.sex
