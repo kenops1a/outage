@@ -126,7 +126,6 @@ public class HostFormController {
         }
         // 将不允许修改的属性置空
         hostFormModel.setCreateTime(null);
-        hostFormModel.setStatus(null);
 
         // 执行修改操作
         return hostFormService.updateForm(hostFormModel);

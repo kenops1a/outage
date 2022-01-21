@@ -13,7 +13,7 @@
       <v-row class="ml-4">
         <v-col class="ml-0 pl-0">
           <span>订单状态:</span>
-          <v-btn-toggle v-model="text" tile color="grey" group>
+          <v-btn-toggle tile color="grey" group>
             <v-btn value="left" @click="getForms(null)">
               <span style="color: #424242">全部</span>
             </v-btn>
@@ -107,7 +107,7 @@ export default {
     },
     // 修改订单状态
     alterForm (formId, status) {
-      this.updateForm.status = status
+      this.hostForm.status = status
       this.hostForm.formId = formId
       updateForm(this.hostForm)
     }
