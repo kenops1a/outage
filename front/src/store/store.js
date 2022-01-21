@@ -11,7 +11,7 @@ const state = {
     // 当前登录用户昵称
     userNick: '',
     // 当前登录用户
-    userNow: {},
+    userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : {},
     // 详情页主持人id
     hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
     // 主持人对象

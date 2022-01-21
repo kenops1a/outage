@@ -98,7 +98,7 @@
                         <v-row align="center" class="mt-n3 mb-n3">
                           <span>日期:</span>
                           <v-col cols="2" v-for="(col, index) in timeSelect" :key="index">
-                            <v-text-field :label="col.label"></v-text-field>
+                            <v-text-field :label="col.label" v-model="col.value"></v-text-field>
                           </v-col>
                         </v-row>
                         <v-row align="center" class="mt-n3 mb-n3">
@@ -115,8 +115,14 @@
                         </v-row>
                         <v-row align="center" class="mt-n3 mb-n3">
                           <span>地址:</span>
-                          <v-col cols="3" v-for="(col, index) in adrSelect" :key="index">
-                            <v-select :items="typeSelect" :label="col"></v-select>
+                          <v-col cols="3" v-for="(col, index) in adrList" :key="index">
+                            <v-select :items="col.select" :label="col.label" v-model="col.value"></v-select>
+                          </v-col>
+                        </v-row>
+                        <v-row align="center" class="mt-n3 mb-n3">
+                          <span>详址:</span>
+                          <v-col cols="9">
+                            <v-text-field placeholder="输入详细地址" label="详细地址" v-model="adrDetail"></v-text-field>
                           </v-col>
                         </v-row>
                          <!-- <v-col cols="12" sm="6">
@@ -132,7 +138,7 @@
                       <v-btn color="blue darken-1" text @click="pop = false">
                         取消
                       </v-btn>
-                      <v-btn color="blue darken-1" text @click="pop = false">
+                      <v-btn color="blue darken-1" text @click="forMartOrderForm" >
                         确认
                       </v-btn>
                     </v-card-actions>
@@ -170,6 +176,10 @@ Date.prototype.format = function(fmt) {
   return fmt;
 }
 
+// 导入hostForm
+import { createForm } from "@/api/host/hostForm";
+import router from "@/router/router"
+
 export default {
   data () {
     return {
@@ -188,13 +198,6 @@ export default {
         { id:9, label: 'createTime', value: '注册时间'},
       ],
       orderForm: {
-        // type: null,
-        // date: null,
-        // hostId:undefined,
-        // money: undefined,
-        // address: null,
-        // createTime: null,
-        // createBy: undefined
         address: null,
         type: null,
         date: null,
@@ -212,7 +215,19 @@ export default {
       ],
       adrSelect: [
         '省', '市', '区'
-      ]
+      ],
+      adrList: [
+        { label: '省', select: ['a省', 'b省'], value: null },
+        { label: '市', select: ['c市', 'd市'], value: null },
+        { label: '区', select: ['e区', 'f区'], value: null }
+      ],
+      adrDetail: '',
+    }
+  },
+  created() {
+    // 判断用户是否登录
+    if (this.$store.state.loginStatus === 0) {
+      router.push('/login')
     }
   },
   mounted() {
@@ -252,12 +267,25 @@ export default {
   methods: {
     // 输入字符串处理
     forMartOrderForm () {
+      this.pop = false
       // timeStr = timeStr.replace(/-/g, '/')
       // this.orderForm.date = new Date(timeStr)
       // 处理日期字符串
-      this.orderForm.date = this.timeSelect[0].value + '-' + this.timeSelect[1].value + '-' + this.timeSelect[2].value + ' ' + this.timeSelect[3].value + ':' + this.timeSelect[4].value
+      this.orderForm.date = this.timeSelect[0].value + '-' + this.timeSelect[1].value + '-' + this.timeSelect[2].value + ' ' + this.timeSelect[3].value + ':' + this.timeSelect[4].value + ':00'
+      // this.orderForm.date = "2022-01-21 14:11:34"
       // 表单金额暂时按照主持人佣金
       this.orderForm.money = this.$store.state.host.money
+      // 拼接地址字符串
+      let adrStr = ''
+      this.adrList.forEach(item => {
+        adrStr += item.value
+      })
+      this.orderForm.address = adrStr + this.adrDetail
+
+      // 将表单对象发送给服务器
+      createForm(this.orderForm, this.$store.state.hostId, this.$store.state.userNow.id).then(res => {
+        console.log(res)
+      })
     }
   }
 }

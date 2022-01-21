@@ -45,8 +45,8 @@ public class HostFormController {
         /*
          * 测试参数
          */
-        hostFormModel.setStatus("1");
-        hostFormModel.setCreateBy(2);
+        /*hostFormModel.setStatus("1");
+        hostFormModel.setCreateBy(2);*/
         return hostFormService.getFormListByItem(hostFormModel, page, pageSize);
     }
 
@@ -85,12 +85,11 @@ public class HostFormController {
     /**
      * 删除指定id表单记录
      * @param formId 表单id
-     * @param userId 用户id
      * @return JsonResult
      */
     @RequestMapping(value = "/deleteFormById", method = RequestMethod.POST)
-    public JsonResult<Integer> deleteFormById(@RequestParam int formId, @RequestParam int userId) {
-        return hostFormService.deleteFormById(formId, userId);
+    public JsonResult<Integer> deleteFormById(@RequestParam int formId) {
+        return hostFormService.deleteFormById(formId);
     }
 
     /**
@@ -118,7 +117,7 @@ public class HostFormController {
     @RequestMapping(value = "/updateForm", method = RequestMethod.POST)
     public JsonResult<Integer> updateForm(@RequestBody HostFormModel hostFormModel) {
         // 校验参数完整性
-        if (hostFormModel.getFormId() == 0 || hostFormModel.getHostId() == 0 || hostFormModel.getCreateBy() == 0) {
+        if (hostFormModel.getFormId() == 0 || hostFormModel.getCreateBy() == 0) {
             return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         // 判断数据库中该表单的状态是否为进行中

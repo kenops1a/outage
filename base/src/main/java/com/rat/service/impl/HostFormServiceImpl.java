@@ -59,17 +59,13 @@ public class HostFormServiceImpl implements HostFormService {
 
     @Override
     public JsonResult<Integer> updateForm(HostFormModel hostFormModel) {
-        /*
-            缺少用户权限验证，判断用户是否有权限修改订单
-            只有角色为主持人，管理员的用户才能修改订单
-            只有状态为进行中的订单才可以修改
-        */
+
         int index = hostFormMapper.updateForm(hostFormModel);
         return index <= 0 ? ResultTool.failed(ResultCode.ITEM_NOT_EXIST):ResultTool.success(index);
     }
 
     @Override
-    public JsonResult<Integer> deleteFormById(int formId, int userId) {
+    public JsonResult<Integer> deleteFormById(int formId) {
         /*
             缺少用户权限验证，判断用户是否有权限删除此id的表单，未实现
             角色为管理员，或者用户id与要删除的表单id相同的用户，可以删除对应订单记录

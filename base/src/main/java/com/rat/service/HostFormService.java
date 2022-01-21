@@ -41,10 +41,9 @@ public interface HostFormService {
     /**
      * 删除订单
      * @param formId 订单编号
-     * @param userId 用户id
      * @return JsonResult
      */
-    JsonResult<Integer> deleteFormById(int formId, int userId);
+    JsonResult<Integer> deleteFormById(int formId);
 
     /**
      * 批量删除订单

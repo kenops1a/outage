@@ -5,7 +5,7 @@
 * @Date: 14/1/2022
 -->
 <template>
-    <v-main style="height: 100vh;">
+    <v-main style="height: 100vh; width: 100vw">
       <!-- 显示vuex中的数据 -->
     </v-main>
 </template>

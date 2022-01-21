@@ -5,10 +5,10 @@
 * @Date: 14/1/2022
 -->
 <template>
-    <v-container>
-      <NavLeft/>
-      <router-view/>
-    </v-container>
+  <div>
+    <NavLeft/>
+    <router-view/>
+  </div>
 </template>
 
 <script>

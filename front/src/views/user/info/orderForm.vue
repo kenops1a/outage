@@ -5,17 +5,113 @@
 * @Date: 14/1/2022
 -->
 <template>
-  <v-main style="height: 100vh;">
-    <!-- 显示vuex中的数据 -->
-    <v-row>
-      <h1>{{ name }}</h1>
-    </v-row>
+  <v-main>
+    <v-card color="pa-8 pb-16 pt-10">
+      <v-row class="ml-4 mb-n3">
+        <h2>我的订单</h2>
+      </v-row>
+      <v-row class="ml-4">
+        <v-col class="ml-0 pl-0">
+          <span>订单状态:</span>
+          <v-btn-toggle v-model="text" tile color="grey" group>
+            <v-btn value="left" @click="getForms(null)">
+              <span style="color: #424242">全部</span>
+            </v-btn>
+            <v-btn value="center" @click="getForms('2')">
+              <span style="color: #424242">进行中</span>
+            </v-btn>
+            <v-btn value="right">
+              <span style="color: #424242" @click="getForms('1')">已完成</span>
+            </v-btn>
+            <v-btn value="justify">
+              <span style="color: #424242" @click="getForms('0')">失败</span>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+      </v-row>
+
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+          <tr>
+            <th v-for="(item, index) in headers" :key="index">
+              {{ item.text }}
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <!--<tr v-for="item in desserts" :key="item.name">
+            <td>{{ item.name }}</td>
+            <td>{{ item.calories }}</td>
+          </tr>-->
+          <tr v-for="(form, index) in formList" :key="index">
+            <td v-for="(item, index) in headers" :key="index" class="mb-2">
+              {{ form[item.value] }}
+            </td>
+            <v-btn class="mt-2 mr-1" color="green" @click="alterForm(form.formId, '1')" dark small>确认</v-btn>
+            <v-btn class="mt-2 mr-1" color="primary" @click="alterForm(form.formId, '0')" small>取消</v-btn>
+            <v-btn class="mt-2" color="red" dark small @click="removeForm(form.formId)">删除</v-btn>
+          </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card>
   </v-main>
 </template>
 
 <script>
+import { getFormList, removeForm, updateForm } from "@/api/host/hostForm";
+
 export default {
-  name: "orderForm"
+  data () {
+    return {
+      hostForm: {
+        formId: undefined,
+        createBy: this.$store.state.userNow.id,
+        status: null,
+      },
+      page: 1,
+      pageSize: 10,
+      formList: [],
+      headers: [
+        { text: '主持人', value: 'nick' },
+        { text: '活动日期', value: 'date' },
+        { text: '金额(元)', value: 'money' },
+        { text: '类型', value: 'type' },
+        { text: '地址', value: 'address' },
+        { text: '订单状态', value: 'status' },
+        { text: '创建时间', value: 'createTime' },
+      ],
+    }
+  },
+  mounted () {
+      getFormList(this.hostForm, this.page, this.pageSize).then(res => {
+        this.formList = res.record
+      })
+  },
+  methods: {
+    removeForm (val) {
+      console.log(val)
+      removeForm(val).then(res => {
+        if (res.success) {
+          alert('删除成功')
+        }
+      })
+    },
+    // 获取订单
+    getForms (status) {
+      this.hostForm.status = status
+      getFormList(this.hostForm, this.page, this.pageSize).then(res => {
+        this.formList = res.record
+      })
+    },
+    // 修改订单状态
+    alterForm (formId, status) {
+      this.updateForm.status = status
+      this.hostForm.formId = formId
+      updateForm(this.hostForm)
+    }
+  }
 }
 </script>
 

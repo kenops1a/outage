@@ -47,6 +47,11 @@ export default {
         { label: '时', value: '21' },
         { label: '分', value: '12' },
       ],
+      adrList: [
+        { label: '省', select: ['a省', 'b省'], value: 'a省' },
+        { label: '市', select: ['c市', 'd市'], value: 'c市' },
+        { label: '区', select: ['e区', 'f区'], value: 'e区' }
+      ],
     }
   },
   methods: {
@@ -54,10 +59,15 @@ export default {
       // this.str = this.str.replace(/-/g, '/')
       // this.str = new Date(this.str)
       // console.log(this.str)
-      let timeStr = this.timeList[0].value + '-' + this.timeList[1].value + '-' + this.timeList[2].value + ' ' + this.timeList[3].value + ':' + this.timeList[4].value
+      // let timeStr = this.timeList[0].value + '-' + this.timeList[1].value + '-' + this.timeList[2].value + ' ' + this.timeList[3].value + ':' + this.timeList[4].value
       // timeStr = timeStr.replace(/-/g, '/')
       // this.str = new Date(timeStr)
-      this.str = new Date().format('yyyy-MM-dd hh:mm:ss')
+      // this.str = new Date().format('yyyy-MM-dd hh:mm:ss')
+      let adrStr = ''
+      this.adrList.forEach(item => {
+        adrStr += item.value
+      })
+      this.str = adrStr
     }
   }
 }

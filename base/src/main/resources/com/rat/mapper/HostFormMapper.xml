@@ -5,6 +5,7 @@
 <mapper namespace="com.rat.mapper.HostFormMapper">
     <!-- 结果集映射 -->
     <resultMap id="formList" type="com.rat.model.HostFormModel">
+        <result property="formId" column="id"/>
         <result property="hostId" column="host_id"/>
         <result property="hostName" column="host_name"/>
         <result property="createBy" column="create_by"/>
@@ -29,9 +30,6 @@
             <if test="status != null">status,</if>
             <if test="createBy != null and createBy != 0">create_by,</if>
             <if test="createTime != null">create_time,</if>
-            <if test="updateBy != null updateBy != 0">update_by,</if>
-            <if test="updateTime != null">update_time,</if>
-            <if test="remark != null">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="address != null and address != ''">#{address},</if>
@@ -44,9 +42,6 @@
             <if test="status != null">#{status},</if>
             <if test="createBy != null and money != 0">#{createBy},</if>
             <if test="createTime != null">#{createTime},</if>
-            <if test="updateBy != null and updateBy != 0">#{updateBy},</if>
-            <if test="updateTime != null">#{updateTime},</if>
-            <if test="remark != null">#{remark},</if>
         </trim>
     </insert>
     <update id="updateForm">
@@ -65,7 +60,6 @@
         <where>
             <trim prefix=" " suffix=" " suffixOverrides="and">
                 <if test="formId != 0 and formId != null">id=#{formId} and</if>
-                <if test="hostId != 0 and hostId != null">host_id=#{hostId} and</if>
                 <if test="createBy != null and createBy != 0">create_by=#{createBy}</if>
             </trim>
         </where>
