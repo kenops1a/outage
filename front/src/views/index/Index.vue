@@ -57,6 +57,10 @@
       <v-row>
         <router-link to="/pageTest">分页测试</router-link>
       </v-row>
+      <!-- 字符串转换为日期测试 -->
+      <v-row>
+        <router-link to="/stringToDate">字符串转日期测试</router-link>
+      </v-row>
     </v-container>
   </v-main>
 </template>

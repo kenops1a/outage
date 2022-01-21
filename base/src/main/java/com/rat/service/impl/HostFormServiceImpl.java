@@ -38,6 +38,7 @@ public class HostFormServiceImpl implements HostFormService {
 
     @Override
     public JsonResult<Integer> addForm(HostFormModel hostFormModel, int userId, int hostId) {
+        // 主持人对象
         UserModel userModel = userMapper.getUserById(hostId);
         /*
          * 将新增表单状态设为进行中

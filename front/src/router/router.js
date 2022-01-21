@@ -139,6 +139,10 @@ export default new VueRouter({
             path: '/pageTest',
             name: 'pageTest',
             component: () => import('@/components/test/pageTest/PageTest')
+        }, {
+            path: '/stringToDate',
+            name: 'stringToDate',
+            component: () => import('@/components/test/stringForDate/StringToDate')
         }
     ]
 })

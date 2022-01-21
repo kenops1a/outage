@@ -85,7 +85,17 @@
                           </v-col>
                           <v-spacer></v-spacer>
                         </v-row>-->
-                        <v-row align="center" class="mb-n3">
+                        <v-row align="center" class="mt-n3 mb-n3">
+                          <span>用户:</span>
+                          <v-col cols="4">
+                            <v-text-field readonly :value="this.$store.state.userNick"></v-text-field>
+                          </v-col>
+                          <span>主持人:</span>
+                          <v-col cols="4">
+                            <v-text-field readonly :value="this.$store.state.host.nick"></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row align="center" class="mt-n3 mb-n3">
                           <span>日期:</span>
                           <v-col cols="2" v-for="(col, index) in timeSelect" :key="index">
                             <v-text-field :label="col.label"></v-text-field>
@@ -94,7 +104,7 @@
                         <v-row align="center" class="mt-n3 mb-n3">
                           <span>类型:</span>
                           <v-col cols="4">
-                            <v-select :items="typeSelect" label="类型"></v-select>
+                            <v-select :items="typeSelect" v-model="orderForm.type" label="类型"></v-select>
                           </v-col>
                         </v-row>
                         <v-row align="center" class="mt-n3 mb-n3">
@@ -138,6 +148,27 @@
 </template>
 
 <script>
+// 日期格式化
+Date.prototype.format = function(fmt) {
+  var o = {
+    "M+" : this.getMonth()+1,                 //月份
+    "d+" : this.getDate(),                    //日
+    "h+" : this.getHours(),                   //小时
+    "m+" : this.getMinutes(),                 //分
+    "s+" : this.getSeconds(),                 //秒
+    "q+" : Math.floor((this.getMonth()+3)/3), //季度
+    "S"  : this.getMilliseconds()             //毫秒
+  };
+  if(/(y+)/.test(fmt)) {
+    fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+  }
+  for(var k in o) {
+    if(new RegExp("("+ k +")").test(fmt)){
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+    }
+  }
+  return fmt;
+}
 
 export default {
   data () {
@@ -157,7 +188,17 @@ export default {
         { id:9, label: 'createTime', value: '注册时间'},
       ],
       orderForm: {
-        type: null
+        // type: null,
+        // date: null,
+        // hostId:undefined,
+        // money: undefined,
+        // address: null,
+        // createTime: null,
+        // createBy: undefined
+        address: null,
+        type: null,
+        date: null,
+        money: undefined,
       },
       timeSelect: [
         { label: '年', value: undefined },
@@ -173,9 +214,6 @@ export default {
         '省', '市', '区'
       ]
     }
-  },
-  updated() {
-    console.log(this.orderForm.type)
   },
   mounted() {
     // hostId存在时发送请求查询数据
@@ -210,6 +248,17 @@ export default {
       this.host.sex = '未公开'
     }*/
 
+  },
+  methods: {
+    // 输入字符串处理
+    forMartOrderForm () {
+      // timeStr = timeStr.replace(/-/g, '/')
+      // this.orderForm.date = new Date(timeStr)
+      // 处理日期字符串
+      this.orderForm.date = this.timeSelect[0].value + '-' + this.timeSelect[1].value + '-' + this.timeSelect[2].value + ' ' + this.timeSelect[3].value + ':' + this.timeSelect[4].value
+      // 表单金额暂时按照主持人佣金
+      this.orderForm.money = this.$store.state.host.money
+    }
   }
 }
 </script>

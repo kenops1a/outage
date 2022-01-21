@@ -20,5 +20,4 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(res => {
     return res.data
 })
-
 export default request

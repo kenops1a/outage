@@ -267,6 +267,9 @@ export default {
                 if (res.success) {
                   // 将vuex中用户nick改为当前用户昵称
                   this.$store.commit('$_setUserNick', res.record[0].nick)
+                  // 将查询到的user放入vuex
+                  this.$store.commit('$_setUserNow', res.record[0])
+                  localStorage.setItem('userNow', JSON.stringify(res.record[0]))
                   // 将登录状态设置为1，已登录
                   this.$store.commit('$_updateLoginStatus', 1)
                   // 跳转至首页
@@ -294,10 +297,14 @@ export default {
                 email: this.pdForm.email
               }
               getUserByEmail(loginUserEmail).then(res => {
+                console.log('res:' + res)
                 // 判断获取用户对象是否成功
                 if (res.success) {
                   // 将vuex中用户nick改为当前用户昵称
                   this.$store.commit('$_setUserNick', res.record[0].nick)
+                  // 将查询到的user放入vuex
+                  this.$store.commit('$_setUserNow', res.record[0])
+                  localStorage.setItem('userNow', JSON.stringify(res.record[0]))
                   // 将登录状态设置为1，已登录
                   this.$store.commit('$_updateLoginStatus', 1)
                   // 跳转至首页

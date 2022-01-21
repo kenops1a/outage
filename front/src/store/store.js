@@ -10,6 +10,8 @@ Vue.use(Vuex)
 const state = {
     // 当前登录用户昵称
     userNick: '',
+    // 当前登录用户
+    userNow: {},
     // 详情页主持人id
     hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
     // 主持人对象
@@ -65,6 +67,10 @@ const store = new Vuex.Store({
         // 设置主持人对象
         $_setHost(state, host) {
             state.host = host
+        },
+        // 设置正在登录的用户
+        $_setUserNow(state, userNow) {
+            state.userNow = userNow
         }
     }
 })
