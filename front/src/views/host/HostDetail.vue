@@ -65,7 +65,70 @@
               <v-btn color="orange" large dark>沟通</v-btn>
             </v-col>
             <v-col cols="2">
-              <v-btn @click="pop = 1" color="orange" large dark>下单</v-btn>
+              <v-row>
+                <v-dialog v-model="pop" persistent max-width="600px">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn color="orange" class="mt-3" large dark v-bind="attrs" v-on="on">
+                      预定
+                    </v-btn>
+                  </template>
+                  <v-card>
+                    <v-card-title>
+                      <span class="text-h5">订单</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <!--<v-row id="text-box" v-for="(row, index) in orderForm" :key="index" class="mb-0" no-gutters align="center">
+                          <v-spacer></v-spacer>
+                          <v-col cols="9">
+                            <v-text-field :label="row.label" color="blue-grey" v-model="row.value" :placeholder="row.placeHolder"></v-text-field>
+                          </v-col>
+                          <v-spacer></v-spacer>
+                        </v-row>-->
+                        <v-row align="center" class="mb-n3">
+                          <span>日期:</span>
+                          <v-col cols="2" v-for="(col, index) in timeSelect" :key="index">
+                            <v-text-field :label="col.label"></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row align="center" class="mt-n3 mb-n3">
+                          <span>类型:</span>
+                          <v-col cols="4">
+                            <v-select :items="typeSelect" label="类型"></v-select>
+                          </v-col>
+                        </v-row>
+                        <v-row align="center" class="mt-n3 mb-n3">
+                          <span>金额:</span>
+                          <v-col cols="4">
+                            <v-text-field readonly :value="host.money"></v-text-field>
+                          </v-col>
+                        </v-row>
+                        <v-row align="center" class="mt-n3 mb-n3">
+                          <span>地址:</span>
+                          <v-col cols="3" v-for="(col, index) in adrSelect" :key="index">
+                            <v-select :items="typeSelect" :label="col"></v-select>
+                          </v-col>
+                        </v-row>
+                         <!-- <v-col cols="12" sm="6">
+                            <v-select :items="['0-17', '18-29', '30-54', '54+']" label="Age*" required></v-select>
+                          </v-col>
+                          <v-col cols="12" sm="6">
+                            <v-autocomplete :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']" label="Interests" multiple></v-autocomplete>
+                          </v-col>-->
+                      </v-container>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="blue darken-1" text @click="pop = false">
+                        取消
+                      </v-btn>
+                      <v-btn color="blue darken-1" text @click="pop = false">
+                        确认
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
             </v-col>
           </v-row>
         </v-card>
@@ -92,11 +155,27 @@ export default {
         { id:7, label: 'type', value: '类型'},
         { id:8, label: 'address', value: '地区'},
         { id:9, label: 'createTime', value: '注册时间'},
+      ],
+      orderForm: {
+        type: null
+      },
+      timeSelect: [
+        { label: '年', value: undefined },
+        { label: '月', value: undefined },
+        { label: '日', value: undefined },
+        { label: '时', value: undefined },
+        { label: '分', value: undefined },
+      ],
+      typeSelect: [
+        '婚礼', '生日', '测试', '中文'
+      ],
+      adrSelect: [
+        '省', '市', '区'
       ]
     }
   },
   updated() {
-    console.log(this.pop)
+    console.log(this.orderForm.type)
   },
   mounted() {
     // hostId存在时发送请求查询数据
@@ -118,7 +197,6 @@ export default {
     else {
       this.host.sex = '未公开'
     }
-    console.log(this.host)
     // 将vuex中的host对象渲染到hostDetail上
     /*this.host = this.$store.state.host
     let sex = this.host.sex
