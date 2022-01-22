@@ -46,7 +46,7 @@ export default new VueRouter({
             }
         }, {
             path: '/host',
-            name: 'home',
+            name: 'host',
             component: () => import('@/views/host/Host'),
             meta: {
                 keep: true
@@ -74,14 +74,14 @@ export default new VueRouter({
             }
         }, {
             path: '/userMenu',
-            name: 'userMenu',
             component: () => import('@/views/user/UserMenu'),
             children: [
                 {
                     path: '/',
                     name: 'userMenuIndex',
                     component: () => import('@/views/user/info/UserInfo')
-                }, {
+                },
+                {
                     path: '/userInfo',
                     name: 'userInfo',
                     component: () => import('@/views/user/info/UserInfo')

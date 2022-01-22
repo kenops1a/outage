@@ -22,21 +22,12 @@
               <td>{{ item.name }}</td>
               <td>{{ item.calories }}</td>
             </tr>-->
-            <tr>
-              <td></td>
-            </tr>
+              <tr>
+                <td></td>
+              </tr>
             </tbody>
           </template>
         </v-simple-table>
-
-        <!-- 分页 -->
-        <div class="text-center ma-8">
-          <v-pagination
-              v-model="page"
-              :length="6"
-              @input="getForms(null)"
-          ></v-pagination>
-        </div>
       </v-card>
     </v-main>
 </template>
