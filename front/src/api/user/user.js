@@ -8,3 +8,10 @@ export function getUserByEmail(params) {
         data: params
     })
 }
+
+// 修改信息
+export function updateInfo(params) {
+    return request({
+        url: '/user/updateUser',
+    })
+}

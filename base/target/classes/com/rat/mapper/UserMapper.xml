@@ -88,7 +88,7 @@
     </select>
 
     <select id="getUserListByItem" resultMap="userList">
-        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, create_time
         from hm_user
         <where>
             <trim prefix=" " suffix=" " suffixOverrides="and">

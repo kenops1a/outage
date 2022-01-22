@@ -90,8 +90,9 @@ export default new VueRouter({
                     name: 'orderForm',
                     component: () => import('@/views/user/info/orderForm')
                 }, {
-                    path: '/exitSys',
-                    name: 'exitSys'
+                    path: '/accountInfo',
+                    name: 'accountInfo',
+                    component: () => import('@/views/user/info/accountInfo')
                 }
             ]
         },
