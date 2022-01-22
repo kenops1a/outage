@@ -87,7 +87,7 @@
                 <span class="font-grey">沟通</span>
               </v-btn>
               <v-btn @click="setHost(host)" depressed tile>
-                <span class="font-grey">沟通</span>
+                <span class="font-grey">详情</span>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -193,9 +193,15 @@ export default {
     },*/
     // 将选中主持人信息存入vuex中
     setHost (val) {
-      this.$store.commit('$_setHost', val)
-      localStorage.setItem('host', JSON.stringify(val))
-      router.push('/hostDetail')
+
+      // 判断用户是否登录
+      if (this.$store.state.loginStatus === 0) {
+        router.push('/login')
+      } else {
+        this.$store.commit('$_setHost', val)
+        localStorage.setItem('host', JSON.stringify(val))
+        router.push('/hostDetail')
+      }
     }
   }
 }

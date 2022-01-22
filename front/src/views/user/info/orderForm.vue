@@ -5,8 +5,8 @@
 * @Date: 14/1/2022
 -->
 <template>
-  <v-main>
-    <v-card color="pa-8 pb-16 pt-10">
+  <v-main style="height: 100vh; width: 100vw">
+    <v-card color="pa-8 pb-16 pt-10" style="height: 100%; width: 100%;">
       <v-row class="ml-4 mb-n3">
         <h2>我的订单</h2>
       </v-row>
@@ -24,7 +24,7 @@
               <span style="color: #424242" @click="getForms('1')">已完成</span>
             </v-btn>
             <v-btn value="justify">
-              <span style="color: #424242" @click="getForms('0')">失败</span>
+              <span style="color: #424242" @click="getForms('0')">已取消</span>
             </v-btn>
           </v-btn-toggle>
         </v-col>
@@ -55,6 +55,15 @@
           </tbody>
         </template>
       </v-simple-table>
+
+      <!-- 分页 -->
+      <div class="text-center ma-8">
+        <v-pagination
+            v-model="page"
+            :length="6"
+            @input="getForms(null)"
+        ></v-pagination>
+      </div>
     </v-card>
   </v-main>
 </template>
@@ -85,9 +94,23 @@ export default {
     }
   },
   mounted () {
-      getFormList(this.hostForm, this.page, this.pageSize).then(res => {
-        this.formList = res.record
+    getFormList(this.hostForm, this.page, this.pageSize).then(res => {
+      res.record.forEach(item => {
+        // 处理status显示状态
+        switch (item.status) {
+          case '1' :
+            item.status = '已完成'
+                break
+          case '2' :
+            item.status = '进行中'
+                break
+          case '0' :
+            item.status = '已取消'
+                break
+        }
       })
+      this.formList = res.record
+    })
   },
   methods: {
     removeForm (val) {
@@ -102,7 +125,25 @@ export default {
     getForms (status) {
       this.hostForm.status = status
       getFormList(this.hostForm, this.page, this.pageSize).then(res => {
-        this.formList = res.record
+        if (res.success) {
+          res.record.forEach(item => {
+            // 处理status显示状态
+            switch (item.status) {
+              case '1' :
+                item.status = '已完成'
+                break
+              case '2' :
+                item.status = '进行中'
+                break
+              case '0' :
+                item.status = '已取消'
+                break
+            }
+          })
+          this.formList = res.record
+        } else {
+          this.formList = null
+        }
       })
     },
     // 修改订单状态

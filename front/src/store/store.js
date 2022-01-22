@@ -9,20 +9,20 @@ Vue.use(Vuex)
 // 全局管理的数据储存
 const state = {
     // 当前登录用户昵称
-    userNick: '',
+    userNick: null,
     // 当前登录用户
-    userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : {},
+    userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : null,
     // 详情页主持人id
     hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
     // 主持人对象
-    host: localStorage.getItem('host') ? localStorage.getItem('host') : {} ,
+    host: localStorage.getItem('host') ? localStorage.getItem('host') : null ,
     // vuex测试标题
     title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录
     loginStatus: 0,
     ser: null,
     // 如果token存在，则赋值为token，不存在则赋值为''
-    token: localStorage.getItem('token') ? localStorage.getItem('token'):''
+    token: localStorage.getItem('token') ? localStorage.getItem('token'):null
 }
 
 // 创建vuex对象

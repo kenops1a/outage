@@ -224,12 +224,6 @@ export default {
       adrDetail: '',
     }
   },
-  created() {
-    // 判断用户是否登录
-    if (this.$store.state.loginStatus === 0) {
-      router.push('/login')
-    }
-  },
   mounted() {
     // hostId存在时发送请求查询数据
     // if (this.$store.state.hostId !== undefined) {

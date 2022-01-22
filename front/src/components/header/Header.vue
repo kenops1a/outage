@@ -47,6 +47,8 @@
 </template>
 
 <script>
+import router from "@/router/router";
+
 export default {
   data: () => ({
     // menuLabel: this.$store.state.userNick,
@@ -66,7 +68,14 @@ export default {
       this.$store.commit('$_setUserNick','')
       // 修改登录状态
       this.$store.commit('$_updateLoginStatus',0);
-    }
+      // 清除本地存储
+      localStorage.removeItem('userNow')
+      localStorage.removeItem('hostId')
+      localStorage.removeItem('host')
+      localStorage.removeItem('token')
+      // 将登录状态设置为未登录
+      localStorage.removeItem('loginStatus')
+    },
   }
 }
 </script>
