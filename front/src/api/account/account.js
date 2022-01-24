@@ -3,7 +3,7 @@ import request from "@/utils/request";
 const userApi = {
     loginByPasswd: '/account/loginByPasswd',
     loginByVerifyCode: '/account/loginByVerify',
-    registerByItem: '/account/register'
+    registerByItem: '/account/register',
 }
 
 // 使用账号密码登录
@@ -33,4 +33,12 @@ export function register(params) {
     })
 }
 
+// 注销账号
+export function removeAccount(params, verifyCode) {
+    return request({
+        url: '/account/removeAccount' + '?verifyCode=' + verifyCode,
+        method: 'post',
+        data: params
+    })
+}
 

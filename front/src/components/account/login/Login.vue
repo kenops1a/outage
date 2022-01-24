@@ -80,7 +80,7 @@
           <!-- 有个小bug，中文输入模式会一次输入4个字符 -->
           <v-row id="verifyCode-box" class="ma-0" justify="center" no-gutters>
             <v-col cols="6" align-self="center">
-              <v-text-field label="verifyCode" :rules="rules.verifyCode" v-model="verifyUpper" color="blue-grey" placeholder="输入验证码"></v-text-field>
+              <v-text-field label="输入验证码" :rules="rules.verifyCode" v-model="verifyUpper" color="blue-grey" placeholder="输入验证码"></v-text-field>
             </v-col>
             <v-col cols="3" align-self="center">
               <v-btn class="ml-3 pa-2 mb-2" @click="getVerifyCode" depressed tile>
@@ -280,7 +280,7 @@ export default {
 
               console.log("登录成功")
             } else {
-
+              alert('登录失败，' + res.errorMsg)
               console.log("登录失败")
             }
           })

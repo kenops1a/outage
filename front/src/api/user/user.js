@@ -17,3 +17,12 @@ export function updateUserInfo(params) {
         data: params
     })
 }
+
+// 获取用户角色
+export function getUserRoleByEmail(params) {
+    return request({
+        url: '/user/getUserRoleByEmail',
+        method: 'post',
+        data: params
+    })
+}

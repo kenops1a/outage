@@ -28,7 +28,7 @@
                   <td>{{ item.label }}:</td>
                   <td>
                     {{ userModel[item.value] }}
-                    <v-icon size="16" color="blue" class="ml-2" @click.stop="testMethod(item)">{{ "mdi mdi-pencil" }}</v-icon>
+                    <v-icon size="16" color="blue-grey" class="ml-2" @click.stop="testMethod(item)">{{ "mdi mdi-pencil" }}</v-icon>
                   </td>
                 </tr>
                 <tr>
@@ -69,7 +69,6 @@
 </template>
 
 <script>
-import router from '@/router/router'
 import { updateUserInfo } from "@/api/user/user";
 
 export default {

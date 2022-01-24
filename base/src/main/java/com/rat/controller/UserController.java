@@ -89,7 +89,7 @@ public class UserController {
      * 通过email获取用户角色
      * @return UserRoleModel
      */
-    @GetMapping("/getUserRoleByEmail")
+    @PostMapping("/getUserRoleByEmail")
     public JsonResult<UserRoleModel> getUserRoleByEmail(@RequestBody Map<String,String> map) {
         return userService.getUserRoleByEmail(map.get("email"));
     }
