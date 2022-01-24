@@ -277,7 +277,7 @@ export default {
       this.orderForm.address = adrStr + this.adrDetail
 
       // 将表单对象发送给服务器
-      createForm(this.orderForm, this.$store.state.hostId, this.$store.state.userNow.id).then(res => {
+      createForm(this.orderForm, this.$store.state.host.id, this.$store.state.userNow.id).then(res => {
         console.log(res)
       })
     }
