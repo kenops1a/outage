@@ -48,25 +48,28 @@
         <v-dialog v-model="dialog" max-width="290">
           <v-card class="text-center pa-4">
             <span>修改{{ updateLabel.label }}</span>
-            <v-text-field v-model="userModel[updateLabel.value]" :placeholder="userModel[updateLabel.value]"></v-text-field>
+            <v-text-field v-model="updateLabel.data" :placeholder="userModel[updateLabel.value]"></v-text-field>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="green darken-1" text @click="dialog = false">
+              <v-btn color="green darken-1" text @click="closeUpdate()">
                 取消
               </v-btn>
-              <v-btn color="green darken-1" text @click="dialog = false">
+              <v-btn color="green darken-1" text @click="enterUpdate(updateLabel.value, updateLabel.data)">
                 确认
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-row>
+
     </v-card>
   </v-main>
 </template>
 
 <script>
 import router from '@/router/router'
+import { updateUserInfo } from "@/api/user/user";
+
 export default {
   name: "UserInfo",
   data () {
@@ -74,7 +77,8 @@ export default {
       dialog: false,
       updateLabel: {
         label: null,
-        value: null
+        value: null,
+        data: null
       },
       showList: [
         { label: '昵称', value: 'nick' },
@@ -112,6 +116,33 @@ export default {
   updated() {
   },
   methods: {
+    // 取消修改，将updateModel中编辑的属性重置为默认值null
+    closeUpdate () {
+      // 清空编辑内容
+      this.updateLabel.data = null
+      this.dialog = false
+    },
+    enterUpdate (label, value) {
+      // 关闭修改对话框
+      this.dialog = false
+      // 将输入框值封装成对象, 添加必要属性（用户邮箱账号）
+      let updateModel = {}
+      updateModel[label] = value
+      updateModel.email = this.$store.state.userNow.email
+      console.log(updateModel)
+      // 向后端发送修改请求
+      updateUserInfo(updateModel).then(res => {
+        // 修改成功，则更新vuex，localStorage中的用户对象
+        if (res.success) {
+          this.$store.state.userNow[label] = value
+          localStorage.setItem('userNow', JSON.stringify(this.$store.state.userNow))
+          alert('修改成功')
+        } else {
+          // 弹出失败提示
+          alert('修改失败,' + res.errorMsg)
+        }
+      })
+    },
     testMethod (val) {
       this.dialog = true
       this.updateLabel = val

@@ -166,8 +166,6 @@ public class UserController {
         }
         if (userService.getUserByEmail(userModel) == null) {
             return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);
-        } else if (userService.checkUserItem(userModel) != null) {
-            return ResultTool.failed(ResultCode.NO_PERMISSION);
         }
         return userService.updateUser(userModel);
     }

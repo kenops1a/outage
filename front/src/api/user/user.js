@@ -10,8 +10,10 @@ export function getUserByEmail(params) {
 }
 
 // 修改信息
-export function updateInfo(params) {
+export function updateUserInfo(params) {
     return request({
         url: '/user/updateUser',
+        method: 'post',
+        data: params
     })
 }
