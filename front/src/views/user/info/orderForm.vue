@@ -20,11 +20,11 @@
             <v-btn value="center" @click="getForms('2')">
               <span style="color: #424242">进行中</span>
             </v-btn>
-            <v-btn value="right">
-              <span style="color: #424242" @click="getForms('1')">已完成</span>
+            <v-btn value="right" @click="getForms('1')">
+              <span style="color: #424242">已完成</span>
             </v-btn>
-            <v-btn value="justify">
-              <span style="color: #424242" @click="getForms('0')">已取消</span>
+            <v-btn value="justify" @click="getForms('0')">
+              <span style="color: #424242">已取消</span>
             </v-btn>
           </v-btn-toggle>
         </v-col>
