@@ -118,6 +118,7 @@ export default {
       removeForm(val).then(res => {
         if (res.success) {
           alert('删除成功')
+          this.getForms()
         }
       })
     },
@@ -151,6 +152,8 @@ export default {
       this.hostForm.status = status
       this.hostForm.formId = formId
       updateForm(this.hostForm)
+      alert('修改成功')
+      this.getForms()
     }
   }
 }
