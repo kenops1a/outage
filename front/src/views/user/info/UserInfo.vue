@@ -18,6 +18,12 @@
           <v-simple-table>
             <template v-slot:default>
               <tbody>
+                <tr>
+                  <td>邮箱:</td>
+                  <td>
+                    {{ userModel.email }}
+                  </td>
+                </tr>
                 <tr v-for="(item, index) in showList" :key="index">
                   <td>{{ item.label }}:</td>
                   <td>
@@ -26,7 +32,7 @@
                   </td>
                 </tr>
                 <tr>
-                  <td>注册时间</td>
+                  <td>注册时间:</td>
                   <td>
                     {{ userModel.createTime }}
                   </td>
@@ -46,10 +52,10 @@
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="dialog = false">
-                Disagree
+                取消
               </v-btn>
               <v-btn color="green darken-1" text @click="dialog = false">
-                Agree
+                确认
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -71,7 +77,6 @@ export default {
         value: null
       },
       showList: [
-        { label: '邮箱', value: 'email' },
         { label: '昵称', value: 'nick' },
         { label: '姓名', value: 'name' },
         { label: '性别', value: 'sex' },
