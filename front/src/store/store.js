@@ -8,19 +8,12 @@ Vue.use(Vuex)
 
 // 全局管理的数据储存
 const state = {
-    // 当前登录用户昵称
-    userNick: null,
     // 当前登录用户
     userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : null,
-    // 详情页主持人id
-    hostId: localStorage.getItem('hostId') ? localStorage.getItem('hostId') : undefined,
     // 主持人对象
     host: localStorage.getItem('host') ? localStorage.getItem('host') : null ,
-    // vuex测试标题
-    title: 'Hello World!',
     // 登录状态，0-未登录，1-已登录
-    loginStatus: 0,
-    ser: null,
+    loginStatus: localStorage.getItem('userNow') ? 1 : 0,
     // 如果token存在，则赋值为token，不存在则赋值为''
     token: localStorage.getItem('token') ? localStorage.getItem('token'):null
 }
@@ -47,22 +40,6 @@ const store = new Vuex.Store({
         },
         $_removeToken() {
             localStorage.removeItem('token')
-        },
-        // 修改登录状态
-        $_updateLoginStatus(state, value) {
-            state.loginStatus = value
-        },
-        // 测试vuex全局变量修改
-        $_updateTitle(state, title) {
-            state.title = title
-        },
-        // 设置当前登录用户昵称
-        $_setUserNick(state, nick) {
-            state.userNick = nick
-        },
-        // 设置选中主持人id
-        $_setHostId(state, hostId) {
-            state.hostId = hostId
         },
         // 设置主持人对象
         $_setHost(state, host) {

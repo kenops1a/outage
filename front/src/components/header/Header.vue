@@ -21,7 +21,7 @@
       <v-menu v-if="this.$store.state.loginStatus === 1" offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-avatar size="56" v-bind="attrs" v-on="on">
-            <span style="color:gray;">{{$store.state.userNick}}</span>
+            <span style="color:gray;">{{$store.state.userNow.nick}}</span>
           </v-avatar>
         </template>
         <v-list>
