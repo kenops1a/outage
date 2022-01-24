@@ -86,7 +86,7 @@ export default {
       rules: {
         // 邮箱校验规则正则表达式
         emailRule: /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
-        nickRule: /^[A-Za-z0-9]+$/,
+        nickRule: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
         nick: [ val => (val.length >= 9 && this.rules.nickRule.test(val) ) || `昵称由英文和数字组成，且长度不小于9位，不大于16位`],
         email: [ val => this.rules.emailRule.test(val) || `邮箱格式不正确` ],
         password: [ val => (val.length >= 9 && val.length <= 16) || `密码长度应小于16位大于9位且不能含有空格` ],

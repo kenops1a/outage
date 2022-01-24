@@ -48,7 +48,9 @@
         <v-dialog v-model="dialog" max-width="290">
           <v-card class="text-center pa-4">
             <span>修改{{ updateLabel.label }}</span>
-            <v-text-field v-model="updateLabel.data" :placeholder="userModel[updateLabel.value]"></v-text-field>
+            <v-form ref="updateValid">
+              <v-text-field v-model="updateLabel.data" :rules="rules[updateLabel.value]" :placeholder="userModel[updateLabel.value]"></v-text-field>
+            </v-form>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn color="green darken-1" text @click="closeUpdate()">
@@ -89,7 +91,19 @@ export default {
         { label: '手机号', value: 'phone' },
         { label: '身份证', value: 'sfz' },
       ],
-      userModel: {}
+      userModel: {},
+      rules: {
+        nickRule: /^[\u4E00-\u9FA5A-Za-z0-9_]+$/,
+        addressRule: /^[\u4e00-\u9fa5]{0,}$/,
+        phoneRule: /^(13[0-9]|14[5|7]|15[0|1|2|3|4|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/,
+        sfzRule: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
+        ageRule: /^[0-9]*$/,
+        nick: [ val => (val.length >= 9 && this.rules.nickRule.test(val) ) || `中文、英文、数字包括下划线，长度不小于9位，不大于16位`],
+        // age: [ val => (this.rules.age.test(val) && val >= 0) || `数字，且不小于0`],
+        name: [ val => (val.length >= 2 && val.length <=5) || `姓名的长度应大于等于2位，小于5位` ],
+        phone: [ val => this.rules.phoneRule.test(val) || `请输入11位正确的手机号码`],
+        sfz: [ val => this.rules.sfzRule.test(val) || `请输入格式正确的身份证`]
+      }
     }
   },
   mounted() {
@@ -112,6 +126,9 @@ export default {
       case '2':
         this.userModel.sex = '未公开'
     }
+
+    // 将数值转换换为字符串，以便placeholder不报异常
+    this.userModel.age = this.userModel.age.toString()
   },
   updated() {
   },
@@ -125,23 +142,26 @@ export default {
     enterUpdate (label, value) {
       // 关闭修改对话框
       this.dialog = false
-      // 将输入框值封装成对象, 添加必要属性（用户邮箱账号）
-      let updateModel = {}
-      updateModel[label] = value
-      updateModel.email = this.$store.state.userNow.email
-      console.log(updateModel)
-      // 向后端发送修改请求
-      updateUserInfo(updateModel).then(res => {
-        // 修改成功，则更新vuex，localStorage中的用户对象
-        if (res.success) {
-          this.$store.state.userNow[label] = value
-          localStorage.setItem('userNow', JSON.stringify(this.$store.state.userNow))
-          alert('修改成功')
-        } else {
-          // 弹出失败提示
-          alert('修改失败,' + res.errorMsg)
-        }
-      })
+      // 格式校验通过后再进行更新操作
+     if (this.$refs.updateValid.validate()) {
+       // 将输入框值封装成对象, 添加必要属性（用户邮箱账号）
+       let updateModel = {}
+       updateModel[label] = value
+       updateModel.email = this.$store.state.userNow.email
+       console.log(updateModel)
+       // 向后端发送修改请求
+       updateUserInfo(updateModel).then(res => {
+         // 修改成功，则更新vuex，localStorage中的用户对象
+         if (res.success) {
+           this.$store.state.userNow[label] = value
+           localStorage.setItem('userNow', JSON.stringify(this.$store.state.userNow))
+           alert('修改成功')
+         } else {
+           // 弹出失败提示
+           alert('修改失败,' + res.errorMsg)
+         }
+       })
+     }
     },
     testMethod (val) {
       this.dialog = true
