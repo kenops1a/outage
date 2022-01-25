@@ -51,24 +51,34 @@ export default new VueRouter({
             meta: {
                 keep: true
             }
-        }, {
+        },
+        // 主持人详情页
+        {
             path: '/hostDetail',
             name: 'hostDetail',
             component: () => import('@/views/host/HostDetail'),
             meta: {
-                keep: true
+                keep: true,
+                auth: true
             }
         }, {
             path: '/message',
             name: 'message',
             component: () => import('@/views/message/Message'),
             meta: {
-                keep: true
+                keep: true,
+                auth: true
             }
         }, {
             path: '/weblog',
             name: 'weblog',
             component: () => import('@/views/weblog/Weblog'),
+            meta: {
+                keep: true
+            }
+        }, {
+            path: '/weblogDetail',
+            name: 'weblogDetail',
             meta: {
                 keep: true
             }
@@ -94,7 +104,10 @@ export default new VueRouter({
                     name: 'accountInfo',
                     component: () => import('@/views/user/info/accountInfo')
                 }
-            ]
+            ],
+            meta: {
+                auth: true
+            }
         },
         // 测试路由组件
         {

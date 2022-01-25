@@ -194,14 +194,15 @@ export default {
     // 将选中主持人信息存入vuex中
     setHost (val) {
 
+      // 已过时，现使用vue-router进行登录拦截
       // 判断用户是否登录
-      if (this.$store.state.loginStatus === 0) {
-        router.push('/login')
-      } else {
+      // if (this.$store.state.loginStatus === 0) {
+      //   router.push('/login')
+      // } else {
         this.$store.commit('$_setHost', val)
         localStorage.setItem('host', JSON.stringify(val))
         router.push('/hostDetail')
-      }
+      // }
     }
   }
 }
