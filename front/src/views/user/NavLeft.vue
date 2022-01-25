@@ -53,17 +53,17 @@ export default {
   }),
   methods: {
     exitSystem () {
-      // 清除vuex中的用户昵称
-      this.$store.commit('$_setUserNick','')
       // 修改登录状态
-      this.$store.commit('$_updateLoginStatus',0);
-      // 清除token
-      this.$store.commit('$_removeToken')
+      this.$store.commit('$_updateLoginStatus',0)
+      // 清除vux中的用户对象
+      this.$store.commit('$_setUserNow', null)
       // 清除本地存储
       localStorage.removeItem('userNow')
       localStorage.removeItem('hostId')
       localStorage.removeItem('host')
       localStorage.removeItem('token')
+      // 将登录状态设置为未登录
+      localStorage.removeItem('loginStatus')
       router.push('/home')
     }
   }

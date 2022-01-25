@@ -41,6 +41,9 @@ const store = new Vuex.Store({
         $_removeToken() {
             localStorage.removeItem('token')
         },
+        $_updateLoginStatus(state, status) {
+            state.loginStatus = status
+        },
         // 设置主持人对象
         $_setHost(state, host) {
             state.host = host
