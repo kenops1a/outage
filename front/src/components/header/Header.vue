@@ -56,10 +56,10 @@ export default {
       { name: '首页', path: '/home'},
       { name: '主持人', path: '/host'},
       { name: '动态', path: '/weblog'},
-      { name: '消息', path: '/message'}
     ],
     items: [
       { title: '个人中心', path: '/userMenu'},
+      { title: '我的消息', path: '/message'}
     ],
   }),
   methods: {

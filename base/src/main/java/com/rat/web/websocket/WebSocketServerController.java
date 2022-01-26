@@ -57,6 +57,7 @@ public class WebSocketServerController {
         // 加入map
         CLIENTS.put(userId, session);
         log.info("客户端：[" + session.getId() + "]已上线");
+        log.info("用户id：" + userId);
     }
 
     @OnClose

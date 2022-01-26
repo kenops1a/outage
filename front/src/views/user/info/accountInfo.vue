@@ -193,7 +193,7 @@ export default {
     }
     this.removeForm.email = this.email
     if (localStorage.getItem('password')) {
-      this.password.label = '*********'
+      this.password.label = '********* (已设置登录密码)'
     }
     getUserRoleByEmail(this.removeForm).then(res => {
       if (res.success) {
@@ -256,8 +256,6 @@ export default {
             localStorage.removeItem('host')
             localStorage.removeItem('userNow')
             localStorage.removeItem('token')
-            // 清除vuex中的用户昵称
-            this.$store.commit('$_setUserNick','')
             // 修改登录状态
             this.$store.commit('$_updateLoginStatus',0);
             // 清除token
