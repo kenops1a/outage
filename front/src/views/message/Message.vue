@@ -11,7 +11,7 @@
         <!-- 子元素会撑起父元素的高度 -->
         <v-row class="ma-0 pa-0">
           <v-col cols="4">
-<!--            <router-link to="/home">此处是message页，返回index</router-link>-->
+            <!--<router-link to="/home">此处是message页，返回index</router-link>-->
             <v-navigation-drawer permanent>
               <!-- 循环菜单 -->
               <v-list-item v-for="(msgSession, index) in sessionList" :key="index">
