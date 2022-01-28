@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main>
-    <v-container class="mt-16 mb-16">
+    <v-container class="mt-12 mb-16">
       <v-card min-width="900" min-height="600">
         <!-- 子元素会撑起父元素的高度 -->
         <v-row class="ma-0 pa-0">
@@ -28,7 +28,7 @@
             </v-navigation-drawer>
           </v-col>
           <v-col class="ml-0 pl-0">
-            <div style="height: 400px">
+            <div style="height: 50px">
               <v-row justify="center" class="mt-3 mr-3">
                 <h3>{{ host.nick }}</h3>
               </v-row>
@@ -38,7 +38,7 @@
               <v-divider></v-divider>
             </div>
 
-            <div style="height: 400px" class="pt-6">
+            <div id="scroll" style="height: 430px" class="pt-6">
               <!-- 接收消息展示 -->
               <v-row justify="start" class="mb-2" align="center" no-gutters>
                 <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
@@ -49,49 +49,13 @@
               <!-- 发送消息展示 -->
               <v-row justify="end" class="mb-2" align="center" no-gutters>
                 <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
-              <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span>:~{{ host.nick }}</span>
+                <span class="mr-2">:~{{ host.nick }}</span>
                 <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
               </v-row>
             </div>
             <v-divider class="pl-n3"></v-divider>
-            <div style="height: 200px">
-              <v-row class="pa-4 pt-0 pl-0 pr-6 mt-0" style="height: 150px">
+            <div style="height: 150px">
+              <v-row class="pa-4 pt-0 pl-0 pr-6 mt-0" style="height: 100px">
                 <label>
                   <textarea style="height: 100%; width: 55vw; outline: none; resize: none" class="pa-4 pt-2" v-model="msgBody.message" placeholder="弱小和无知不是生存的障碍，傲慢才是。"></textarea>
                 </label>
@@ -209,5 +173,7 @@ export default {
 </script>
 
 <style scoped>
-
+#scroll {
+  position: relative;
+}
 </style>
