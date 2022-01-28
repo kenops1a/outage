@@ -205,6 +205,12 @@ export default {
       // }
     },
     toMessage (val) {
+      this.$store.commit('$_setHost', val)
+      localStorage.setItem('host', JSON.stringify(val))
+      router.push('/message')
+    },
+    // 逻辑有问题，暂时不用
+    toMessage2 (val) {
       this.$store.commit('$_setHostList', val)
       console.log(this.$store.state.hostList)
       localStorage.setItem('hostList', JSON.stringify(this.$store.state.hostList))

@@ -10,23 +10,55 @@
       <v-card min-width="900" min-height="600">
         <!-- 子元素会撑起父元素的高度 -->
         <v-row class="ma-0 pa-0">
-          <v-col cols="4">
+          <v-col cols="3">
             <!--<router-link to="/home">此处是message页，返回index</router-link>-->
             <v-navigation-drawer permanent>
               <!-- 循环菜单 -->
-              <v-list-item v-for="(host, index) in hostList" :key="index">
-                <v-list-item-icon>
-                  <v-icon>{{ 'mdi-comment-account' }}</v-icon>
-                </v-list-item-icon>
+              <v-list>
+                <v-list-item v-for="(host, index) in hostList" :key="index" @click="setHostNow(host)">
+                  <v-list-item-icon>
+                    <v-icon>{{ 'mdi-comment-account' }}</v-icon>
+                  </v-list-item-icon>
 
-                <v-list-item-content>
-                  <v-list-item-title>{{ host.nick }}</v-list-item-title>
-                </v-list-item-content>
-              </v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title>{{ host.nick }}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
             </v-navigation-drawer>
           </v-col>
-          <v-col>
-            <div style="height: 600px">
+          <v-col class="ml-0 pl-0">
+            <div style="height: 400px">
+              <v-row justify="center" class="mt-3 mr-3">
+                <h3>{{ host.nick }}</h3>
+              </v-row>
+              <v-row class="pa-4 pt-8 pr-6" style="height: 380px">
+                <v-row style="height: 56px" align="center">
+                  <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+                  <span>{{ host.nick }}</span>
+                </v-row>
+                <v-row>
+                  本显示
+                </v-row>
+              </v-row>
+            </div>
+            <v-divider class="pl-n3"></v-divider>
+            <div style="height: 200px">
+              <v-row class="pa-4 pt-0 pl-0 pr-6 mt-0" style="height: 150px">
+                <label>
+                  <textarea style="height: 100%; width: 55vw; outline: none; resize: none" class="pa-4 mt-3" v-model="msgBody.message"></textarea>
+                </label>
+              </v-row>
+              <v-row justify="end" class="pr-12 pb-3">
+                <v-btn-toggle group tile >
+                  <v-btn class="pa-5">
+                    关闭
+                  </v-btn>
+                  <v-btn class="pa-5">
+                    发送
+                  </v-btn>
+                </v-btn-toggle>
+              </v-row>
             </div>
           </v-col>
         </v-row>
@@ -63,6 +95,7 @@ export default {
   name: "Message",
   data () {
     return {
+      host: null,
       hostList: [],
       msgBody: {
         userId: undefined,
@@ -74,9 +107,9 @@ export default {
     }
   },
   created() {
-
     // 加载接收者或发送者为当前用户的消息列表
     this.hostList = this.$store.state.hostList
+    this.host = this.$store.state.host
     console.log(this.$store.state.userNow)
     // 处理消息体初始状态
     // 设置发送者
@@ -118,6 +151,11 @@ export default {
   methods: {
     sendMessage () {
 
+    },
+    setHostNow (val) {
+      // 点击列表项，选择主持人对话框
+      this.$store.commit('$_setHost', val)
+      this.host = val
     }
   }
 }

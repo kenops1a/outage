@@ -11,7 +11,7 @@ const state = {
     // 当前登录用户
     userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : null,
     // 主持人对象
-    host: localStorage.getItem('host') ? localStorage.getItem('host') : null ,
+    host: localStorage.getItem('host') ? JSON.parse(localStorage.getItem('host')) : null ,
     // 主持人通信列表
     hostList: localStorage.getItem('hostList') ? JSON.parse(localStorage.getItem('hostList')) : [],
     // 登录状态，0-未登录，1-已登录
