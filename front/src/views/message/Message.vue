@@ -32,21 +32,68 @@
               <v-row justify="center" class="mt-3 mr-3">
                 <h3>{{ host.nick }}</h3>
               </v-row>
-              <v-row class="pa-4 pt-8 pr-6" style="height: 380px">
-                <v-row style="height: 56px" align="center">
-                  <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-                  <span>{{ host.nick }}</span>
-                </v-row>
-                <v-row>
-                  本显示
-                </v-row>
+              <v-row justify="center" class="mt-3 mr-3 mb-3">
+                <span style="color: limegreen">在线</span>
+              </v-row>
+              <v-divider></v-divider>
+            </div>
+
+            <div style="height: 400px" class="pt-6">
+              <!-- 接收消息展示 -->
+              <v-row justify="start" class="mb-2" align="center" no-gutters>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+                <span>{{ host.nick }}~: </span>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+              </v-row>
+
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+              </v-row>
+              <!-- 发送消息展示 -->
+              <v-row justify="end" class="mb-2" align="center" no-gutters>
+                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <span>:~{{ host.nick }}</span>
+                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
               </v-row>
             </div>
             <v-divider class="pl-n3"></v-divider>
             <div style="height: 200px">
               <v-row class="pa-4 pt-0 pl-0 pr-6 mt-0" style="height: 150px">
                 <label>
-                  <textarea style="height: 100%; width: 55vw; outline: none; resize: none" class="pa-4 mt-3" v-model="msgBody.message"></textarea>
+                  <textarea style="height: 100%; width: 55vw; outline: none; resize: none" class="pa-4 pt-2" v-model="msgBody.message" placeholder="弱小和无知不是生存的障碍，傲慢才是。"></textarea>
                 </label>
               </v-row>
               <v-row justify="end" class="pr-12 pb-3">
