@@ -83,7 +83,7 @@
               <h3 class="font-grey">{{ host.nick }}</h3>
             </div>
             <v-card-actions class="mb-0">
-              <v-btn depressed tile to="/takeMessage">
+              <v-btn depressed tile @click="toMessage(host)">
                 <span class="font-grey">沟通</span>
               </v-btn>
               <v-btn @click="setHost(host)" depressed tile>
@@ -203,6 +203,12 @@ export default {
         localStorage.setItem('host', JSON.stringify(val))
         router.push('/hostDetail')
       // }
+    },
+    toMessage (val) {
+      this.$store.commit('$_setHostList', val)
+      console.log(this.$store.state.hostList)
+      localStorage.setItem('hostList', JSON.stringify(this.$store.state.hostList))
+      router.push('/message')
     }
   }
 }

@@ -12,6 +12,8 @@ const state = {
     userNow: localStorage.getItem('userNow') ? JSON.parse(localStorage.getItem('userNow')) : null,
     // 主持人对象
     host: localStorage.getItem('host') ? localStorage.getItem('host') : null ,
+    // 主持人通信列表
+    hostList: [],
     // 登录状态，0-未登录，1-已登录
     loginStatus: localStorage.getItem('userNow') ? 1 : 0,
     // 如果token存在，则赋值为token，不存在则赋值为''
@@ -29,6 +31,11 @@ const store = new Vuex.Store({
                 state.token = JSON.parse(localStorage.getItem('token'))
             }
             return state.token
+        },
+        getHostList (state) {
+            if (state.hostList.length === 0) {
+                state.hostList = JSON.parse(localStorage.getItem('hostList'))
+            }
         }
     },
     // 操作state中的数据
@@ -51,6 +58,26 @@ const store = new Vuex.Store({
         // 设置正在登录的用户
         $_setUserNow(state, userNow) {
             state.userNow = userNow
+        },
+        // 添加已联系的主持人
+        $_setHostList(state, host) {
+            state.hostList.push(host)
+        },
+        // 删除已添加的主持人
+        $_delHostListItem(state, hostId) {
+            // for
+            // for (let i = 0; i < state.hostList.length; i++) {
+            //     if (state.hostList[i].id === hostId) {
+            //         state.hostList.replace(i,1)
+            //     }
+            // }
+
+            // foreach
+            state.hostList.forEach(function (item, index, array) {
+                if (item.id === hostId) {
+                    array.splice(index, 1)
+                }
+            })
         }
     }
 })

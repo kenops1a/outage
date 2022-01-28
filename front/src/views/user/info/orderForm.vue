@@ -95,21 +95,25 @@ export default {
   },
   mounted () {
     getFormList(this.hostForm, this.page, this.pageSize).then(res => {
-      res.record.forEach(item => {
-        // 处理status显示状态
-        switch (item.status) {
-          case '1' :
-            item.status = '已完成'
-                break
-          case '2' :
-            item.status = '进行中'
-                break
-          case '0' :
-            item.status = '已取消'
-                break
-        }
-      })
-      this.formList = res.record
+      if (res.success) {
+        res.record.forEach(item => {
+          // 处理status显示状态
+          switch (item.status) {
+            case '1' :
+              item.status = '已完成'
+              break
+            case '2' :
+              item.status = '进行中'
+              break
+            case '0' :
+              item.status = '已取消'
+              break
+          }
+        })
+        this.formList = res.record
+      } else {
+        alert("获取订单列表失败" + res.errorMsg)
+      }
     })
   },
   methods: {

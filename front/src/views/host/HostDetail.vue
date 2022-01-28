@@ -62,7 +62,7 @@
               <h2>预计佣金：<span style="color: orange">{{ host.money }}</span> ￥</h2>
             </v-col>
             <v-col cols="1" class="mr-10">
-              <v-btn color="orange" large dark>沟通</v-btn>
+              <v-btn color="orange" large dark @click="toMessage">沟通</v-btn>
             </v-col>
             <v-col cols="2">
               <v-row>
@@ -259,6 +259,11 @@ export default {
 
   },
   methods: {
+    // 跳转至聊天界面
+    toMessage () {
+      // 处于此页面说明vuex种已存在对应的主持人对象，可以直接跳转至message页面
+      router.push('message')
+    },
     // 输入字符串处理
     forMartOrderForm () {
       this.pop = false

@@ -12,11 +12,9 @@ import java.util.Date;
  */
 @Data
 public class MsgVo {
-
     private Integer userId;
     private Integer toId;
     private Date createTime;
     private String status;
     private String message;
-
 }
