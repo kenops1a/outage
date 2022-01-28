@@ -13,7 +13,7 @@ const state = {
     // 主持人对象
     host: localStorage.getItem('host') ? localStorage.getItem('host') : null ,
     // 主持人通信列表
-    hostList: [],
+    hostList: localStorage.getItem('hostList') ? JSON.parse(localStorage.getItem('hostList')) : [],
     // 登录状态，0-未登录，1-已登录
     loginStatus: localStorage.getItem('userNow') ? 1 : 0,
     // 如果token存在，则赋值为token，不存在则赋值为''
@@ -32,11 +32,6 @@ const store = new Vuex.Store({
             }
             return state.token
         },
-        getHostList (state) {
-            if (state.hostList.length === 0) {
-                state.hostList = JSON.parse(localStorage.getItem('hostList'))
-            }
-        }
     },
     // 操作state中的数据
     mutations: {

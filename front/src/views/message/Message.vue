@@ -26,7 +26,8 @@
             </v-navigation-drawer>
           </v-col>
           <v-col>
-            <div style="height: 600px"></div>
+            <div style="height: 600px">
+            </div>
           </v-col>
         </v-row>
       </v-card>
@@ -73,9 +74,10 @@ export default {
     }
   },
   created() {
-    // 加载联系人列表
-    this.hostList = this.$store.state.hostList
 
+    // 加载接收者或发送者为当前用户的消息列表
+    this.hostList = this.$store.state.hostList
+    console.log(this.$store.state.userNow)
     // 处理消息体初始状态
     // 设置发送者
     this.msgBody.userId = this.$store.state.userNow.id
@@ -112,9 +114,6 @@ export default {
     } else {
       alert('Not support websocket')
     }
-  },
-  mounted() {
-    // 加载接收者或发送者为当前用户的消息列表
   },
   methods: {
     sendMessage () {
