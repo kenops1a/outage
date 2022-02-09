@@ -7,7 +7,7 @@
 <template>
   <v-main>
     <v-container class="mt-12 mb-16">
-      <v-card min-width="900" min-height="600">
+      <v-card  min-width="900" min-height="600">
         <!-- 子元素会撑起父元素的高度 -->
         <v-row class="ma-0 pa-0">
           <v-col cols="3">
@@ -27,6 +27,7 @@
               </v-list>
             </v-navigation-drawer>
           </v-col>
+
           <v-col class="ml-0 pl-0">
             <div style="height: 50px">
               <v-row justify="center" class="mt-3 mr-3">
@@ -38,22 +39,34 @@
               <v-divider></v-divider>
             </div>
 
-            <div id="scroll" style="height: 430px" class="pt-6">
+            <div id="scroll" style="height: 430px" class="pt-4 mt-4">
               <!-- 接收消息展示 -->
               <v-row justify="start" class="mb-2" align="center" no-gutters>
                 <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-                <span>{{ host.nick }}~: </span>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
+                <div>
+                  <span>{{ host.nick }}~: </span>
+                  <span style="color: #777777; font-size: large">测试消息</span>
+                </div>
               </v-row>
 
               <!-- 发送消息展示 -->
-              <v-row justify="end" class="mb-2" align="center" no-gutters>
-                <span style="color: #777777; font-size: large">fadsffasdf</span>
-                <span class="mr-2">:~{{ host.nick }}</span>
-                <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
-              </v-row>
+              <div v-for="(msg, index) in msgList" :key="index">
+                <v-row justify="center">
+                  <span style="color: #777777; font-size: small">{{ msg.createTime }}</span>
+                </v-row>
+                <!-- 发送消息块 -->
+                <div v-if="msg.userId === $store.state.userNow.id">
+                  <v-row justify="end" class="mb-4" align="center" no-gutters>
+                    <span style="color: #777777; font-size: large">{{ msg.message }}</span>
+                    <span class="mr-2">:~</span>
+                    <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+                  </v-row>
+                </div>
+              </div>
             </div>
+
             <v-divider class="pl-n3"></v-divider>
+
             <div style="height: 150px">
               <v-row class="pa-4 pt-0 pl-0 pr-6 mt-0" style="height: 100px">
                 <label>
@@ -65,7 +78,7 @@
                   <v-btn class="pa-5">
                     关闭
                   </v-btn>
-                  <v-btn class="pa-5">
+                  <v-btn class="pa-5" @click="sendMessage">
                     发送
                   </v-btn>
                 </v-btn-toggle>
@@ -114,14 +127,15 @@ export default {
         createTime: null,
         status: null,
         message: null
-      }
+      },
+      msgList: []
     }
   },
   created() {
     // 加载接收者或发送者为当前用户的消息列表
     this.hostList = this.$store.state.hostList
-    this.host = this.$store.state.host
-    console.log(this.$store.state.userNow)
+    // 如果vuex中host为空，则显示hostlist的第一个主持人
+    this.host = this.$store.state.host === null ? this.$store.state.hostList[0] : this.$store.state.host
     // 处理消息体初始状态
     // 设置发送者
     this.msgBody.userId = this.$store.state.userNow.id
@@ -160,8 +174,40 @@ export default {
     }
   },
   methods: {
+    getMsgList () {
+      this.$store.state.msgList.forEach(item => {
+        let msg = JSON.parse(item)
+        // 将发送者id为当前用户和接收者id为该主持人的记录加入数组列表
+        if (msg.toId === this.host.id || msg.userId === this.$store.state.userNow.id) {
+          this.msgList.push(msg)
+        }
+      })
+    },
     sendMessage () {
+      // host: null,
+      //     hostList: [],
+      //     msgBody: {
+      //     userId: undefined,
+      //       toId: undefined,
+      //       createTime: null,
+      //       status: null,
+      //       message: null
+      // }
+      //
+      this.msgBody.userId = this.$store.state.userNow.id
+      this.msgBody.toId = this.host.id
+      this.msgBody.createTime = new Date().format('yyyy-MM-dd hh:mm:ss')
+      // 消息状态设置为未发送成功
+      this.msgBody.status = 0
 
+      // 发送消息
+
+      // 将已发送的消息对象转换为json字符串后放入vuex中
+      this.$store.commit('$_addMessage', JSON.stringify(this.msgBody))
+      // 清空输入框
+      this.msgBody.message = ''
+      // 加载与该主持人的消息
+      this.getMsgList()
     },
     setHostNow (val) {
       // 点击列表项，选择主持人对话框
@@ -175,5 +221,7 @@ export default {
 <style scoped>
 #scroll {
   position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 </style>

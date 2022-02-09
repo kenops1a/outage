@@ -158,6 +158,10 @@ export default new VueRouter({
             path: '/stringToDate',
             name: 'stringToDate',
             component: () => import('@/components/test/stringForDate/StringToDate')
+        }, {
+            path: '/msgListTest',
+            name: 'msgListTest',
+            component: () => import('@/components/test/msgListTest/MsgListTest')
         }
     ]
 })

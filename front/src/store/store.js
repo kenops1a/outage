@@ -17,7 +17,9 @@ const state = {
     // 登录状态，0-未登录，1-已登录
     loginStatus: localStorage.getItem('userNow') ? 1 : 0,
     // 如果token存在，则赋值为token，不存在则赋值为''
-    token: localStorage.getItem('token') ? localStorage.getItem('token'):null
+    token: localStorage.getItem('token') ? localStorage.getItem('token'):null,
+    // 聊天消息列表
+    msgList: [],
 }
 
 // 创建vuex对象
@@ -73,6 +75,14 @@ const store = new Vuex.Store({
                     array.splice(index, 1)
                 }
             })
+        },
+        // 向消息列表中添加元素
+        $_addMessage(state, message) {
+            state.msgList.push(message)
+        },
+        // vuex数组push测试
+        $_addMsg(state, msg) {
+            state.list.push(msg)
         }
     }
 })

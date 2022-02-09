@@ -48,5 +48,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### 暂未处理的问题
 1.修改用户信息的参数修改问题（已完成）
 2.修改用户信息的参数格式校验（已完成）
+3.vuex存放对象数组（已完成）{
+    问题：vuex中向对象数组push元素时会将数组中的所有元素修改为新元素
+    解决：将元素转换为json字符串再push到数组中
+}
 ### 
 
