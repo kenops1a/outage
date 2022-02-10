@@ -36,12 +36,12 @@
             <v-row>
               <v-col>
                 <v-card color="primary" height="186" width="100%">
-                  啊哈哈哈
+                  平台新闻
                 </v-card>
               </v-col>
               <v-col>
                 <v-card color="primary" height="186" width="100%">
-                  穿山甲
+                  系统公告
                 </v-card>
               </v-col>
             </v-row>
@@ -78,9 +78,22 @@
         </v-row>
 
         <v-row>
-          <v-col cols="3">
+          <v-col cols="3" v-for="(host, index) in newHostList" :key="index">
             <v-card height="300" width="100%">
-
+              <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
+              </v-img>
+              <div class="ma-3 mb-2">
+                <h3 class="font-grey">{{ host.nick }}</h3>
+              </div>
+              <v-card-actions class="mb-0">
+                <v-btn depressed tile @click="toMessage(host)">
+                  <span>沟通</span>
+                </v-btn>
+                <v-btn @click="setHost(host)" depressed tile>
+                  <span>详情</span>
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -97,9 +110,22 @@
         </v-row>
 
         <v-row>
-          <v-col cols="3">
+          <v-col cols="3" v-for="(host, index) in newHostList" :key="index">
             <v-card height="300" width="100%">
-
+              <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+                <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
+              </v-img>
+              <div class="ma-3 mb-2">
+                <h3 class="font-grey">{{ host.nick }}</h3>
+              </div>
+              <v-card-actions class="mb-0">
+                <v-btn depressed tile @click="toMessage(host)">
+                  <span>沟通</span>
+                </v-btn>
+                <v-btn @click="setHost(host)" depressed tile>
+                  <span>详情</span>
+                </v-btn>
+              </v-card-actions>
             </v-card>
           </v-col>
         </v-row>
@@ -126,7 +152,7 @@
         <v-row>
           <v-col>
             <div class="text-center pa-8 ma-8">
-              <v-pagination v-model="pageSearch.page" :length="6" @input="getHostListDefalut"></v-pagination>
+<!--              <v-pagination v-model="pageSearch.page" :length="6" @input="getHostListDefalut"></v-pagination>-->
             </div>
           </v-col>
         </v-row>
@@ -138,7 +164,8 @@
 
 <script>
 
-import { getHostsByTime } from "@/api/host/host";
+import { getHostsByTime, getHostList } from "@/api/host/host";
+import router from "@/router/router";
 
 export default {
   name: "Home",
@@ -148,16 +175,63 @@ export default {
       // 热门主持人列表
       hotHostList: [],
       // 近期加入的主持人列表
-      timeHostList: [],
+      newHostList: [],
       pageSearch: {
         page: 1,
-        pageSize: 6
+        pageSize: 4
       },
     }
   },
   components: {
     Carousels: () => import('@/components/home/Carousels'),
   },
+  mounted() {
+    this.getNewHosts()
+  },
+  methods: {
+    getNewHosts () {
+      getHostsByTime(this.pageSearch, 1).then(res => {
+        if (res.success) {
+          this.newHostList = res.record
+        } else {
+          alert('新人主持人列表加载失败')
+        }
+      })
+      getHostList(this.pageSearch).then(res => {
+        if (res.success) {
+          this.hotHostList = res.record
+        } else {
+          alert('热门主持人列表加载失败')
+        }
+      })
+    },
+    setHost (val) {
+      // 已过时，现使用vue-router进行登录拦截
+      // 判断用户是否登录
+      // if (this.$store.state.loginStatus === 0) {
+      //   router.push('/login')
+      // } else {
+      this.$store.commit('$_setHost', val)
+      localStorage.setItem('host', JSON.stringify(val))
+      router.push('/hostDetail')
+      // }
+    },
+    toMessage (val) {
+      this.$store.commit('$_setHost', val)
+      localStorage.setItem('host', JSON.stringify(val))
+      // 判断主持人会话窗口是否已存在
+      // 检查对象数组是否包含对象，some（）方法
+      console.log(this.$store.state.hostList.some(item => item.id === val.id))
+      if (this.$store.state.hostList.some(item => item.id === val.id)) {
+        router.push('/message')
+      } else {
+        // 将该主持人对象保存在localstorage和vuex中
+        this.$store.state.hostList.push(val)
+        localStorage.setItem('hostList', JSON.stringify(this.$store.state.hostList))
+        router.push('/message')
+      }
+    },
+  }
 }
 </script>
 

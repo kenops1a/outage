@@ -6,7 +6,7 @@
 -->
 <template>
   <div>
-    <label>{{ $store.state.list }}</label>
+    <label v-for="(item, index) in $store.state.list" :key="index">{{ item }}<br></label>
     <v-text-field v-model="message"></v-text-field>
     <v-btn @click="addMsg">添加</v-btn>
   </div>
@@ -29,7 +29,7 @@ export default {
     addMsg () {
       this.msg.createTime = new Date()
       this.msg.msgText = this.message
-      this.$store.commit('$_addMsg', JSON.stringify(this.msg))
+      this.$store.commit('$_addMsg',this.msg)
       console.log(this.$store.state.list)
     }
   }

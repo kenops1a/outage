@@ -207,8 +207,19 @@ export default {
     },
     toMessage (val) {
       this.$store.commit('$_setHost', val)
+      // 设置当前访问主持人对象
       localStorage.setItem('host', JSON.stringify(val))
-      router.push('/message')
+      // 判断主持人会话窗口是否已存在
+      // 检查对象数组是否包含对象，some（）方法
+      console.log(this.$store.state.hostList.some(item => item.id === val.id))
+      if (this.$store.state.hostList.some(item => item.id === val.id)) {
+        router.push('/message')
+      } else {
+        // 将该主持人对象保存在localstorage和vuex中
+        this.$store.state.hostList.push(val)
+        localStorage.setItem('hostList', JSON.stringify(this.$store.state.hostList))
+        router.push('/message')
+      }
     },
     // 逻辑有问题，暂时不用
     toMessage2 (val) {

@@ -20,6 +20,7 @@ const state = {
     token: localStorage.getItem('token') ? localStorage.getItem('token'):null,
     // 聊天消息列表
     msgList: [],
+    list: []
 }
 
 // 创建vuex对象
@@ -82,7 +83,9 @@ const store = new Vuex.Store({
         },
         // vuex数组push测试
         $_addMsg(state, msg) {
-            state.list.push(msg)
+            let list = state.list
+            list.push(msg)
+            state.list = list
         }
     }
 })

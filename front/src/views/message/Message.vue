@@ -6,7 +6,7 @@
 -->
 <template>
   <v-main>
-    <v-container class="mt-12 mb-16">
+    <v-container class="mt-12 mb-16 pa-5">
       <v-card  min-width="900" min-height="600">
         <!-- 子元素会撑起父元素的高度 -->
         <v-row class="ma-0 pa-0">
@@ -75,7 +75,7 @@
               </v-row>
               <v-row justify="end" class="pr-12 pb-3">
                 <v-btn-toggle group tile >
-                  <v-btn class="pa-5">
+                  <v-btn class="pa-5" @click="close($store.state.host.id)">
                     关闭
                   </v-btn>
                   <v-btn class="pa-5" @click="sendMessage">
@@ -220,6 +220,15 @@ export default {
       // 清空原来的msgList
       this.msgList = []
       this.getMsgList()
+    },
+    // 传入主持人id
+    close (val) {
+      this.$store.state.hostList.some((item, i) => {
+        if (item.id === val) {
+          this.$store.state.hostList.splice(i, 1)
+          return true
+        }
+      })
     }
   }
 }
