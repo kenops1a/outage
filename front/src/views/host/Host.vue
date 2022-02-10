@@ -34,7 +34,7 @@
       <!-- 搜索框 -->
       <v-row justify="center">
         <v-col cols="5">
-          <v-text-field v-model="nameSearch.nameLike" placeholder="关键字搜索" solo dark></v-text-field>
+          <v-text-field v-model="nameSearch.nameLike" placeholder="关键字搜索" solo></v-text-field>
         </v-col>
         <v-col cols="1" class="" style="width: 48px; height: 48px">
           <v-icon size="48" @click="getHostsByLikeParam" type="button">mdi-magnify</v-icon>
@@ -42,7 +42,7 @@
       </v-row>
 
       <!-- 分类 -->
-      <v-card class="ma-10 pa-5" dark>
+      <v-card class="ma-10 pa-10">
         <v-row class="pa-3">
           <dl id="type-label" class="flex-label">
             <dt class="font-grey">分类</dt>
@@ -75,7 +75,7 @@
       <!-- 主持人列表 -->
       <v-row align="center">
         <v-col cols="4" v-for="(host, index) in hostList" :key="index">
-          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px" dark>
+          <v-card class="ma-3 mb-2" min-height="200px" min-width="200px">
             <v-img class="white&#45;&#45;text align-end" height="200px" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
               <!--<v-card-title>Top 10 Australian beaches</v-card-title>-->
             </v-img>
@@ -84,10 +84,10 @@
             </div>
             <v-card-actions class="mb-0">
               <v-btn depressed tile @click="toMessage(host)">
-                <span class="font-grey">沟通</span>
+                <span>沟通</span>
               </v-btn>
               <v-btn @click="setHost(host)" depressed tile>
-                <span class="font-grey">详情</span>
+                <span>详情</span>
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -97,6 +97,7 @@
       <div class="text-center pa-8 ma-8">
         <v-pagination v-model="pageSearch.page" :length="6" @input="getHostListDefalut"></v-pagination>
       </div>
+
     </v-container>
   </v-main>
 </template>
