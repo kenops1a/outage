@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" style="background-color: whitesmoke">
+  <v-app id="inspire" style="background-color: floralwhite">
     <div v-if="$route.meta.keep">
       <Header/>
     </div>

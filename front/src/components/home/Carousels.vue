@@ -5,7 +5,7 @@
 * @Date: 10/2/2022
 -->
 <template>
-  <v-carousel height="93vh" cycle hide-delimiter-background show-arrows-on-hover>
+  <v-carousel height="423" cycle hide-delimiter-background show-arrows-on-hover>
     <v-carousel-item v-for="(slide, i) in slides" :key="i">
       <v-sheet :color="colors[i]" height="100%">
         <v-row class="fill-height" align="center" justify="center">
