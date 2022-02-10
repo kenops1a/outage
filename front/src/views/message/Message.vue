@@ -206,13 +206,20 @@ export default {
       this.$store.commit('$_addMessage', JSON.stringify(this.msgBody))
       // 清空输入框
       this.msgBody.message = ''
+      // 清空原有信息列表
+      this.msgList = []
       // 加载与该主持人的消息
       this.getMsgList()
+      console.log(this.$store.state.msgList)
+      console.log(this.msgList)
     },
     setHostNow (val) {
       // 点击列表项，选择主持人对话框
       this.$store.commit('$_setHost', val)
       this.host = val
+      // 清空原来的msgList
+      this.msgList = []
+      this.getMsgList()
     }
   }
 }
