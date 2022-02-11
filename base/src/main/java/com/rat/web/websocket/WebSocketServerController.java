@@ -58,7 +58,10 @@ public class WebSocketServerController {
         // 加入map
         CLIENTS.put(userId, session);
         log.info("客户端：[" + session.getId() + "]已上线");
-        System.out.println("userId:" + userId);
+// todo       for (Map.Entry<Integer, Session> entry : CLIENTS.entrySet()) {
+//            System.out.println(entry.getKey());
+//            System.out.println(entry);
+//        }
         // 创建提示信息对象
         JSONObject msg = new JSONObject();
         try {
