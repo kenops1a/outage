@@ -229,6 +229,11 @@ export default {
           return true
         }
       })
+      // 覆写localStorage中存储的联系人列表
+      localStorage.setItem('hostList', JSON.stringify(this.$store.state.hostList))
+      // 将列表首位主持人设置为当前主持人
+      this.$store.state.host = this.$store.state.hostList[0]
+      this.host = this.$store.state.host
     }
   }
 }
