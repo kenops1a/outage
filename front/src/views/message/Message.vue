@@ -227,8 +227,6 @@ export default {
       this.msgList = []
       // 加载与该主持人的消息
       this.getMsgList()
-      console.log(this.$store.state.msgList)
-      console.log(this.msgList)
     },
     setHostNow (val) {
       // 点击列表项，选择主持人对话框
@@ -237,7 +235,6 @@ export default {
       // 清空原来的msgList
       this.msgList = []
       this.getMsgList()
-      console.log(this.msgList)
     },
     // 传入主持人id
     close (val) {
