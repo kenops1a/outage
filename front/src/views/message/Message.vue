@@ -41,27 +41,44 @@
 
             <div id="scroll" style="height: 430px" class="pt-4 mt-4">
               <!-- 接收消息展示 -->
-              <v-row justify="start" class="mb-2" align="center" no-gutters>
+             <!-- <v-row justify="start" class="mb-2" align="center" no-gutters>
                 <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
                 <div>
                   <span>{{ host.nick }}~: </span>
                   <span style="color: #777777; font-size: large">测试消息</span>
                 </div>
-              </v-row>
+              </v-row>-->
 
-              <!-- 发送消息展示 -->
+              <!-- 消息展示 -->
               <div v-for="(msg, index) in msgList" :key="index">
+
+                <!-- 发送时间 -->
                 <v-row justify="center">
                   <span style="color: #777777; font-size: small">{{ msg.createTime }}</span>
                 </v-row>
-                <!-- 发送消息块 -->
-                <div v-if="msg.userId === $store.state.userNow.id">
+
+                <!-- 左侧我收到的消息 -->
+                <div v-if="msg.toId === $store.state.userNow.id">
+                  <!-- 发送消息块 -->
+                  <v-row justify="start" class="mb-2" align="center" no-gutters>
+                    <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
+                    <div>
+                      <span>{{ host.nick }}~: </span>
+                      <span style="color: #777777; font-size: large">{{ msg.message }}</span>
+                    </div>
+                  </v-row>
+                </div>
+
+                <!-- 右侧我发送的消息 -->
+                <div v-if="msg.toId === $store.state.host.id">
+                  <!-- 发送消息块 -->
                   <v-row justify="end" class="mb-4" align="center" no-gutters>
                     <span style="color: #777777; font-size: large">{{ msg.message }}</span>
                     <span class="mr-2">:~</span>
                     <v-avatar size="56" class="mr-3 pl-2" color="orange"></v-avatar>
                   </v-row>
                 </div>
+
               </div>
             </div>
 
@@ -178,7 +195,7 @@ export default {
       this.$store.state.msgList.forEach(item => {
         let msg = JSON.parse(item)
         // 将发送者id为当前用户和接收者id为该主持人的记录加入数组列表
-        if (msg.toId === this.host.id || msg.userId === this.$store.state.userNow.id) {
+        if (msg.toId === this.host.id || msg.toId === this.$store.state.userNow.id) {
           this.msgList.push(msg)
         }
       })
@@ -220,6 +237,7 @@ export default {
       // 清空原来的msgList
       this.msgList = []
       this.getMsgList()
+      console.log(this.msgList)
     },
     // 传入主持人id
     close (val) {
