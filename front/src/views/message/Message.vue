@@ -145,7 +145,8 @@ export default {
         status: null,
         message: null
       },
-      msgList: []
+      msgList: [],
+      webSocket: {}
     }
   },
   created() {
@@ -160,7 +161,7 @@ export default {
     this.msgBody.status = '0'
 
     // 初始化websocket
-    let websocket = null
+    let websocket = this.webSocket
     let userId = this.$store.state.userNow.id
     if ('WebSocket' in window) {
       websocket = new WebSocket("ws://localhost:8089/message/socket/" + userId)
@@ -189,6 +190,7 @@ export default {
     } else {
       alert('Not support websocket')
     }
+    this.webSocket = websocket
   },
   methods: {
     getMsgList () {
@@ -218,6 +220,7 @@ export default {
       this.msgBody.status = 0
 
       // 发送消息
+      this.webSocket.send(JSON.stringify(this.msgBody))
 
       // 将已发送的消息对象转换为json字符串后放入vuex中
       this.$store.commit('$_addMessage', JSON.stringify(this.msgBody))

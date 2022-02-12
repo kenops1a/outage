@@ -86,6 +86,14 @@ public class WebSocketServerController {
     @OnMessage
     public void onMessage(Session session, String message) {
         log.info("服务器收到客户端：[" + session.getId() + "]的消息" + message);
+
+        MsgVo msgVo = JSON.parseObject(message, MsgVo.class);
+        Session session1 = CLIENTS.get(msgVo.getToId());
+        try {
+            session1.getBasicRemote().sendText(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         /*// 将message封装为msgVo对象
         MsgVo msgVo = JSON.parseObject(message,MsgVo.class);
         // 反射获取MsgVo对象的属性和值
