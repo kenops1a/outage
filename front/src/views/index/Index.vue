@@ -65,6 +65,10 @@
       <v-row>
         <router-link to="/msgListTest">数组push测试</router-link>
       </v-row>
+      <!-- 方法对象属性调用 -->
+      <v-row>
+        <router-link to="/objectTest">方法对象属性调用</router-link>
+      </v-row>
     </v-container>
   </v-main>
 </template>

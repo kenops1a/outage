@@ -16,7 +16,7 @@ export default new VueRouter({
         {
             path: '/',
             name: 'index',
-            component: () => import('@/views/home/Home'),
+            component: () => import('@/views/index/Index'),
             meta: {
                 keep: true
             }
@@ -26,7 +26,7 @@ export default new VueRouter({
         {
             path: '/home',
             name: 'home',
-            component: () => import('@/views/home/Home'),
+            component: () => import('@/views/index/Index'),
             meta: {
                 keep: true
             }
@@ -162,6 +162,10 @@ export default new VueRouter({
             path: '/msgListTest',
             name: 'msgListTest',
             component: () => import('@/components/test/msgListTest/MsgListTest')
+        }, {
+            path: '/objectTest',
+            name: 'objectTest',
+            component: () => import('@/components/test/objectTest/ObjectTest')
         }
     ]
 })

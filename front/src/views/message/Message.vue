@@ -146,7 +146,7 @@ export default {
         message: null
       },
       msgList: [],
-      webSocket: {}
+      webSocket: {},
     }
   },
   created() {
@@ -161,36 +161,35 @@ export default {
     this.msgBody.status = '0'
 
     // 初始化websocket
-    let websocket = this.webSocket
     let userId = this.$store.state.userNow.id
     if ('WebSocket' in window) {
-      websocket = new WebSocket("ws://localhost:8089/message/socket/" + userId)
+      let websocket = new WebSocket("ws://localhost:8089/message/socket/" + userId)
       // 连接错误回调
       websocket.onerror = function () {
         console.log('连接失败')
       }
       // 连接成功回调
       websocket.onopen = function (event) {
-        console.log('连接成功')
-        let message = "测试"
-        websocket.send(message)
+        console.log('芜湖~，起飞！')
       }
       // 接收消息回调方法
       websocket.onmessage = function (event) {
-        console.log(event.data)
+        console.log(JSON.parse(event.data))
+        console.log(this.test)
       }
       // 连接关闭的回调方法
       websocket.onclose = function () {
+        console.log('莫名奇妙就被关闭了')
         console.log('连接关闭')
       }
       // 页面关闭前，主动断开websocket连接
       window.onbeforeunload = function () {
         websocket.close();
       }
+      this.webSocket = websocket
     } else {
       alert('Not support websocket')
     }
-    this.webSocket = websocket
   },
   methods: {
     getMsgList () {

@@ -88,12 +88,17 @@ public class WebSocketServerController {
         log.info("服务器收到客户端：[" + session.getId() + "]的消息" + message);
 
         MsgVo msgVo = JSON.parseObject(message, MsgVo.class);
-        Session session1 = CLIENTS.get(msgVo.getToId());
-        try {
-            session1.getBasicRemote().sendText(message);
-        } catch (IOException e) {
-            e.printStackTrace();
+        Session toSession = CLIENTS.get(msgVo.getToId());
+        if (toSession != null) {
+            try {
+                toSession.getBasicRemote().sendText(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("用户当前不在线，消息将缓存，待用户上线后推送");
         }
+
         /*// 将message封装为msgVo对象
         MsgVo msgVo = JSON.parseObject(message,MsgVo.class);
         // 反射获取MsgVo对象的属性和值
