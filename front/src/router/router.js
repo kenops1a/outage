@@ -16,7 +16,7 @@ export default new VueRouter({
         {
             path: '/',
             name: 'index',
-            component: () => import('@/views/index/Index'),
+            component: () => import('@/views/home/Home'),
             meta: {
                 keep: true
             }
@@ -26,7 +26,7 @@ export default new VueRouter({
         {
             path: '/home',
             name: 'home',
-            component: () => import('@/views/index/Index'),
+            component: () => import('@/views/home/Home'),
             meta: {
                 keep: true
             }

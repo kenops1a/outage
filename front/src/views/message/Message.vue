@@ -174,8 +174,16 @@ export default {
       }
       // 接收消息回调方法
       websocket.onmessage = function (event) {
-        console.log(JSON.parse(event.data))
-        console.log(this.test)
+        console.log(event.data)
+        let str = event.data
+        // debugger
+        // let msgFunction = this.receiveMsg(event.data)
+
+        // let msgStrList = this.msgList
+        // console.log(msgStrList)
+        // console.log(this.msgList)
+        // this.msgList = msgStrList
+        return str
       }
       // 连接关闭的回调方法
       websocket.onclose = function () {
@@ -186,12 +194,18 @@ export default {
       window.onbeforeunload = function () {
         websocket.close();
       }
+      console.log()
       this.webSocket = websocket
     } else {
       alert('Not support websocket')
     }
+
   },
   methods: {
+    receiveMsg (val) {
+      this.$store.commit('$_addMessage', val)
+      this.getMsgList()
+    },
     getMsgList () {
       this.$store.state.msgList.forEach(item => {
         let msg = JSON.parse(item)

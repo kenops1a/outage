@@ -15,7 +15,7 @@
         <v-card-text>
           <v-row align="center" class="mx=0 mt-5">
             <v-col cols="12">
-              <div id="title-text"><h2>系统用户登录</h2></div>
+              <div id="title-text"><h2>司仪管理系统用户登录</h2></div>
             </v-col>
           </v-row>
         </v-card-text>

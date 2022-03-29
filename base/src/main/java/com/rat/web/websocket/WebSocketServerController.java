@@ -96,7 +96,14 @@ public class WebSocketServerController {
                 e.printStackTrace();
             }
         } else {
+            Session fromSession = CLIENTS.get(msgVo.getUserId());
             System.out.println("用户当前不在线，消息将缓存，待用户上线后推送");
+//todo      暂未处理接收者不在线的消息发送
+//            try {
+//                fromSession.getBasicRemote().sendText("用户当前不在线，消息将缓存，待用户上线后推送");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
 
         /*// 将message封装为msgVo对象

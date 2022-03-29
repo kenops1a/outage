@@ -19,15 +19,35 @@ export default {
     }
   },
   created () {
-    let test = {}
-    test.txtTest = function () {
-      this.txt.push('ss')
-      console.log(this.txt)
+    console.log(this.setData().person)
+    // let test = {}
+    // let text = ''
+    // test.txtTest = function () {
+    //   text = 'fdasfdsf'
+    //   console.log(text)
+    //
+    //   // 属性方法不能直接调用data中的属性，只能对data中的属性进行赋值操作
+    //   // this.txt.push('ss')
+    //   // console.log(this.txt)
+    // }
+    // test.txtTest()
+    let testObj = {}
+    testObj.element = function () {
+      console.log('这是一个测试')
     }
-    test.txtTest()
+    testObj.element()
   },
   methods: {
-
+    setData () {
+      return {
+        person: {
+          name: 'xxx',
+          age: 10,
+          sex: 'M'
+        },
+        msgList: []
+      }
+    }
   }
 }
 </script>
