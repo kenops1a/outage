@@ -6,14 +6,19 @@ import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
 import com.rat.mapper.UserMapper;
+import com.rat.model.FileModel;
 import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
 import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @type: outage
@@ -203,6 +208,39 @@ public class UserServiceImpl implements UserService {
         }
         // 不符合上述情况则返回默认失败
         return ResultTool.failed();
+    }
+
+    @Override
+    public Boolean upload(FileModel fileModel) {
+        MultipartFile file = fileModel.getFile();
+        String fileName = file.getOriginalFilename();
+        assert fileName != null;
+        String suffix = fileName.substring(fileName.indexOf("."));
+
+        String httpName = UUID.randomUUID().toString() + suffix;
+
+        /*  本地文件路径  */
+        String fileFolder = "C:\\Users\\Kenopsia\\Desktop\\job\\project\\HostManager\\outage\\fileFolder";
+        File folder = new File(fileFolder);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
+        /*  网络相对路径  */
+        String httpPath = "/file/" + httpName;
+
+        try {
+            file.transferTo(new File(fileFolder, httpName));
+        } catch (IOException e) {
+            throw new RuntimeException("文件上传失败");
+        }
+
+        fileModel.setFileName(fileName);
+        fileModel.setHttpPath(httpPath);
+
+        Integer upload = userMapper.upload(fileModel);
+
+        return upload > 0;
     }
 
 

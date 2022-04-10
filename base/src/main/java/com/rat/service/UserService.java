@@ -1,6 +1,7 @@
 package com.rat.service;
 
 import com.rat.info.JsonResult;
+import com.rat.model.FileModel;
 import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
@@ -116,4 +117,12 @@ public interface UserService {
      * @return Integer
      */
     JsonResult<Integer> updateUserStatus(int userId, int lockOrUnLock);
+
+    /**
+     * 主持人申请文件上传
+     *
+     * @param fileModel 文件实体
+     * @return res
+     */
+    Boolean upload(FileModel fileModel);
 }

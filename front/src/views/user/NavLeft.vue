@@ -44,7 +44,8 @@ export default {
       ['mdi-account-supervisor-circle', '个人信息', '/userInfo'],
       ['mdi-check-circle', '订单列表', '/orderForm'],
       ['mdi mdi-account-circle', '账号信息', '/accountInfo'],
-      ['mdi-forum', '我的消息', '/message']
+      ['mdi-forum', '我的消息', '/message'],
+      ['mdi-check-circle', '认证申请', '/asset']
     ],
     // exit: ['mdi-clock-start', '退出系统', '/exitSys'],
     exit: {

@@ -26,3 +26,13 @@ export function getUserRoleByEmail(params) {
         data: params
     })
 }
+
+// 主持人认证申请
+export function hostAsset(data, config) {
+    return request({
+        url: '/user/hostAsset',
+        method: 'post',
+        data: data,
+        config: config
+    })
+}

@@ -103,6 +103,10 @@ export default new VueRouter({
                     path: '/accountInfo',
                     name: 'accountInfo',
                     component: () => import('@/views/user/info/accountInfo')
+                }, {
+                    path: '/asset',
+                    name: 'asset',
+                    component: () => import('@/views/user/info/Asset')
                 }
             ],
             meta: {

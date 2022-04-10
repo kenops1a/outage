@@ -146,4 +146,9 @@
          from hm_user
          where phone = #{phone}
     </select>
+
+    <insert id="upload" useGeneratedKeys="true" keyProperty="id" parameterType="com.rat.model.FileModel">
+        insert into hm_file(user_id, type, http_path, file_name)
+        values ( #{ file.userId }, #{ file.type }, #{ file.httpPath }, #{ file.fileName } )
+    </insert>
 </mapper>

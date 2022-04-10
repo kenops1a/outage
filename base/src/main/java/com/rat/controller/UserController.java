@@ -3,6 +3,7 @@ package com.rat.controller;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
+import com.rat.model.FileModel;
 import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
@@ -183,5 +184,11 @@ public class UserController {
             return ResultTool.failed(ResultCode.PARAM_IS_REQUIRED);
         }
         return userService.updateUserStatus(userId, lockOrUnLock);
+    }
+
+    @PostMapping("/hostAsset")
+    public JsonResult<Boolean> upload(FileModel fileModel) {
+        Boolean upload = userService.upload(fileModel);
+        return new JsonResult<>(upload);
     }
 }

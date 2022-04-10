@@ -1,6 +1,7 @@
 package com.rat.mapper;
 
 import com.rat.info.JsonResult;
+import com.rat.model.FileModel;
 import com.rat.model.RoleMenuModel;
 import com.rat.model.UserModel;
 import com.rat.model.UserRoleModel;
@@ -83,5 +84,12 @@ public interface UserMapper {
      */
     Integer updateUserStatusByEmail(@Param("email") String email,@Param("status") String status);
 
+    /**
+     * 上传文件
+     *
+     * @param fileModel 文件实体
+     * @return 0 : 1
+     */
+    Integer upload(@Param("file") FileModel fileModel);
 
 }
