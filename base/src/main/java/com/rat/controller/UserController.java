@@ -183,10 +183,58 @@ public class UserController {
         return userService.updateUserStatus(userId, lockOrUnLock);
     }
 
+    /**
+     * 提交认证申请文件
+     *
+     * @param: fileModel
+     * @return: com.rat.info.JsonResult<java.lang.Boolean>
+     */
     @PostMapping("/hostAsset")
     public JsonResult<Boolean> upload(FileModel fileModel) {
         Boolean upload = userService.upload(fileModel);
         upload = userService.hostAsset(fileModel.getUserId(), fileModel.getType());
         return new JsonResult<>(upload);
+    }
+
+    /**
+     * 获取认证申请文件
+     *
+     * @param: userId
+     * @return: com.rat.info.JsonResult<com.rat.model.FileModel>
+     */
+    @GetMapping("/getAssetFile")
+    public JsonResult<FileModel> getAssetFile(@RequestParam int userId) {
+        if (userId == 0) {
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
+        }
+        return userService.getAssetFile(userId);
+    }
+
+    /**
+     * 获取认证申请记录
+     *
+     * @param: userId
+     * @return: com.rat.info.JsonResult<com.rat.model.HostModel>
+     */
+    @GetMapping("/getAssetRecord")
+    public JsonResult<HostModel> getAssetRecord(@RequestParam int userId) {
+        if (userId == 0) {
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
+        }
+        return userService.getAssetRecord(userId);
+    }
+
+    /**
+     * 撤销认证申请
+     *
+     * @param: userId
+     * @return: com.rat.info.JsonResult<java.lang.Boolean>
+     */
+    @GetMapping("/delAsset")
+    public JsonResult<Boolean> delAsset(@RequestParam int userId) {
+        if (userId == 0) {
+            return ResultTool.failed(ResultCode.PARAM_IS_BLANK);
+        }
+        return ResultTool.success(userService.delAsset(userId));
     }
 }

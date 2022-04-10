@@ -265,5 +265,22 @@ public class UserServiceImpl implements UserService {
         return upload > 0;
     }
 
+    @Override
+    public JsonResult<FileModel> getAssetFile(int id) {
+        return ResultTool.success(userMapper.getAssetFile(id));
+    }
+
+    @Override
+    public JsonResult<HostModel> getAssetRecord(int id) {
+        return ResultTool.success(userMapper.getAssetRecord(id));
+    }
+
+    @Override
+    public Boolean delAsset(int id) {
+        int label1 = userMapper.delAssetFile(id);
+        int label2 = userMapper.delAssetRecord(id);
+        return label1 > 0 && label2 > 0;
+    }
+
 
 }

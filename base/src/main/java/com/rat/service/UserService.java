@@ -124,4 +124,29 @@ public interface UserService {
      * @return res
      */
     Boolean upload(FileModel fileModel);
+
+    /**
+     * 获取认证文件
+     *
+     * @param: id
+     * @return: com.rat.info.JsonResult<com.rat.model.FileModel>
+     */
+    JsonResult<FileModel> getAssetFile(int id);
+
+    /**
+     * 获取认证记录
+     *
+     * @param: id
+     * @return: com.rat.info.JsonResult<com.rat.model.HostModel>
+     */
+    JsonResult<HostModel> getAssetRecord(int id);
+
+    /**
+     * 撤销认证
+     *
+     * @param: id
+     * @return: java.lang.Boolean
+     */
+    Boolean delAsset(int id);
+
 }

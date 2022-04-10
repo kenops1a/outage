@@ -5,6 +5,7 @@ import com.rat.model.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.parameters.P;
 
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
@@ -91,6 +92,44 @@ public interface UserMapper {
      */
     Integer upload(@Param("file") FileModel fileModel);
 
+    /**
+     * 提交认证申请
+     *
+     * @param: hostModel
+     * @return: java.lang.Integer
+     */
     Integer hostAsset(@Param("host") HostModel hostModel) throws DuplicateKeyException;
+
+    /**
+     * 获取认证记录
+     *
+     * @param: id
+     * @return: com.rat.model.HostModel
+     */
+    HostModel getAssetRecord(@Param("id") int id);
+
+    /**
+     * 获取认证文件
+     *
+     * @param id
+     * @return
+     */
+    FileModel getAssetFile(@Param("id") int id);
+
+    /**
+     * 撤回申请
+     *
+     * @param: id
+     * @return: java.lang.Integer
+     */
+    Integer delAssetRecord(@Param("id") int id);
+
+    /**
+     * 删除申请文件
+     *
+     * @param: id
+     * @return: java.lang.Integer
+     */
+    Integer delAssetFile(@Param("id") int id);
 
 }

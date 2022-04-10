@@ -36,3 +36,27 @@ export function hostAsset(data, config) {
         config: config
     })
 }
+
+// 获取认证文件
+export function getAssetFile(param) {
+    return request({
+        url: '/user/getAssetFile' + '?userId=' + param,
+        method: 'get',
+    })
+}
+
+// 获取认证记录
+export function getAssetRecord(param) {
+    return request({
+        url: '/user/getAssetRecord' + '?userId=' + param,
+        method: 'get',
+    })
+}
+
+// 撤回认证申请
+export function delAsset(param) {
+    return request({
+        url: '/user/delAsset' + '?userId=' + param,
+        method: 'get'
+    })
+}
