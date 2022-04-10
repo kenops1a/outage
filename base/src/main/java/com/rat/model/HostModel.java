@@ -15,6 +15,7 @@ public class HostModel extends UserModel {
     private String type;
     @NotNull
     private double money;
+    private String status;
     private int createBy;
     private Date createTime;
 

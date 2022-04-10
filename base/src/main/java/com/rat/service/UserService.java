@@ -1,10 +1,7 @@
 package com.rat.service;
 
 import com.rat.info.JsonResult;
-import com.rat.model.FileModel;
-import com.rat.model.RoleMenuModel;
-import com.rat.model.UserModel;
-import com.rat.model.UserRoleModel;
+import com.rat.model.*;
 import org.apache.tomcat.jni.User;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +114,8 @@ public interface UserService {
      * @return Integer
      */
     JsonResult<Integer> updateUserStatus(int userId, int lockOrUnLock);
+
+    Boolean hostAsset(int userId, String type);
 
     /**
      * 主持人申请文件上传

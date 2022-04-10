@@ -151,4 +151,9 @@
         insert into hm_file(user_id, type, http_path, file_name)
         values ( #{ file.userId }, #{ file.type }, #{ file.httpPath }, #{ file.fileName } )
     </insert>
+
+    <insert id="hostAsset" parameterType="com.rat.model.HostModel">
+        insert into hm_host( type, create_by, status)
+        values ( #{ host.type }, #{ host.createBy }, #{ host.status } )
+    </insert>
 </mapper>

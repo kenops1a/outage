@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {error} from "@/utils/snackBar";
 
 const request = new axios.create({
     baseURL: "http://localhost:8089",
@@ -18,6 +19,10 @@ request.interceptors.request.use(config => {
 
 // response 响应拦截处理
 request.interceptors.response.use(res => {
+    if (res.data.errorCode === 999) {
+        error(res.data.record)
+        return Promise.reject(new Error(res.data.record))
+    }
     return res.data
 })
 export default request

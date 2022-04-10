@@ -1,13 +1,12 @@
 package com.rat.mapper;
 
 import com.rat.info.JsonResult;
-import com.rat.model.FileModel;
-import com.rat.model.RoleMenuModel;
-import com.rat.model.UserModel;
-import com.rat.model.UserRoleModel;
+import com.rat.model.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DuplicateKeyException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 /**
@@ -91,5 +90,7 @@ public interface UserMapper {
      * @return 0 : 1
      */
     Integer upload(@Param("file") FileModel fileModel);
+
+    Integer hostAsset(@Param("host") HostModel hostModel) throws DuplicateKeyException;
 
 }

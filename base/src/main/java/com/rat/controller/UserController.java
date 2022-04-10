@@ -3,10 +3,7 @@ package com.rat.controller;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
-import com.rat.model.FileModel;
-import com.rat.model.RoleMenuModel;
-import com.rat.model.UserModel;
-import com.rat.model.UserRoleModel;
+import com.rat.model.*;
 import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -189,6 +186,7 @@ public class UserController {
     @PostMapping("/hostAsset")
     public JsonResult<Boolean> upload(FileModel fileModel) {
         Boolean upload = userService.upload(fileModel);
+        upload = userService.hostAsset(fileModel.getUserId(), fileModel.getType());
         return new JsonResult<>(upload);
     }
 }

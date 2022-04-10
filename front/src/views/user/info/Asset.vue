@@ -66,6 +66,7 @@
 
 <script>
 import { hostAsset } from "@/api/user/user";
+import {success} from "@/utils/snackBar";
 
 export default {
   name: "Asset",
@@ -108,8 +109,10 @@ export default {
       formData.append('type', this.assetForm.type)
 
       let formConfig = this.headers
-      hostAsset(formData, formConfig).then(res => {
-        console.log(res)
+      hostAsset(formData, formConfig).then(() => {
+        success('提交申请成功')
+      }).catch(e => {
+
       })
     }
   }

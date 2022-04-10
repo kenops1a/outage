@@ -4,10 +4,11 @@
       <Header/>
     </div>
     <router-view/>
+    <success-bar/>
+    <error-bar/>
     <div v-if="$route.meta.keep">
       <Footer/>
     </div>
-
     <!--    <CenterTest></CenterTest>-->
     <!--    <Register></Register>-->
     <!--    <ColRowTest></ColRowTest>-->
@@ -18,9 +19,13 @@
 </template>
 
 <script>
+import SuccessBar from "@/components/snackBar/SuccessBar";
+import ErrorBar from "@/components/snackBar/ErrorBar";
 export default {
   name: 'App',
   components: {
+    ErrorBar,
+    SuccessBar,
     // TestComponent: () => import('@/components/test/ContainerTest/TestComponent')
     // LoginIndex: () => import('@/components/account/LoginIndex')
     // Login: () => import('@/components/account/login/Login')

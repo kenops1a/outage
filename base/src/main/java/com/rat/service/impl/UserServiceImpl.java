@@ -6,17 +6,17 @@ import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
 import com.rat.mapper.UserMapper;
-import com.rat.model.FileModel;
-import com.rat.model.RoleMenuModel;
-import com.rat.model.UserModel;
-import com.rat.model.UserRoleModel;
+import com.rat.model.*;
 import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +32,9 @@ public class UserServiceImpl implements UserService {
     private final String USER_STATUS_LOCKED = "0";
     private final String USER_STATUS_NORMAL = "1";
     private final String USER_STATUS_DELETE = "2";
+    private final String ASSET_STATUS_APPLY = "0";
+    private final String ASSET_STATUS_FINISH = "1";
+    private final String ASSET_STATUS_FAILD = "2";
 
     @Autowired
     UserMapper userMapper;
@@ -211,7 +214,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean hostAsset(int userId, String type) {
+        HostModel hostModel = new HostModel();
+        // 主持人状态默认为申请中
+        hostModel.setStatus(ASSET_STATUS_APPLY);
+        hostModel.setType(type);
+        hostModel.setCreateBy(userId);
+        hostModel.setCreateTime(new Date());
+        int label = 0;
+        try {
+            label = userMapper.hostAsset(hostModel);
+        } catch (DuplicateKeyException throwables) {
+            throw new BaseExceptionModel("该用户已申请主持人认证");
+        }
+        return label > 0;
+    }
+
+    @Override
     public Boolean upload(FileModel fileModel) {
+        /*  类型限制  */
+
         MultipartFile file = fileModel.getFile();
         String fileName = file.getOriginalFilename();
         assert fileName != null;

@@ -20,7 +20,11 @@ const state = {
     token: localStorage.getItem('token') ? localStorage.getItem('token'):null,
     // 聊天消息列表
     msgList: [],
-    list: []
+    list: [],
+    errorSnackBarShow: false,
+    errorSnackBarMessage: '',
+    successSnackBarShow: false,
+    successSnackBarMessage: '',
 }
 
 // 创建vuex对象
@@ -86,6 +90,22 @@ const store = new Vuex.Store({
             let list = state.list
             list.push(msg)
             state.list = list
+        },
+
+        /*  成功提示  */
+        $_successBarSwitch(state) {
+            state.successSnackBarShow = !state.successSnackBarShow
+        },
+        $_setSuccessBarMessage(state, message) {
+            state.successSnackBarMessage = message
+        },
+
+        /*  失败提示  */
+        $_errorBarSwitch(state) {
+            state.errorSnackBarShow = !state.errorSnackBarShow
+        },
+        $_setErrorBarMessage(state, message) {
+            state.errorSnackBarMessage = message
         }
     }
 })
