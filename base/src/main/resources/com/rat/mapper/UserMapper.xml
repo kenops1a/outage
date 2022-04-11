@@ -3,6 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rat.mapper.UserMapper">
+    <resultMap id="hostModelMap" type="com.rat.model.HostModel">
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="fileModel" javaType="com.rat.model.FileModel">
+            <result property="fileName" column="file_name"/>
+            <result property="httpPath" column="http_path"/>
+            <result property="type" column="type"/>
+        </association>
+    </resultMap>
     <!-- 用户结果集映射 -->
     <resultMap id="userList" type="com.rat.model.UserModel">
         <result property="createBy" column="create_by"/>
@@ -164,19 +177,19 @@
          from hm_user
          where phone = #{phone}
     </select>
-    <select id="getAssetRecord" resultMap="hostMdoel">
-        select type, status, create_time
-        from hm_host
-        where create_by = #{ id }
+    <select id="getAssetRecord" resultMap="hostModelMap">
+        select hm_host.type, status, hm_host.create_by, hm_host.create_time, file_name, http_path from hm_file, hm_host
+        where hm_file.user_id = hm_host.create_by
+        and create_by = #{ id }
     </select>
     <select id="getAssetFile" resultType="com.rat.model.FileModel">
         select file_name, http_path
         from hm_file
         where user_id = #{ id }
     </select>
-    <select id="getAssetRecordList" resultType="com.rat.model.HostModel">
-        select *
-        from hm_host
+    <select id="getAssetRecordList" resultMap="hostModelMap">
+        select hm_host.type, hm_host.create_by, hm_host.create_time, file_name, http_path from hm_file, hm_host
+        where hm_file.user_id = hm_host.create_by
     </select>
     <select id="getUserByNick" resultMap="userList">
         select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, create_time

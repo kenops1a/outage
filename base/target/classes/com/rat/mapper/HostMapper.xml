@@ -8,7 +8,19 @@
         <result property="createTime" column="create_time"/>
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
+        <association property="fileModel" javaType="com.rat.model.FileModel">
+            <result property="fileName" column="fileName"/>
+            <result property="httpPath" column="httpPath"/>
+        </association>
     </resultMap>
+
+    <resultMap id="hostModel" type="com.rat.model.HostModel">
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
     <insert id="insertHost" parameterType="com.rat.model.HostModel">
         insert into hm_host(type, money, create_by, create_time)
         values (#{type},#{money},#{createBy},#{createTime})
@@ -54,7 +66,7 @@
         where hm_user.status = '1'
         and hm_host.type = #{type}
     </select>
-    <select id="getHostById" resultMap="hostModelMap">
+    <select id="getHostById" resultMap="hostModel">
         select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
         from hm_user
         inner join hm_user_role

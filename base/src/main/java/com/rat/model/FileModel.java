@@ -1,6 +1,8 @@
 package com.rat.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
  * @date: 10/4/2022 下午5:27
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class FileModel {
 
     /**

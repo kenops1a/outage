@@ -11,7 +11,7 @@
       <!-- 查看已提交的认证 -->
       <div>
         <div>
-          <v-row class="ml-4 mb-n3 mt-8">
+          <v-row class="ml-4 mb-3">
             <h2>主持人认证申请审批</h2>
           </v-row>
         </div>
@@ -20,15 +20,23 @@
             <template v-slot:default>
               <thead>
               <tr>
+                <th>序号</th>
                 <th v-for="(item, index) in tableHeader" :key="index">
                   {{ item.text }}
+                </th>
+                <th>
+                  认证文件
                 </th>
               </tr>
               </thead>
               <tbody>
               <tr v-for="(assetRecord, index) in assetRecordList" :key="index">
+                <td>{{ index + 1 }}</td>
                 <td v-for="(item, index) in tableHeader" :key="index" class="mb-2">
                   {{ assetRecord[item.value] }}
+                </td>
+                <td>
+                  <a :href="'http://localhost:8089' + assetRecord.fileModel.httpPath">{{ assetRecord.fileModel.fileName }}</a>
                 </td>
                 <td>
                   <v-btn v-if="assetRecord.status === '申请中'" color="primary" class="mt-2 mr-1" @click="updateRecord(assetRecord, '1')">通过</v-btn>
@@ -56,7 +64,6 @@ export default {
         { text: '主持类型', value: 'type' },
         { text: '状态', value: 'status' },
         { text: '创建时间', value: 'createTime' },
-        { text: '认证文件' }
       ],
       assetRecordList: []
     }

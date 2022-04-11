@@ -64,12 +64,18 @@
                 <th v-for="(item, index) in tableHeader" :key="index">
                   {{ item.text }}
                 </th>
+                <th>
+                  认证文件
+                </th>
               </tr>
               </thead>
               <tbody>
               <tr>
                 <td v-for="(item, index) in tableHeader" :key="index" class="mb-2">
                   {{ assetRecord[item.value] }}
+                </td>
+                <td>
+                  <a :href="'http://localhost:8089' + assetRecord.fileModel.httpPath">{{ assetRecord.fileModel.fileName }}</a>
                 </td>
                 <v-btn v-if="assetRecord.status !== '认证通过'" class="mt-2 mr-1" color="red" dark small @click="handleAssetDel">撤销申请</v-btn>
               </tr>

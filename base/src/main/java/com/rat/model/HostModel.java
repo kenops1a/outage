@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -14,10 +17,11 @@ import java.util.Date;
  * @description: write_bug
  * @date: 2021/12/13 13:54
  */
+@Data
+@AllArgsConstructor
 public class HostModel extends UserModel {
     private int hostId;
     @NotNull
-    @TableField(value = "type")
     private String type;
     @NotNull
     private double money;
@@ -27,6 +31,7 @@ public class HostModel extends UserModel {
     @TableField(value = "create_time")
     private Date createTime;
 
+    private FileModel fileModel;
 
     @Override
     public String toString() {
