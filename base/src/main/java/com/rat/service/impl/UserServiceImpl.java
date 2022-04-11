@@ -6,7 +6,9 @@ import com.github.pagehelper.PageInfo;
 import com.rat.info.JsonResult;
 import com.rat.info.ResultCode;
 import com.rat.info.ResultTool;
+import com.rat.mapper.HostMapper;
 import com.rat.mapper.UserMapper;
+import com.rat.mapper.UserRoleBindMapper;
 import com.rat.model.*;
 import com.rat.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +35,25 @@ public class UserServiceImpl implements UserService {
     private final String USER_STATUS_LOCKED = "0";
     private final String USER_STATUS_NORMAL = "1";
     private final String USER_STATUS_DELETE = "2";
+
     private final String ASSET_STATUS_APPLY = "0";
     private final String ASSET_STATUS_FINISH = "1";
     private final String ASSET_STATUS_FAILD = "2";
 
+    private final int HOST_LABEL = 2;
+
+
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    UserRoleBindMapper userRoleBindMapper;
+
+    @Autowired
+    HostMapper hostMapper;
+
     @Override
-    public JsonResult<List<UserModel>> getUserList(int page, int pageSize) {
+    public JsonResult<List<UserModel>> getUserList(UserModel userModel, int page, int pageSize) {
 //        /*
 //        如果list为空，则返回记录为空
 //         */
@@ -55,7 +67,7 @@ public class UserServiceImpl implements UserService {
             return ResultTool.failed(ResultCode.ITEM_NOT_EXIST);
         }
         PageHelper.startPage(page, pageSize);
-        List<UserModel> list = userMapper.getUserList();
+        List<UserModel> list = userMapper.getUserListByItem(userModel);
         PageInfo<UserModel> pageInfo = new PageInfo<>(list);
         return ResultTool.success(pageInfo.getList());
     }
@@ -137,6 +149,11 @@ public class UserServiceImpl implements UserService {
         } else {
             return ResultTool.success(userMapper.addUser(userModel));
         }
+    }
+
+    @Override
+    public JsonResult<Integer> addUserRoleBind(int userId, int roleId) {
+        return ResultTool.success(userRoleBindMapper.addRecord(userId, roleId));
     }
 
     @Override
@@ -283,11 +300,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean updateAssetRecord(HostModel hostModel) {
-        if (userMapper.updateAssetRecord(hostModel)) {
-            return userMapper.updateAssetRecord(hostModel);
-        } else {
-            return userMapper.updateAssetRecord(hostModel);
+        if (ASSET_STATUS_FINISH.equals(hostModel.getStatus())) {
+            userRoleBindMapper.addRecord(hostModel.getCreateBy(), HOST_LABEL);
         }
+        return userMapper.updateAssetRecord(hostModel);
     }
 
     @Override

@@ -109,7 +109,7 @@
         select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, create_time
         from hm_user
         <where>
-            <trim prefix=" " suffix=" " suffixOverrides="and">
+            <trim prefix=" " suffix=" ">
                 <if test="id != null and id != 0">id=#{id} and</if>
                 <if test="name != null">name=#{name} and</if>
                 <if test="nick != null and nick != ''">nick=#{nick} and</if>
@@ -120,9 +120,8 @@
                 <if test="address != null">address=#{address} and</if>
                 <if test="status != null and status != ''">status=#{status} and</if>
             </trim>
-        </where>
-        and
             status != '2'
+        </where>
     </select>
 
     <!--通过邮箱查询用户-->

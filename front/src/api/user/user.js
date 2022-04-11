@@ -27,6 +27,15 @@ export function getUserRoleByEmail(params) {
     })
 }
 
+// 获取用户列表
+export function getUserList(params, page, pageSize) {
+    return request({
+        url: '/hostForm/getUserList' + '?page=' + page + '&pageSize=' + pageSize,
+        method: 'post',
+        data: params
+    })
+}
+
 // 主持人认证申请
 export function hostAsset(data, config) {
     return request({

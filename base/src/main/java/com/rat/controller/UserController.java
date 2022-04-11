@@ -31,9 +31,9 @@ public class UserController {
      * 获取全部用户
      * @return UserModel对象集合
      */
-    @RequestMapping("/getUserList")
-    public JsonResult<List<UserModel>> getUserList(@RequestParam int page, @RequestParam int pageSize) {
-        return userService.getUserList(page, pageSize);
+    @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
+    public JsonResult<List<UserModel>> getUserList(@RequestBody UserModel userModel, @RequestParam int page, @RequestParam int pageSize) {
+        return userService.getUserList(userModel, page, pageSize);
     }
 
     /**

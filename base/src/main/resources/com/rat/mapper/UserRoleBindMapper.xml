@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rat.mapper.UserRoleBindMapper">
+
+    <resultMap id="userRole" type="com.rat.model.UserRoleBindModel">
+        <result property="roleId" column="role_id"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+    <insert id="addRecord">
+        insert into hm_user_role (user_id, role_id)
+        values ( #{ userId }, #{ roleId } )
+    </insert>
+
+</mapper>

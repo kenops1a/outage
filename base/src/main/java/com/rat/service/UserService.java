@@ -19,7 +19,7 @@ public interface UserService {
      * 获取全部用户
      * @return 用户对象集合
      */
-    JsonResult<List<UserModel>> getUserList(int page, int pageSize);
+    JsonResult<List<UserModel>> getUserList(UserModel userModel, int page, int pageSize);
 
     /**
      * 通过id获取用户
@@ -75,6 +75,15 @@ public interface UserService {
      * @return Integer
      */
     JsonResult<Integer> addUser(UserModel userModel);
+
+ /**
+  * 赋予用户权限
+  *
+  * @param userId
+  * @param roleId
+  * @return
+  */
+ JsonResult<Integer> addUserRoleBind(int userId, int roleId);
 
     /**
      * 删除用户
