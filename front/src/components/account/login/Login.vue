@@ -120,7 +120,7 @@
 <script>
 import { loginByPd,loginByVc } from "@/api/account/account";
 import { getVc } from "@/api/mail/mail";
-import { getUserByEmail } from "@/api/user/user";
+import { getUserByEmail, getUserRoleByEmail } from "@/api/user/user";
 import router from "@/router/router"
 
 export default {
@@ -265,6 +265,7 @@ export default {
               getUserByEmail(loginUserEmail).then(res => {
                 // 判断获取用户对象是否成功
                 if (res.success) {
+                  this.setUserRole()
                   // 将查询到的user放入vuex
                   this.$store.commit('$_setUserNow', res.record[0])
                   localStorage.setItem('userNow', JSON.stringify(res.record[0]))
@@ -287,6 +288,8 @@ export default {
           loginByVc(this.vcForm).then(res => {
             // 后台是否登录成功
             if (res.success) {
+              // 将当前登录用户角色存入vuex
+              this.setUserRole()
               // 将token存入localStorage
               localStorage.setItem('token', res.record)
               localStorage.setItem('email', this.vcForm.email)
@@ -315,6 +318,16 @@ export default {
           })
         }
       }
+    },
+    setUserRole () {
+      let loginUserEmail = {
+        email: this.pdForm.email
+      }
+      getUserRoleByEmail(loginUserEmail).then(res => {
+        if (res.success) {
+          this.$store.commit('$_setUserRole', res.record.id)
+        }
+      })
     }
   }
 }

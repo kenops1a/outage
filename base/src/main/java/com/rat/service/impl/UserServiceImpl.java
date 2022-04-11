@@ -1,5 +1,6 @@
 package com.rat.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.rat.info.JsonResult;
@@ -273,6 +274,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public JsonResult<HostModel> getAssetRecord(int id) {
         return ResultTool.success(userMapper.getAssetRecord(id));
+    }
+
+    @Override
+    public JsonResult<List<HostModel>> getAssetRecordList() {
+        return ResultTool.success(userMapper.getAssetRecordList());
+    }
+
+    @Override
+    public Boolean updateAssetRecord(HostModel hostModel) {
+        if (userMapper.updateAssetRecord(hostModel)) {
+            return userMapper.updateAssetRecord(hostModel);
+        } else {
+            return userMapper.updateAssetRecord(hostModel);
+        }
     }
 
     @Override

@@ -103,10 +103,22 @@ export default new VueRouter({
                     path: '/accountInfo',
                     name: 'accountInfo',
                     component: () => import('@/views/user/info/accountInfo')
+                },{
+                    path: '/orderFormHost',
+                    name: 'orderFormHost',
+                    component: () => import('@/views/user/info/orderFormHost')
                 }, {
                     path: '/asset',
                     name: 'asset',
                     component: () => import('@/views/user/info/Asset')
+                }, {
+                    path: '/assetList',
+                    name: 'assetList',
+                    component: () => import('@/views/user/info/AssetList')
+                }, {
+                    path: '/hostInfo',
+                    name: 'hostInfo',
+                    component: () => import('@/views/user/info/HostInfo')
                 }
             ],
             meta: {

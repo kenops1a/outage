@@ -55,6 +55,7 @@ export default {
     links: [
       { name: '首页', path: '/home'},
       { name: '主持人', path: '/host'},
+      { name: '动态', path: '/weblog' },
       { name: '消息', path: '/message'},
     ],
     items: [

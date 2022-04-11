@@ -19,11 +19,12 @@
     </insert>
     <update id="updateHostInfo">
         update hm_host
-        <trim prefix="set(" suffix=")" suffixOverrides=",">
-            <if test="type != null">type=#{type},</if>
-            <if test="money != null and money != 0">money=#{money}</if>
+        <trim prefix="set" suffixOverrides=",">
+            <if test="host.type != null">type=#{host.type},</if>
+            <if test="host.money != null and host.money != 0">money=#{host.money},</if>
+            <if test="host.status != null and host.status != 0">status=#{host.status}</if>
         </trim>
-        where create_by=#{userId}
+        where create_by=#{host.createBy}
     </update>
     <delete id="deleteHostById">
         delete from hm_host

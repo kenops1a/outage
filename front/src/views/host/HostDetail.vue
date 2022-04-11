@@ -88,7 +88,7 @@
                         <v-row align="center" class="mt-n3 mb-n3">
                           <span>用户:</span>
                           <v-col cols="4">
-                            <v-text-field readonly :value="this.$store.state.userNick"></v-text-field>
+                            <v-text-field readonly :value="this.$store.state.userNow.nick"></v-text-field>
                           </v-col>
                           <span>主持人:</span>
                           <v-col cols="4">

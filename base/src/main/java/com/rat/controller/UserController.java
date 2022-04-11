@@ -225,6 +225,25 @@ public class UserController {
     }
 
     /**
+     * 获取认证申请记录
+     *
+     * @param:
+     * @return: com.rat.info.JsonResult<java.util.List<com.rat.model.HostModel>>
+     */
+    @GetMapping("/getAssetRecordList")
+    public JsonResult<List<HostModel>> getAssetRecordList() {
+        return userService.getAssetRecordList();
+    }
+
+    @PostMapping("/updateAssetRecord")
+    public JsonResult<Boolean> updateAssetRecord(@RequestBody HostModel hostModel) {
+        if (hostModel.getCreateBy() == 0 || hostModel.getStatus() == null) {
+            return ResultTool.failed(false);
+        }
+        return ResultTool.success(userService.updateAssetRecord(hostModel));
+    }
+
+    /**
      * 撤销认证申请
      *
      * @param: userId

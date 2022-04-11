@@ -142,6 +142,20 @@ public interface UserService {
     JsonResult<HostModel> getAssetRecord(int id);
 
     /**
+     * 更新认证申请
+     *
+     * @param: hostModel
+     * @return: com.rat.info.JsonResult<java.lang.Boolean>
+     */
+    Boolean updateAssetRecord(HostModel hostModel);
+
+    /**
+     * @param:
+     * @return: com.rat.info.JsonResult<java.util.List<com.rat.model.HostModel>>
+     */
+    JsonResult<List<HostModel>> getAssetRecordList();
+
+    /**
      * 撤销认证
      *
      * @param: id

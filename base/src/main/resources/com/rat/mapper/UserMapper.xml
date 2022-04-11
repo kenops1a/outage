@@ -86,6 +86,11 @@
         set status = #{status}
         where email = #{email}
     </update>
+    <update id="updateAssetRecord">
+        update hm_host
+        set status = #{ host.status }
+        where create_by = #{ host.createBy }
+    </update>
     <delete id="delAssetRecord">
         delete from hm_host
         where create_by = #{ id }
@@ -168,6 +173,11 @@
         select file_name, http_path
         from hm_file
         where user_id = #{ id }
+    </select>
+    <select id="getAssetRecordList" resultType="com.rat.model.HostModel">
+        select *
+        from hm_host
+        where status = 0
     </select>
 
     <insert id="upload" useGeneratedKeys="true" keyProperty="id" parameterType="com.rat.model.FileModel">

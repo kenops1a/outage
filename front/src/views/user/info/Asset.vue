@@ -9,7 +9,7 @@
   <v-main style="height: 100vh; width: 100vw">
     <v-card color="pa-8 pb-16 pt-10" style="height: 100%; width: 100%;">
       <!-- 认证提交 -->
-      <div>
+      <div v-if="assetRecord.status !== '认证通过'">
         <div>
           <v-row class="ml-4 mb-n3">
             <h2>主持人认证申请</h2>
@@ -71,7 +71,7 @@
                 <td v-for="(item, index) in tableHeader" :key="index" class="mb-2">
                   {{ assetRecord[item.value] }}
                 </td>
-                <v-btn class="mt-2 mr-1" color="red" dark small @click="handleAssetDel">撤销申请</v-btn>
+                <v-btn v-if="assetRecord.status !== '认证通过'" class="mt-2 mr-1" color="red" dark small @click="handleAssetDel">撤销申请</v-btn>
               </tr>
               </tbody>
             </template>

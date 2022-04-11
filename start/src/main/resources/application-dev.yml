@@ -46,7 +46,7 @@ spring:
     # 应用程序启动创建缓存的名称，必须将所有注释为@Cacheable缓存name（或value）罗列至此
     cache-names: menus_cache
 # mybatis配置，mapper.xml文件地址
-mybatis:
+mybatis-plus:
   mapper-locations: classpath*:mapper/*Mapper.xml
   type-aliases-package: com.rat.**
 
@@ -56,3 +56,7 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+logging:
+  level:
+    com.rat.mapper: debug

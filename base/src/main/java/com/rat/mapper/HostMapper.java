@@ -1,5 +1,6 @@
 package com.rat.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rat.model.HostModel;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +15,7 @@ import java.util.List;
  * @date: 2021/12/28 9:28
  */
 @Mapper
-public interface HostMapper {
+public interface HostMapper extends BaseMapper<HostModel> {
 
     /**
      * 获取全部主持人
@@ -85,7 +86,7 @@ public interface HostMapper {
      * @param hostModel 主持人信息对象
      * @return Integer
      */
-    Integer updateHostInfo(HostModel hostModel);
+    Integer updateHostInfo(@Param("host") HostModel hostModel);
 
     /**
      * 通过id移除主持人信息记录

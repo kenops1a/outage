@@ -25,6 +25,7 @@ const state = {
     errorSnackBarMessage: '',
     successSnackBarShow: false,
     successSnackBarMessage: '',
+    userRole: null
 }
 
 // 创建vuex对象
@@ -106,6 +107,9 @@ const store = new Vuex.Store({
         },
         $_setErrorBarMessage(state, message) {
             state.errorSnackBarMessage = message
+        },
+        $_setUserRole(state, param) {
+            state.userRole = param
         }
     }
 })

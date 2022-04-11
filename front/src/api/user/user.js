@@ -53,6 +53,23 @@ export function getAssetRecord(param) {
     })
 }
 
+// 获取认证记录列表
+export function getAssetRecordList() {
+    return request({
+        url: '/user/getAssetRecordList',
+        method: 'get'
+    })
+}
+
+// 更新认证申请
+export function updateAssetRecord(params) {
+    return request({
+        url: '/user/updateAssetRecord',
+        method: 'post',
+        data: params
+    })
+}
+
 // 撤回认证申请
 export function delAsset(param) {
     return request({

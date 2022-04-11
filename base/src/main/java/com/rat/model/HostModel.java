@@ -1,5 +1,10 @@
 package com.rat.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
@@ -12,11 +17,14 @@ import java.util.Date;
 public class HostModel extends UserModel {
     private int hostId;
     @NotNull
+    @TableField(value = "type")
     private String type;
     @NotNull
     private double money;
     private String status;
+    @TableField(value = "create_by")
     private int createBy;
+    @TableField(value = "create_time")
     private Date createTime;
 
     @Override

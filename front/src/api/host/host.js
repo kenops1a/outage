@@ -43,3 +43,12 @@ export function getHostById(params) {
         method: 'get',
     })
 }
+
+// 更新主持人信息
+export function updateHostInfo(data) {
+    return request({
+        url: '/host/updateHostInfo',
+        method: 'post',
+        data: data
+    })
+}

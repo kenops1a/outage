@@ -1,7 +1,9 @@
 package com.rat.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rat.info.JsonResult;
 import com.rat.model.*;
+import org.apache.catalina.Host;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DuplicateKeyException;
@@ -17,7 +19,7 @@ import java.util.List;
  * @date: 2021/12/10 13:55
  */
 @Mapper
-public interface UserMapper {
+public interface UserMapper extends BaseMapper<HostModel> {
 
     List<UserModel> getUserList();
 
@@ -107,6 +109,18 @@ public interface UserMapper {
      * @return: com.rat.model.HostModel
      */
     HostModel getAssetRecord(@Param("id") int id);
+
+    /**
+     * @param: hostModel
+     * @return: java.lang.Boolean
+     */
+    Boolean updateAssetRecord(@Param("host") HostModel hostModel);
+
+    /**
+     * @param:
+     * @return: java.util.List<com.rat.model.HostModel>
+     */
+    List<HostModel> getAssetRecordList();
 
     /**
      * 获取认证文件
