@@ -32,6 +32,8 @@ public class HostModel extends UserModel {
     private Date createTime;
 
     private FileModel fileModel;
+    private String text;
+    private String image;
 
     @Override
     public String toString() {

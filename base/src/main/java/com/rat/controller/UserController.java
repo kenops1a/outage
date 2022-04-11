@@ -201,6 +201,11 @@ public class UserController {
         return new JsonResult<>(upload);
     }
 
+    @PostMapping("/uploadImg")
+    public JsonResult<String> uploadImg(ImgModel imgModel) {
+        return ResultTool.success(userService.uploadImg(imgModel));
+    }
+
     /**
      * 获取认证申请文件
      *

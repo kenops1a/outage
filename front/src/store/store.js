@@ -17,7 +17,7 @@ const state = {
     // 登录状态，0-未登录，1-已登录
     loginStatus: localStorage.getItem('userNow') ? 1 : 0,
     // 如果token存在，则赋值为token，不存在则赋值为''
-    token: localStorage.getItem('token') ? localStorage.getItem('token'):null,
+    token: localStorage.getItem('token') ? localStorage.getItem('token') : null,
     // 聊天消息列表
     msgList: [],
     list: [],
@@ -25,7 +25,7 @@ const state = {
     errorSnackBarMessage: '',
     successSnackBarShow: false,
     successSnackBarMessage: '',
-    userRole: null
+    userRole: localStorage.getItem('userRole') ? JSON.parse(localStorage.getItem('userRole')) : null,
 }
 
 // 创建vuex对象

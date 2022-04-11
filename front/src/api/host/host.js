@@ -52,3 +52,4 @@ export function updateHostInfo(data) {
         data: data
     })
 }
+

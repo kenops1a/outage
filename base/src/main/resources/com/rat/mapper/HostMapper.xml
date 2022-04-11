@@ -35,6 +35,7 @@
             <if test="host.type != null">type=#{host.type},</if>
             <if test="host.money != null and host.money != 0">money=#{host.money},</if>
             <if test="host.status != null and host.status != 0">status=#{host.status}</if>
+            <if test="host.text != null">text=#{host.text}</if>
         </trim>
         where create_by=#{host.createBy}
     </update>
@@ -47,8 +48,8 @@
         where userId=#{userId}
         and roleId=#{roleId}
     </delete>
-    <select id="getHostList" resultMap="hostModelMap">
-        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+    <select id="getHostList" resultMap="hostModel">
+        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by,hm_host.text,hm_host.image
         from hm_user
         inner join hm_user_role
         on hm_user.id = hm_user_role.user_id
@@ -67,7 +68,7 @@
         and hm_host.type = #{type}
     </select>
     <select id="getHostById" resultMap="hostModel">
-        select hm_user.id,hm_user.name,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
+        select hm_user.id,hm_user.name,hm_host.text,hm_user.nick,hm_user.phone,hm_user.email,hm_user.sex,hm_user.age,hm_user.address,hm_user.status,hm_host.type,hm_host.money,hm_host.create_time,hm_host.create_by
         from hm_user
         inner join hm_user_role
         on hm_user.id = hm_user_role.user_id

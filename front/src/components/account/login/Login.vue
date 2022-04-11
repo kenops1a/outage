@@ -229,10 +229,12 @@ export default {
       // 判断email是否为空
       if (email) {
         getVc(this.vcForm).then(res => {
-          if (!res.data.success) {
+          if (!res.success) {
+            error("验证码获取失败")
             console.log("验证码获取失败")
           }
           else {
+            success("验证码获取成功")
             console.log("验证码获取成功")
           }
         })
@@ -327,7 +329,8 @@ export default {
       }
       getUserRoleByEmail(loginUserEmail).then(res => {
         if (res.success) {
-          this.$store.commit('$_setUserRole', res.record.id)
+          this.$store.commit('$_setUserRole', res.record)
+          localStorage.setItem('userRole', JSON.stringify(res.record))
         }
       })
     }

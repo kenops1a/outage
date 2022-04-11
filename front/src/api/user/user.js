@@ -55,6 +55,16 @@ export function hostAsset(data, config) {
     })
 }
 
+// 上传图片
+export function uploadImg(data, config) {
+    return request({
+        url: '/user/uploadImg',
+        method: 'post',
+        data: data,
+        config: config
+    })
+}
+
 // 获取认证文件
 export function getAssetFile(param) {
     return request({

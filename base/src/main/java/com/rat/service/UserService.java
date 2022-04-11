@@ -143,6 +143,14 @@ public interface UserService {
     Boolean upload(FileModel fileModel);
 
     /**
+     * 主持人上传图片
+     *
+     * @param: imgModel
+     * @return: java.lang.String
+     */
+    String uploadImg(ImgModel imgModel);
+
+    /**
      * 获取认证文件
      *
      * @param: id

@@ -103,6 +103,14 @@ public interface UserMapper extends BaseMapper<HostModel> {
     Integer upload(@Param("file") FileModel fileModel);
 
     /**
+     * 上传图片
+     *
+     * @param: imgModel
+     * @return: java.lang.Integer
+     */
+    Integer uploadImg(@Param("img") ImgModel imgModel);
+
+    /**
      * 提交认证申请
      *
      * @param: hostModel

@@ -15,7 +15,7 @@
 
       <!-- 信息列表 -->
       <v-row>
-        <v-col cols="6">
+        <v-col cols="8">
           <v-simple-table>
             <template v-slot:default>
               <tbody>
@@ -50,6 +50,34 @@
         </v-col>
       </v-row>
 
+      <div>
+        <v-row class="ml-4 mb-3">
+          <h2>图片信息</h2>
+        </v-row>
+        <v-row class="ml-4 mb-n3">
+          <v-col cols="4">
+            <v-img :src="imgSrc" max-height="250" max-width="250"></v-img>
+          </v-col>
+          <v-col cols="4">
+            <v-img :src="imgSrcModel" max-height="250" max-width="250"></v-img>
+          </v-col>
+        </v-row>
+        <v-row class="ml-4 mb-n3">
+          <v-col cols="4">
+            上传主持人照片（支持.jpg,.jpeg,.png）：
+            <v-file-input
+                accept=".jpg,.jpeg,.png"
+                :rules="rules"
+                label="上传图片"
+                @change="getFile"
+            ></v-file-input>
+          </v-col>
+          <v-col cols="4" class="mt-6">
+            <v-btn @click="uploadImage">上传</v-btn>
+          </v-col>
+        </v-row>
+      </div>
+
       <!-- dialog对话框 -->
       <v-row justify="center">
         <v-dialog v-model="dialog" max-width="290">
@@ -77,12 +105,19 @@
 
 <script>
 import { getHostById, updateHostInfo } from "@/api/host/host";
+import { uploadImg } from "@/api/user/user";
 
 export default {
   name: "HostInfo",
   data () {
     return {
       dialog: false,
+      imgSrc: require('@/assets/jpg/default_image.jpg'),
+      imgSrcModel: null,
+      imgModel: {
+        userId: this.$store.state.userNow.id,
+        img: null,
+      },
       updateLabel: {
         label: null,
         value: null,
@@ -91,16 +126,42 @@ export default {
       hostModel: null,
       showList: [
         { label: '费用', value: 'money' },
+        { label: '主持人简介', value: 'text' },
       ],
+      rules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'token': this.$store.state.token
+      }
     }
   },
   created() {
     this.getHost()
   },
   methods: {
+    getFile (val) {
+      console.log(val)
+      this.imgModel.img = val
+    },
     updateHostInfo (val) {
       this.dialog = true
       this.updateLabel = val
+    },
+    // todo 有bug
+    async uploadImage () {
+      let formData = new FormData()
+      formData.append('userId', this.imgModel.userId)
+      formData.append('img', this.imgModel.img)
+      let formConfig = this.headers
+      await uploadImg(formData, formConfig).then(res => {
+        console.log(res)
+      })
+      alert("uploadImage")
+    },
+    testlog () {
+      alert("点击按钮")
     },
     handleClose () {
       this.dialog = false

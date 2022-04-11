@@ -289,6 +289,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public String uploadImg(ImgModel imgModel) {
+        MultipartFile img = imgModel.getImg();
+        String imgName = img.getOriginalFilename();
+        assert imgName != null;
+        String suffix = imgName.substring(imgName.indexOf("."));
+
+        String httpName = UUID.randomUUID().toString() + suffix;
+
+        /* 本地文件路径 */
+        String fileFolder = "C:\\Users\\Kenopsia\\Desktop\\job\\project\\HostManager\\outage\\imgFolder";
+        File folder = new File(fileFolder);
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+        /* 网络相对路径 */
+        String httpPath = "/img/" + httpName;
+
+        try {
+            img.transferTo(new File(fileFolder, httpName));
+        } catch (IOException e) {
+            throw new RuntimeException("文件上传失败");
+        }
+
+        imgModel.setImgName(imgName);
+        imgModel.setHttpPath(httpPath);
+
+        Integer upload = userMapper.uploadImg(imgModel);
+
+        return httpPath;
+    }
+
+    @Override
     public JsonResult<FileModel> getAssetFile(int id) {
         return ResultTool.success(userMapper.getAssetFile(id));
     }

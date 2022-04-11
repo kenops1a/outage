@@ -22,8 +22,7 @@
               <v-col>
                 <v-card class="ma-8 mt-0 mr-3 pa-8" color="#26c6da" min-height="213px" dark>
                   <h2 class="mb-4 font-weight-bold">个人简介</h2>
-                  <p>《共产党宣言》是第一部较为完整而系统阐述科学社会主义基本原理的著作。
-                    是马克思主义的百科全书，是马克思主义哲学、政治经济学、科学社会主义、党的建设思想的集中体现。</p>
+                  <p>{{ host.text }}</p>
                 </v-card>
               </v-col>
             </v-row>

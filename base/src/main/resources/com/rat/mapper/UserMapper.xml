@@ -206,4 +206,8 @@
         insert into hm_host( type, create_by, status)
         values ( #{ host.type }, #{ host.createBy }, #{ host.status } )
     </insert>
+    <insert id="uploadImg" useGeneratedKeys="true" keyProperty="id" parameterType="com.rat.model.ImgModel">
+        insert into hm_img(user_id, file_name, http_path)
+        values ( #{ img.userId }, #{ img.file_name }, #{ img.http_path } )
+    </insert>
 </mapper>

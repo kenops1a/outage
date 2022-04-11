@@ -64,6 +64,7 @@ export default {
       localStorage.removeItem('hostId')
       localStorage.removeItem('host')
       localStorage.removeItem('token')
+      localStorage.removeItem('userRole')
       // 将登录状态设置为未登录
       localStorage.removeItem('loginStatus')
       router.push('/home')
