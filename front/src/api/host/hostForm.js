@@ -18,6 +18,14 @@ export function getFormList(params, page, pageSize) {
     })
 }
 
+// 获取全部订单
+export function getAllFormList(page, pageSize) {
+    return request({
+        url: '/hostForm/getList' + '?page=' + page + '&pageSize=' + pageSize,
+        method: 'post',
+    })
+}
+
 // 删除对应id的订单
 export function removeForm(params) {
     return request({

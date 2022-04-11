@@ -96,9 +96,17 @@ export default new VueRouter({
                     name: 'userInfo',
                     component: () => import('@/views/user/info/UserInfo')
                 }, {
+                    path: '/userList',
+                    name: 'userList',
+                    component: () => import('@/views/user/info/UserList')
+                }, {
                     path: '/orderForm',
                     name: 'orderForm',
                     component: () => import('@/views/user/info/orderForm')
+                },{
+                    path: '/orderFormAdmin',
+                    name: 'orderFormAdmin',
+                    component: () => import('@/views/user/info/orderFormAdmin')
                 }, {
                     path: '/accountInfo',
                     name: 'accountInfo',

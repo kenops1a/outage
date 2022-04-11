@@ -94,7 +94,7 @@
         from
             hm_form
         <where>
-            <trim prefix=" " suffix=" " suffixOverrides="and">
+            <trim prefix=" " suffix=" ">
                 <if test="address != null and address != ''">address=#{address} and</if>
                 <if test="type != null and type != ''">type=#{type} and</if>
                 <if test="hostId != 0 and hostId != null">host_id=#{hostId} and</if>
@@ -103,9 +103,8 @@
                 <if test="status != null">status=#{status} and</if>
                 <if test="createBy != null and createBy != 0">create_by=#{createBy} and</if>
             </trim>
-        </where>
-        and
             status != 3
+        </where>
     </select>
     <select id="getFormById" resultMap="formList">
         select

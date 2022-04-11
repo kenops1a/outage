@@ -8,7 +8,7 @@
   <v-main style="height: 100vh; width: 100vw">
     <v-card color="pa-8 pb-16 pt-10" style="height: 100%; width: 100%;">
       <v-row class="ml-4 mb-n3">
-        <h2>我的订单</h2>
+        <h2>系统订单</h2>
       </v-row>
       <v-row class="ml-4">
         <v-col class="ml-0 pl-0">
@@ -76,7 +76,6 @@ export default {
     return {
       hostForm: {
         formId: undefined,
-        createBy: this.$store.state.userNow.id,
         status: null,
       },
       page: 1,
@@ -89,12 +88,13 @@ export default {
         { text: '类型', value: 'type' },
         { text: '地址', value: 'address' },
         { text: '订单状态', value: 'status' },
-        { text: '创建者id', value: 'createBy' },
+        { text: '创建者', value: 'createBy' },
         { text: '创建时间', value: 'createTime' },
       ],
     }
   },
   mounted () {
+    this.hostForm.createBy = null
     getFormList(this.hostForm, this.page, this.pageSize).then(res => {
       if (res.success) {
         res.record.forEach(item => {

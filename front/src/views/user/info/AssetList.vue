@@ -12,7 +12,7 @@
       <div>
         <div>
           <v-row class="ml-4 mb-n3 mt-8">
-            <h2>已提交的认证申请</h2>
+            <h2>主持人认证申请审批</h2>
           </v-row>
         </div>
         <div>

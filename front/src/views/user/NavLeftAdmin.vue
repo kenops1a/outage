@@ -7,7 +7,7 @@
 -->
 <template>
   <v-card permanent>
-    <v-navigation-drawer app color="white" class="pt-4" permanent>
+    <v-navigation-drawer app color="blue-grey" dark class="pt-4" permanent>
       <v-list>
         <!-- 循环菜单 -->
         <v-list-item v-for="([icon, text, path], index) in items" :key="index" link :to="path">
@@ -43,10 +43,10 @@ export default {
       ['mdi-history', '返回首页', '/home'],
       ['mdi-account-supervisor-circle', '个人信息', '/userInfo'],
       ['mdi mdi-account-circle', '账号信息', '/accountInfo'],
-      ['mdi-check-circle', '订单列表', '/orderForm'],
+      //todo
+      ['mdi-check-circle', '订单列表', '/orderFormAdmin'],
       ['mdi-check-circle', '用户列表', '/userList'],
       ['mdi-check-circle', '认证管理', '/assetList'],
-      ['mdi-forum', '我的消息', '/message']
     ],
     // exit: ['mdi-clock-start', '退出系统', '/exitSys'],
     exit: {
