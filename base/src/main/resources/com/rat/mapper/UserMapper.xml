@@ -177,7 +177,6 @@
     <select id="getAssetRecordList" resultType="com.rat.model.HostModel">
         select *
         from hm_host
-        where status = 0
     </select>
     <select id="getUserByNick" resultMap="userList">
         select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, create_time

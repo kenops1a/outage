@@ -31,8 +31,8 @@
                   {{ assetRecord[item.value] }}
                 </td>
                 <td>
-                  <v-btn color="primary" class="mt-2 mr-1" @click="updateRecord(assetRecord, '1')">通过</v-btn>
-                  <v-btn color="error" class="mt-2 mr-1" @click="updateRecord(assetRecord, '2')">驳回</v-btn>
+                  <v-btn v-if="assetRecord.status === '申请中'" color="primary" class="mt-2 mr-1" @click="updateRecord(assetRecord, '1')">通过</v-btn>
+                  <v-btn v-if="assetRecord.status === '申请中'" color="error" class="mt-2 mr-1" @click="updateRecord(assetRecord, '2')">驳回</v-btn>
                 </td>
               </tr>
               </tbody>
@@ -55,7 +55,8 @@ export default {
         { text: '用户id', value: 'createBy' },
         { text: '主持类型', value: 'type' },
         { text: '状态', value: 'status' },
-        { text: '创建时间', value: 'createTime' }
+        { text: '创建时间', value: 'createTime' },
+        { text: '认证文件' }
       ],
       assetRecordList: []
     }
@@ -65,6 +66,10 @@ export default {
       res.record.forEach(item => {
         if (item.status === '0') {
           item.status = '申请中'
+        } else if (item.status === '2') {
+          item.status = '驳回'
+        } else {
+          item.status = '认证通过'
         }
       })
       this.assetRecordList = res.record
@@ -86,6 +91,8 @@ export default {
                 item.status = '申请中'
               } else if (item.status === '2') {
                 item.status = '驳回'
+              } else {
+                item.status = '认证通过'
               }
             })
             this.assetRecordList = res.record

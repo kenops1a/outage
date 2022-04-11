@@ -27,6 +27,7 @@ public class HostModel extends UserModel {
     @TableField(value = "create_time")
     private Date createTime;
 
+
     @Override
     public String toString() {
         return "HostModel{" +
