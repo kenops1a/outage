@@ -70,6 +70,7 @@
 
 <script>
 import { getFormList, removeForm, updateForm } from "@/api/host/hostForm";
+import {error, success} from "@/utils/snackBar";
 
 export default {
   data () {
@@ -113,7 +114,7 @@ export default {
         })
         this.formList = res.record
       } else {
-        alert("获取订单列表失败" + res.errorMsg)
+        error("获取订单列表失败" + res.errorMsg)
       }
     })
   },
@@ -122,7 +123,7 @@ export default {
       console.log(val)
       removeForm(val).then(res => {
         if (res.success) {
-          alert('删除成功')
+          success('删除成功')
           this.getForms()
         }
       })
@@ -157,7 +158,7 @@ export default {
       this.hostForm.status = status
       this.hostForm.formId = formId
       updateForm(this.hostForm)
-      alert('修改成功')
+      success('修改成功')
       this.getForms()
     }
   }

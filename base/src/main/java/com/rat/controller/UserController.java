@@ -92,6 +92,11 @@ public class UserController {
         return userService.getUserRoleByEmail(map.get("email"));
     }
 
+    @GetMapping("/getUserByNick")
+    public JsonResult<List<UserModel>> getUserByNick(@RequestParam String nick) {
+        return userService.getUserByNick(nick);
+    }
+
     /**
      * 添加用户
      * @param userModel 用户对象

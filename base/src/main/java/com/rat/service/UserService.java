@@ -35,6 +35,14 @@ public interface UserService {
     JsonResult<List<UserModel>> getUserByEmail(UserModel userModel);
 
     /**
+     * 通过昵称获取用户
+     *
+     * @param: userModel
+     * @return: com.rat.info.JsonResult<java.util.List<com.rat.model.UserModel>>
+     */
+    JsonResult<List<UserModel>> getUserByNick(String nick);
+
+    /**
      * 通过手机号查询用户
      * @param userModel 需要参数的属性：phone
      * @return user

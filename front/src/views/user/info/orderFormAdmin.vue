@@ -48,9 +48,6 @@
             <td v-for="(item, index) in headers" :key="index" class="mb-2">
               {{ form[item.value] }}
             </td>
-            <v-btn class="mt-2 mr-1" color="green" @click="alterForm(form.formId, '1')" dark small>确认</v-btn>
-            <v-btn class="mt-2 mr-1" color="primary" @click="alterForm(form.formId, '0')" small>取消</v-btn>
-            <v-btn class="mt-2" color="red" dark small @click="removeForm(form.formId)">删除</v-btn>
           </tr>
           </tbody>
         </template>

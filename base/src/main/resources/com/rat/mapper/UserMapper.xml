@@ -78,6 +78,7 @@
             <if test="updateBy != null">update_by = #{updateBy},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
+            <if test="status != null">status = #{status},</if>
         </trim>
         where email = #{email}
     </update>
@@ -177,6 +178,11 @@
         select *
         from hm_host
         where status = 0
+    </select>
+    <select id="getUserByNick" resultMap="userList">
+        select id, name, nick, phone, sfz, email, sex, age, address, yhk, status, create_time
+        from hm_user
+        where nick like #{ nick }
     </select>
 
     <insert id="upload" useGeneratedKeys="true" keyProperty="id" parameterType="com.rat.model.FileModel">

@@ -122,6 +122,7 @@ import { loginByPd,loginByVc } from "@/api/account/account";
 import { getVc } from "@/api/mail/mail";
 import { getUserByEmail, getUserRoleByEmail } from "@/api/user/user";
 import router from "@/router/router"
+import {error, success} from "@/utils/snackBar";
 
 export default {
   name: "Login",
@@ -276,10 +277,10 @@ export default {
                   router.push({ name: 'home'})
                 }
               })
-
+              success('登录成功')
               console.log("登录成功")
             } else {
-              alert('登录失败，' + res.errorMsg)
+              error('登录失败，' + res.errorMsg)
               console.log("登录失败")
             }
           })
@@ -308,6 +309,7 @@ export default {
                   // 将登录状态设置为1，已登录
                   this.$store.commit('$_updateLoginStatus', 1)
                   // 跳转至首页
+                  success('登录成功')
                   console.log("最后再说一遍，时间要加速了")
                   router.push({ name: 'home'})
                 }

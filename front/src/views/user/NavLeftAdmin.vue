@@ -46,6 +46,7 @@ export default {
       //todo
       ['mdi-check-circle', '订单列表', '/orderFormAdmin'],
       ['mdi-check-circle', '用户列表', '/userList'],
+      ['mdi-check-circle', '主持人列表', '/hostList'],
       ['mdi-check-circle', '认证管理', '/assetList'],
     ],
     // exit: ['mdi-clock-start', '退出系统', '/exitSys'],

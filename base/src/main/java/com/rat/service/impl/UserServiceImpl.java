@@ -96,6 +96,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public JsonResult<List<UserModel>> getUserByNick(String nick) {
+        return ResultTool.success(userMapper.getUserByNick(nick));
+    }
+
+    @Override
     public JsonResult<UserModel> getUserByPhone(UserModel userModel) {
         if (userMapper.getUserByEmail(userModel.getEmail()) == null) {
             return ResultTool.failed(ResultCode.USER_ACCOUNT_NOT_EXIST);

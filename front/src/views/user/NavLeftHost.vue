@@ -7,7 +7,7 @@
 -->
 <template>
   <v-card permanent>
-    <v-navigation-drawer app color="white" class="pt-4" permanent>
+    <v-navigation-drawer app color="teal lighten-3" dark class="pt-4" permanent>
       <v-list>
         <!-- 循环菜单 -->
         <v-list-item v-for="([icon, text, path], index) in items" :key="index" link :to="path">

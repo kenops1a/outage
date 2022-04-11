@@ -9,6 +9,15 @@ export function getUserByEmail(params) {
     })
 }
 
+// 通过用户昵称获取用户信息
+export function getUserByNick(params) {
+    return request({
+        url: '/user/getUserByNick',
+        method: 'get',
+        params
+    })
+}
+
 // 修改信息
 export function updateUserInfo(params) {
     return request({
@@ -30,7 +39,7 @@ export function getUserRoleByEmail(params) {
 // 获取用户列表
 export function getUserList(params, page, pageSize) {
     return request({
-        url: '/hostForm/getUserList' + '?page=' + page + '&pageSize=' + pageSize,
+        url: '/user/getUserList' + '?page=' + page + '&pageSize=' + pageSize,
         method: 'post',
         data: params
     })

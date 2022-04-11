@@ -30,6 +30,14 @@ public interface UserMapper extends BaseMapper<HostModel> {
      */
     List<UserModel> getUserListByItem(UserModel userModel);
 
+
+    /**
+     * 通过昵称模糊查询
+     * @param nick
+     * @return
+     */
+    List<UserModel> getUserByNick(@Param("nick") String nick);
+
     /**
      * 通过邮箱账号获取用户
      * @param email 邮箱账号
