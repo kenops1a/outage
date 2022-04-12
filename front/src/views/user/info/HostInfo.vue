@@ -59,7 +59,7 @@
             <v-img :src="imgSrc" max-height="250" max-width="250"></v-img>
           </v-col>
           <v-col cols="4">
-            <v-img :src="imgSrcModel" max-height="250" max-width="250"></v-img>
+            <v-img :src="hostImgSrc" max-height="250" max-width="250"></v-img>
           </v-col>
         </v-row>
         <v-row class="ml-4 mb-n3">
@@ -113,7 +113,8 @@ export default {
     return {
       dialog: false,
       imgSrc: require('@/assets/jpg/default_image.jpg'),
-      imgSrcModel: null,
+      hostImgSrc: null,
+      httpPrefix: 'http://localhost:8089',
       imgModel: {
         userId: this.$store.state.userNow.id,
         img: null,
@@ -149,19 +150,16 @@ export default {
       this.dialog = true
       this.updateLabel = val
     },
-    // todo 有bug
-    async uploadImage () {
+    uploadImage () {
       let formData = new FormData()
       formData.append('userId', this.imgModel.userId)
       formData.append('img', this.imgModel.img)
       let formConfig = this.headers
-      await uploadImg(formData, formConfig).then(res => {
+      uploadImg(formData, formConfig).then(res => {
         console.log(res)
+        let imgStr = this.httpPrefix + res.record
+        this.hostImgSrc = imgStr
       })
-      alert("uploadImage")
-    },
-    testlog () {
-      alert("点击按钮")
     },
     handleClose () {
       this.dialog = false
@@ -185,7 +183,6 @@ export default {
     getHost () {
       getHostById(this.$store.state.userNow.id).then(res => {
         this.hostModel = res.record
-        let status = res.record.status
         if (res.record.status === '1') {
           res.record.status = '认证完成'
         } else {

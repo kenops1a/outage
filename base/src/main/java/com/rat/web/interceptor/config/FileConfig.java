@@ -14,11 +14,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class FileConfig implements WebMvcConfigurer {
 
     private static final String LOCATION_PATH = "C:\\Users\\Kenopsia\\Desktop\\job\\project\\HostManager\\outage\\fileFolder\\";
+    private static final String IMAGE_LOCATION_PATH = "C:\\Users\\Kenopsia\\Desktop\\job\\project\\HostManager\\outage\\imgFolder\\";
+
 
     private static final String NET_PATH = "/file/**";
+    private static final String IMAGE_NET_PATH = "/img/**";
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(NET_PATH).addResourceLocations("file:" + LOCATION_PATH);
+        registry.addResourceHandler(IMAGE_NET_PATH).addResourceLocations("file:" + IMAGE_LOCATION_PATH);
     }
 }
