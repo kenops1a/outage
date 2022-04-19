@@ -139,6 +139,7 @@ export default {
     }
   },
   created() {
+    this.hostImgSrc = this.$store.state.imgSrc
     this.getHost()
   },
   methods: {
@@ -159,6 +160,7 @@ export default {
         console.log(res)
         let imgStr = this.httpPrefix + res.record
         this.hostImgSrc = imgStr
+        localStorage.setItem('imgSrc', imgStr)
       })
     },
     handleClose () {

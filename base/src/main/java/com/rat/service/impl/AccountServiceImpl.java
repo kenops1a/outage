@@ -51,6 +51,9 @@ public class AccountServiceImpl implements AccountService {
     public JsonResult<String> loginByPassword(UserModel userModel) {
         UserModel userVerify = userMapper.getUserByEmail(userModel.getEmail());
         // 判断查询到的用户密码是否与传递密码相同
+        if (!userVerify.getPassword().equals(userModel.getPassword())) {
+            return ResultTool.failed("用户名或密码错误");
+        }
         // 生成token令牌并存入redis，有效时长为10小时
         // 设置token的key
         tokenKey = redisUtil.keyMaker(PREFIX,TOKEN,userModel.getEmail());

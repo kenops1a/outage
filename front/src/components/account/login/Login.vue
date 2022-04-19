@@ -285,6 +285,8 @@ export default {
               error('登录失败，' + res.errorMsg)
               console.log("登录失败")
             }
+          }).catch(err => {
+
           })
         }
         if (this.type === 1) {
@@ -317,6 +319,7 @@ export default {
                 }
               })
             } else {
+              error('登录失败，请输入正确的验证码')
               console.log("登录失败")
             }
           })

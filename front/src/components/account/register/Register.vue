@@ -65,6 +65,7 @@
 <script>
 import { register } from "@/api/account/account";
 import { getVc } from "@/api/mail/mail";
+import {success,error} from "@/utils/snackBar";
 
 export default {
   data () {
@@ -131,21 +132,25 @@ export default {
         email: this.regForm.email
       }
       getVc(vcModel).then(res => {
-        if (res.data.success) {
+        if (res.success) {
           console.log("验证码获取成功")
+          success('验证码获取成功')
         } else {
           console.log("验证码获取失败")
+          error('验证码获取失败,' + res.errorMsg)
         }
       })
     },
     registerByItem () {
       if (this.$refs.regValid.validate()) {
         register(this.regForm).then(res => {
-          if (res.data.success) {
+          if (res.success) {
             console.log('注册成功')
+            success('注册成功')
           }
           else {
             console.log('注册失败')
+            error('注册失败,' + res.errorMsg)
           }
         })
       }

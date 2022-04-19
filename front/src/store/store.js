@@ -26,6 +26,7 @@ const state = {
     successSnackBarShow: false,
     successSnackBarMessage: '',
     userRole: localStorage.getItem('userRole') ? JSON.parse(localStorage.getItem('userRole')) : null,
+    imgSrc: localStorage.getItem('imgSrc') ? localStorage.getItem('imgSrc') : null
 }
 
 // 创建vuex对象
@@ -110,6 +111,9 @@ const store = new Vuex.Store({
         },
         $_setUserRole(state, param) {
             state.userRole = param
+        },
+        $_setImgSrc(state, param) {
+            state.imgSrc = param
         }
     }
 })

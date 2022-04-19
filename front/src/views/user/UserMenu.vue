@@ -9,8 +9,8 @@
     <!-- 普通用户 -->
     <NavLeft v-if="userRole === null"/>
     <!-- 主持人 -->
-    <NavLeftHost v-if="userRole.id === 2"/>
-    <NavLeftAdmin v-if="userRole.id === 3"/>
+    <NavLeftHost v-if="userRole !==null && userRole.id === 2"/>
+    <NavLeftAdmin v-if="userRole !==null && userRole.id === 3"/>
     <router-view/>
   </div>
 </template>

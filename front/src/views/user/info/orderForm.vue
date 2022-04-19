@@ -125,6 +125,8 @@ export default {
         if (res.success) {
           success('删除成功')
           this.getForms()
+        } else {
+          error('删除失败', + res.errorMsg)
         }
       })
     },
