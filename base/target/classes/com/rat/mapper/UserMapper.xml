@@ -188,7 +188,7 @@
         where user_id = #{ id }
     </select>
     <select id="getAssetRecordList" resultMap="hostModelMap">
-        select hm_host.type, hm_host.create_by, hm_host.create_time, file_name, http_path from hm_file, hm_host
+        select hm_host.type, hm_host.status, hm_host.create_by, hm_host.create_time, file_name, http_path from hm_file, hm_host
         where hm_file.user_id = hm_host.create_by
     </select>
     <select id="getUserByNick" resultMap="userList">
